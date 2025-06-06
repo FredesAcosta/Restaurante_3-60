@@ -9,7 +9,7 @@ git add .
 git commit -m "Primer commit"
 
 - Vincular el repositorio local con GitHub:
-git remote add origin https://github.com/TU_USUARIO/TU_REPOSITORIO.git
+git remote add origin https://github.com/FredesAcosta/Restaurante_3-60.git
 
 - Subir los cambios al repositorio remoto:
 git push -u origin main
