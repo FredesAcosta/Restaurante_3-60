@@ -64,7 +64,7 @@ def register():
         accounts = cur.fetchone()
 
         if accounts:
-            text = "Account already exists"
+            text = "Account already exists" 
         else:
             #insercicion de datos
             cur.execute("INSERT INTO accounts VALUES(NULL, %s, %s, %s)", (username, email, password,))
