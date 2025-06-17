@@ -20,3 +20,8 @@ git pull origin main
 - Si por alguna razón haces cambios en el local y no se quieren subir al remoto usa:
 git reset --hard
 
+- Para guardar cambios temporalmente usa:
+git stash
+
+- Para aplicar el cambio encima del nueo utiliza: 
+git stash apply
