@@ -14,4 +14,9 @@ git remote add origin https://github.com/FredesAcosta/Restaurante_3-60.git
 - Subir los cambios al repositorio remoto:
 git push -u origin main
 
+- Para actualizar el proyecto con los commits mas recientes utiliza:
+git pull origin main
+
+- Si por alguna razón haces cambios en el local y no se quieren subir al remoto usa:
+git reset --hard
 
