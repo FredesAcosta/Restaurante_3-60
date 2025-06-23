@@ -4,36 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurante 360</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/styleindex.css') }}">
+    <!-- Enlace al CSS principal -->
+    <link rel="stylesheet" href="/static/CSS/styleindex.css">
 </head>
 <body>
 
-    <header>
-        <div class="logo">
-            <img src="{{ url_for('static', filename='IMG/logo3601.png') }}" alt="Logo Restaurante 360">
-        </div>
-        <nav>
-            <a href="#">Servicios</a>
-            <a href="#">Contactos</a>
-            <a href="#">Nosotros</a>
-        </nav>
-        <div class="auth-buttons">
-            <a href="/login" class="btn-outline">Ingresar</a>
-            <a href="/register" class="btn-solid">Registrarse</a>
+    <!-- Encabezado con navegación interna -->
+    <header class="site-header">
+        <div class="container">
+            <div class="logo"></div>
+            <nav class="main-nav">
+                <a href="#hero">Inicio</a>
+                <a href="#services">Servicios</a>
+                <a href="#about">Nosotros</a>
+                <a href="#contact">Contactos</a>
+            </nav>
+            <div class="auth-buttons">
+                <a href="/login" class="btn-outline">Ingresar</a>
+                <a href="/register" class="btn-solid">Registrarse</a>
+            </div>
         </div>
     </header>
 
-    <main>
-        <section class="hero">
-            <h1>Restaurante 360º</h1>
+    <!-- Sección principal o héroe -->
+    <section id="hero" class="hero">
+        <div class="container">
+            <h1>Bienvenido a Restaurante 360º</h1>
             <p>¡Regístrate para ser el primero en enterarte de todos los eventos y obtener un descuento en tu primer pedido!</p>
-            <div class="hero-buttons">
-                <a href="/login" class="btn-outline">Iniciar sesión</a>
-                <a href="/register" class="btn-solid">Registrarse</a>
-            </div>
-        </section>
+            <a href="#services" class="btn-primary">Ver Servicios</a>
+        </div>
+    </section>
 
-    </main>
+    <!-- Sección de Servicios -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2>Servicios</h2>
+            <div class="cards">
+                <div class="card">
+                    <h3>Entrega a Domicilio</h3>
+                    <p>Pide desde  la comodidad de tu casa y recibe tu comida en tiempo récord.</p>
+                </div>
+                <div class="card">
+                    <h3>Comer en restaurante</h3>
+                    <p>Asegura tu mesa en un solo clic.</p>
+                </div>
+                <div class="Eventos">
+                    <h3>Eventos Privados</h3>
+                    <p>Organiza tu celebración con nuestros Servicios personalizados.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Nosotros -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>Nosotros</h2>
+            <p> "¡Delicias Rápidas y Refrescantes! 😋 En nuestro lugar, encontrarás una variedad irresistible de cocteles, helados, patacones, perros calientes, hamburguesas, nachos y mucho más. ¡Satisfacemos tus antojos en un instante! 🍔🍟🍦 Pide ahora y disfruta de la mejor comida rápida en la ciudad. 🚀📦"</p>
+        </div>
+    </section>
+
+    <!-- Sección Contactos -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contactos</h2>
+            <p>¿Tienes dudas o quieres colaborar con nosotros? Escríbenos:</p>
+            <ul>
+                <li>Email: restaurant360@rgmail.com</li>
+                <li>Teléfono: +57 322 3056787</li>
+                <li>Dirección: Cra 104 # 16b -74, Bogotá, Colombia 110921</li>
+                <li>Redes: https://www.instagram.com/360.fastfood/</li>
+                <li>WhatsApp: wa.me/573223056787 </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Pie de página con enlace a portafolio -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 Restaurante 360 | Desarrollado por <a href="" target="_blank">Brandon Florez y Fredes acosta</a></p>
+        </div>
+    </footer>
 
 </body>
 </html>
