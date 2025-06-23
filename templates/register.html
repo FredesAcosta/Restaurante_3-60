@@ -1,22 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/CSS/style.css">
-    <title>Register</title>
+    <title>Registro - Restaurante 360</title>
+    <link rel="stylesheet" href="/static/CSS/styleregister.css">
 </head>
 <body>
-    <h1>Register</h1>
-    <a href="/">back to home</a>
-    <h3>{{ text }}</h3>
-    <form action="" method="post">
-        <input type="text" name="username" id="" placeholder="Username">
-        <input type="text" name="email" id="" placeholder="Email">
-        <input type="password" name="password" id="" placeholder="Password">
-        <input type="submit" value="Register">
-        <p>Already have an account? <a href="/login">Login here</a></p>
-    </form>
+
+    <!-- Header del inicio -->
+    <header class="site-header">
+        <div class="container">
+            <div class="logo"></div>
+            <nav class="main-nav">
+                <a href="/">Inicio</a>
+                <a href="/#services">Servicios</a>
+                <a href="/#about">Nosotros</a>
+                <a href="/#contact">Contactos</a>
+            </nav>
+            <div class="auth-buttons">
+                <a href="/login" class="btn-outline">Ingresar</a>
+                <a href="/register" class="btn-solid">Registrarse</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenedor del formulario -->
+    <div class="register-container">
+        <h1>Crear cuenta</h1>
+        <form action="/register" method="POST">
+
+            <div class="form-group">
+                <label for="fullname">Nombre completo</label>
+                <input type="text" id="fullname" name="fullname" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Número de celular</label>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" minlength="8" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm_password">Confirmar contraseña</label>
+                <input type="password" id="confirm_password" name="confirm_password" minlength="8" required>
+            </div>
+
+            <button type="submit">Registrarse</button>
+
+            <p class="login-link">¿Ya tienes cuenta? <a href="/login">Inicia sesión</a></p>
+
+        </form>
+    </div>
+
+    <!-- Footer igual del inicio -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 Restaurante 360 | Desarrollado por <a href="" target="_blank">Brandon Florez y Fredes acosta</a></p>
+        </div>
+    </footer>
+
 </body>
 </html>
