@@ -1,0 +1,38 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f1f0f5;
+    color: #222;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2rem;
+    color: #222;
+    margin-bottom: 10px;
+}
+#regreso {
+    position: absolute;
+    top: 19px;
+    display: flex;
+    text-align: center;
+    margin-top: 10px;
+    margin-left: 16.5rem;
+    font-size: 1.2rem;
+    color: #222;
+}
+.container{
+    /* margin-bottom: 2rem; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 15rem;
+    width: 14rem;
+    border: #222 solid 1px;
+}
+/* Manejo de inputs */
+input.form-control {
+    margin-bottom: 1rem;
+}
