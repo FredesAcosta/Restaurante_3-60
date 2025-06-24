@@ -152,6 +152,29 @@ button:hover {
     font-weight: bold;
 }
 
+/* Estilos del mensaje de registro exitoso */
+
+.mensaje {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: rgb(198, 255, 198); /* verde claro para éxito */
+    color: rgb(0, 100, 0);
+    font-weight: bold;
+    text-align: center;
+}
+/* Estilos del mensaje de error em registro */
+
+.mensaje-error {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: rgb(255, 198, 198); /* rojo claro */
+    color: rgb(150, 0, 0);
+    font-weight: bold;
+    text-align: center;
+}
+
 /* Estilos del formulario de inicio de sesión */
 
 /* Estilo del contenedor */
