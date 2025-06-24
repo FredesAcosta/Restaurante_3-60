@@ -1,5 +1,5 @@
 # Restaurante_3-60
- - Inicializar Git en tu proyecto (si aún no lo has hecho):
+- Inicializar Git en tu proyecto (si aún no lo has hecho):
 git init
   
 - Agregar los archivos al área de preparación: 
