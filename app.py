@@ -18,29 +18,35 @@ mysql.init_app(app)
 def home():
     return render_template('/index.html')
 
-@app.route('/login', methods=['GET','POST'])
-def login():
+@app.route('/login', methods=['GET', 'POST'])
+def login(): #funcion para iniciar sesion
     text = ''
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-        username = request.form['username']
+    if request.method == 'POST':
+        email = request.form['email']
         password = request.form['password']
+
+        # Conexión a la base de datos
         conn = mysql.connect()
         cur = conn.cursor(pymysql.cursors.DictCursor)
-        cur.execute('SELECT * FROM accounts WHERE username = %s AND password = %s', (username, password,))
+
+        # Consulta: verificar si existe el usuario con ese correo y contraseña
+        cur.execute("SELECT * FROM usuarios WHERE correo = %s AND contraseña = %s", (email, password))
         user = cur.fetchone()
 
         if user:
+            # Si el usuario existe, guardar sesión
             session['loggedin'] = True
-            session['id'] = user['id']
-            session['username'] = user['username']
-            return render_template('index.html', msg=text)
+            session['id'] = user['id_usuario']
+            session['nombre'] = user['nombre']
+            session['rol'] = user['id_rol']
+            text = f"Bienvenido {user['nombre']}!"
+            return render_template('index.html', text=text)
         else:
-            text = 'Incorrect username/password!'
+            text = 'Correo o contraseña incorrectos'
 
-    elif request.method == 'POST':
-        text = "Fill in the forms"
+        cur.close()
 
-    return render_template('login.html', msg=text)
+    return render_template('login.html', text=text)
 
 @app.route('/logout')
 def logout():
@@ -51,8 +57,9 @@ def logout():
 
 
 @app.route('/register', methods=['GET','POST'])
-def register():
+def register():# funcion para registrar usuarios
     text = ''
+    # if para validar si el metodo es post y si los campos estan llenos
     if request.method == 'POST' and 'fullname' in request.form and 'email' in request.form and 'phone' in request.form and 'password' in request.form:
         fullname = request.form['fullname']
         email = request.form['email']
@@ -65,7 +72,7 @@ def register():
         # Verificamos si el correo ya está registrado
         cur.execute("SELECT * FROM usuarios WHERE correo = %s", (email,))
         user = cur.fetchone()
-
+        #si  el correo ya está registrado, mostramos un mensaje de error
         if user:
             text = "El correo ya está registrado"
         else:
@@ -74,10 +81,10 @@ def register():
                         (fullname, email, phone, password, 3))
             conn.commit()
             text = "Cuenta creada exitosamente!"
-
+    # si el método es POST y no se ha enviado el formulario, mostramos un mensaje de error
     elif request.method == 'POST':
         text = "Por favor completa el formulario"
-
+    #returnamos la plantilla de registro con el mensaje de texto
     return render_template('register.html', text=text)
 
 
