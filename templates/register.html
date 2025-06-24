@@ -24,10 +24,14 @@
             </div>
         </div>
     </header>
+    
 
     <!-- Contenedor del formulario -->
     <div class="register-container">
         <h1>Crear cuenta</h1>
+        {% if text %}
+           <div class="mensaje">{{ text }}</div>
+        {% endif %} 
         <form action="/register" method="POST">
 
             <div class="form-group">
@@ -61,7 +65,7 @@
 
         </form>
     </div>
-
+    
     <!-- Footer igual del inicio -->
     <footer class="site-footer">
         <div class="container">
