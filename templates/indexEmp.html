@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurante 360</title>
     <!-- Enlace al CSS principal -->
-    <link rel="stylesheet" href="/static/CSS/styleindex.css">
+    <link rel="stylesheet" href="/static/CSS/styleEmp.css">
 </head>
 <body>
 
@@ -13,15 +13,25 @@
     <header class="site-header">
         <div class="container">
             <div class="logo"></div>
-            <nav class="main-nav">
-                <a href="#hero">Inicio</a>
-                <a href="#services">Servicios</a>
-                <a href="#about">Nosotros</a>
-                <a href="#contact">Contactos</a>
+            <nav>
+                <details>
+                    <summary>Banners</summary>
+                    <a href="#">Menú</a>
+                </details>
+
+                <a href="#">Empleados</a>
+
+                <details>
+                    <summary>Pedidos</summary>
+                    <a href="#">Aceptados</a>
+                    <a href="#">Opción 2</a>
+                </details>
+
+                <a href="#" class="underline">Estadisticas</a>
             </nav>
             <div class="auth-buttons">
                 <a href="/login" class="btn-outline">Ingresar</a>
-                <a href="/register" class="btn-solid">Registrarse</a>
+
             </div>
         </div>
     </header>

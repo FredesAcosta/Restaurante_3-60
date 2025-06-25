@@ -12,29 +12,59 @@ body {
     color: rgb(34, 34, 34); /* texto oscuro */
 }
 
-/* Contenedor centralizado */
-.container {
-    max-width: 1200px; /* ancho máximo */
-    margin: 0 auto; /* centra horizontal */
-    padding: 0 20px; /* espacio lateral */
+/* Estilos para la barra de navegación */
+nav {
+    display: flex; /* elementos en línea */
+    gap: 20px; /* espacio entre elementos */
+    padding: 10px; /* espacio interno */
+    background-color: rgb(0, 0, 0);
+    font-family: Arial, sans-serif; /* fuente de la barra */
+    border-bottom: 1px solid #ccc; /* línea inferior */
 }
 
-/* Header fijo arriba */
-.site-header {
-    position: sticky; /* permanece visible */
-    top: 0; /* al tope */
-    background-color: rgb(0, 0, 0); /* fondo negro */
-    z-index: 1000; /* encima de otros elementos */
+/* Estilos para el elemento summary (desplegable) */
+summary {
+    cursor: pointer; /* cursor de mano */
+    list-style: none; /* sin viñeta */
+    color: rgb(255, 255, 255); /* texto blanco */
 }
 
-/* Flex interno del header */
-.site-header .container {
-    display: flex; /* activa flexbox */
-    align-items: center; /* centra vertical */
-    justify-content: space-between; /* separa extremos */
-    padding: 15px 0; /* espacio arriba y abajo */
+/* Cambia el color al pasar el mouse por summary */
+summary:hover {
+    color: rgb(255, 215, 64); /* amarillo al pasar */
 }
 
+/* Cambia el símbolo cuando el details está abierto */
+details[open] summary::after {
+    content: " ▲"; /* flecha arriba */
+}
+
+/* Símbolo por defecto en summary */
+summary::after {
+    content: " ▼"; /* flecha abajo */
+    /* color: rgb(255, 215, 64); amarillo */
+}
+
+/* Clase para subrayado personalizado */
+.underline {
+    text-decoration: none; /* sin subrayado */
+    font-weight: bold; /* negrita */
+}
+
+/* Estilos para los enlaces */
+a {
+    text-decoration: none; /* sin subrayado */
+    color: rgb(255, 255, 255); /* blanco */
+    display: block; /* ocupa todo el ancho */
+    margin-top: 5px; /* espacio arriba */
+}
+
+/* Efecto hover en enlaces */
+a:hover {
+    color: rgb(255, 215, 64); /* amarillo al pasar */
+    text-decoration: underline; /* subrayado al pasar
+    */
+}
 /* Logo como fondo */
 .logo {
     width: 150px; /* ancho del logo */
@@ -45,6 +75,12 @@ body {
     background-position: center; /* centra la imagen */
 }
 
+/* Contenedor centralizado */
+.container {
+    max-width: 1200px; /* ancho máximo */
+    margin: 0 auto; /* centra horizontal */
+    padding: 0 20px; /* espacio lateral */
+}
 /* Enlaces de navegación */
 .main-nav a {
     margin-left: 25px; /* separa enlaces */

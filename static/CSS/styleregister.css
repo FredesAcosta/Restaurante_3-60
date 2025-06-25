@@ -1,0 +1,207 @@
+/* Fuente y colores generales */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: rgb(241, 240, 245);
+    color: rgb(34, 34, 34);
+}
+
+/* Contenedor general */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header superior */
+.site-header {
+    position: sticky;
+    top: 0;
+    background-color: rgb(0, 0, 0);
+    z-index: 1000;
+}
+.site-header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+}
+
+/* Logo como fondo */
+.logo {
+    width: 150px;
+    height: 50px;
+    background-image: url('/static/IMG/logo3601.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Menú de navegación */
+.main-nav a {
+    margin-left: 25px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    transition: color 0.3s;
+}
+.main-nav a:hover {
+    color: rgb(255, 215, 64);
+}
+
+/* Botones de autenticación */
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+.btn-outline {
+    padding: 8px 15px;
+    border: 1px solid rgb(68, 68, 68);
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+.btn-outline:hover {
+    background-color: rgb(238, 238, 238);
+}
+.btn-solid {
+    padding: 8px 15px;
+    background-color: rgb(68, 68, 68);
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+.btn-solid:hover {
+    background-color: rgb(102, 102, 102);
+}
+
+/* Contenedor del formulario de registro */
+.register-container {
+    width: 400px;
+    margin: 100px auto;
+    padding: 40px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Título del formulario */
+.register-container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: rgb(0, 0, 0);
+}
+
+/* Grupos de campo */
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgb(200, 200, 200);
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Botón de enviar */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: rgb(255, 215, 64);
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+button:hover {
+    background-color: rgb(255, 234, 96);
+}
+
+/* Enlace a login */
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+.login-link a {
+    color: rgb(0, 0, 0);
+    text-decoration: underline;
+}
+
+/* Pie de página */
+.site-footer {
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 20px 0;
+}
+.site-footer a {
+    color: rgb(255, 215, 64);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Estilos del mensaje de registro exitoso */
+
+.mensaje {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: rgb(198, 255, 198); /* verde claro para éxito */
+    color: rgb(0, 100, 0);
+    font-weight: bold;
+    text-align: center;
+}
+/* Estilos del mensaje de error em registro */
+
+.mensaje-error {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: rgb(255, 198, 198); /* rojo claro */
+    color: rgb(150, 0, 0);
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Estilos del formulario de inicio de sesión */
+
+/* Estilo del contenedor */
+.login-container {
+    width: 400px;
+    margin: 100px auto;
+    padding: 40px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Título del formulario de login */
+.login-container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: rgb(0, 0, 0);
+}
+
+/* Texto para olvidé contraseña */
+.forgot-password {
+    text-align: right;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.forgot-password a {
+    color: rgb(0, 0, 0);
+    text-decoration: underline;
+}

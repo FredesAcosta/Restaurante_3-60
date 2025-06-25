@@ -2,17 +2,15 @@ from flask import Flask, render_template, session, request
 from flaskext.mysql import MySQL
 import pymysql
 
-# Configuración de la conexión MySQL
-mysql = MySQL()
+mysql =MySQL()
 
-# Inicialización de la app Flask
 app = Flask(__name__, template_folder='templates')
-app.secret_key = 'secretkey'  # Clave secreta para sesiones
+app.secret_key = 'secretkey'
 
 # Configuración de la base de datos
 app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = ''
 app.config['MYSQL_DATABASE_DB'] = 'restaurante_db'
+app.config['MYSQL_DATABASE_PASSWORD'] = ''
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 
 mysql.init_app(app)
@@ -20,7 +18,7 @@ mysql.init_app(app)
 # Ruta principal (home)
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('/index.html')
 
 # Ruta de login
 @app.route('/login', methods=['GET', 'POST'])
@@ -41,15 +39,14 @@ def login():
             session['loggedin'] = True
             session['id'] = user['id']
             session['username'] = user['username']
-            text = f'Welcome {user["username"]}!'
-            return render_template('index.html', text=text)
+            return render_template('index.html', msg=text)
         else:
             text = 'Incorrect username/password!'
 
     elif request.method == 'POST':
         text = "Fill in the forms"
 
-    return render_template('login.html', text=text)
+    return render_template('login.html', msg=text)
 
 # Ruta para cerrar sesión
 @app.route('/logout')
@@ -67,49 +64,54 @@ def register():
     if request.method == 'POST' and 'username' in request.form and 'email' in request.form and 'password' in request.form:
         username = request.form['username']
         email = request.form['email']
+        phone = request.form['phone']
         password = request.form['password']
 
-        conn = mysql.connect()  # Conexión a la base de datos
-        cur = conn.cursor(pymysql.cursors.DictCursor)  # Cursor que retorna diccionarios
-        # Consulta para verificar si ya existe el usuario o correo
-        cur.execute("SELECT * FROM clientes WHERE nombre = %s OR correo = %s", (username, email,))
-        accounts = cur.fetchone()
+        conn = mysql.connect()  # Conectamos a la base de datos
+        cur = conn.cursor(pymysql.cursors.DictCursor)
 
-        if accounts:
-            text = "Account already exists"
+        # Verificamos si el correo ya está registrado
+        cur.execute("SELECT * FROM usuarios WHERE correo = %s", (email,))
+        user = cur.fetchone()
+
+        if user:
+            text = "El correo ya está registrado"
         else:
-            # Inserta el nuevo usuario en la tabla accounts
-            cur.execute("INSERT INTO accounts VALUES(NULL, %s, %s, %s)", (username, email, password,))
+            # Insertamos el nuevo usuario con rol 3 (Cliente)
+            cur.execute("INSERT INTO usuarios (nombre, correo, telefono, contraseña, id_rol) VALUES (%s, %s, %s, %s, %s)", 
+                        (username, email, phone, password, 3))
             conn.commit()
-            text = "Account successfully created!"
-    # elif request.method=='POST':
-    #     text = "Fill in the forms"
+            text = "Cuenta creada exitosamente!"
+
+    elif request.method == 'POST':
+        text = "Por favor completa el formulario"
+
     return render_template('register.html', text=text)
 
-# Ruta para agregar productos
-@app.route('/producto', methods=['GET', 'POST'])
-def producto():
+
+#@app.route('/categorias', methods=['GET', 'POST'])
+"""def categorias():
     text = ''
-    # Si se envió el formulario con los datos requeridos
-    if request.method == 'POST' and 'name_product' in request.form and 'description' in request.form and 'precio' in request.form and 'cantidad' in request.form:
-        name_product = request.form['name_product']
-        description = request.form['description']
-        precio = request.form['precio']
-        cantidad = request.form['cantidad']
+    if request.method == 'POST' and 'category' in request.form:
+        categoria_nombre = request.form['category']
 
         conn = mysql.connect()
         cur = conn.cursor(pymysql.cursors.DictCursor)
-        # Consulta para verificar si ya existe el producto
-        cur.execute("SELECT * FROM productos WHERE nombre_producto = %s", (name_product,))
-        products = cur.fetchone()
-        if products:
-            text = "Product already exists"
+
+        # Buscar si ya existe
+        cur.execute("SELECT * FROM categoria WHERE nombre_categoria = %s", (categoria_nombre,))
+        categoria_existente = cur.fetchone()
+
+        if categoria_existente:
+            text = "La categoría ya existe."
         else:
-            # Inserta el nuevo producto en la tabla productos
-            cur.execute("INSERT INTO productos VALUES(NULL, %s, %s, %s, 1, NULL, %s)", (name_product, description, precio, cantidad,))
-        conn.commit()
-        text = "Product successfully created!"
-    return render_template('producto.html', text=text)
+            cur.execute("INSERT INTO categoria (nombre_categoria) VALUES (%s)", (categoria_nombre,))
+            conn.commit()
+            text = "Categoría creada exitosamente."
+    elif request.method == 'POST':
+        text = "Debes llenar el formulario."
+        
+    return render_template('categorias.html', text=text)"""
 
 # Ejecuta la app en modo debug
 if __name__ == '__main__':
