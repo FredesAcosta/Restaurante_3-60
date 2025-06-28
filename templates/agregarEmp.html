@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante 360</title>
+    <!-- Enlace al CSS principal -->
+    <!-- <link rel="stylesheet" href="/static/CSS/styleEmp.css"> -->
+</head>
+<body>
+
+    <!-- Encabezado con navegación interna -->
+    <header class="site-header">
+        <div class="container">
+            <div class="logo"></div>
+            <nav>
+                <details>
+                    <summary>Banners</summary>
+                    <a href="#">Menú</a>
+                </details>
+
+                <a href="/empleados">Empleados</a>
+
+                <details>
+                    <summary>Pedidos</summary>
+                    <a href="#">Aceptados</a>
+                    <a href="#">Opción 2</a>
+                </details>
+
+                <a href="#" class="underline">Estadisticas</a>
+            </nav>
+            <div class="auth-buttons">
+                <a href="/login" class="btn-outline">Ingresar</a>
+
+            </div>
+        </div>
+    </header>
+<!-- Agregar Empleado -->
+
+    <h2>Agregar Empleado/Administrador</h2>
+    <form method="post">
+        <label>Nombre completo:</label>
+        <input type="text" name="nombre" required><br>
+        <label>Correo personal:</label>
+        <input type="email" name="correo" required><br>
+        <label>Rol:</label>
+        <select name="rol" required>
+            <option value="Administrador">Administrador</option>
+            <option value="Vendedor">Empleado</option>
+        </select><br>
+        <label>Contraseña provisional:</label>
+        <input type="text" name="contrasena" required><br>
+        <button type="submit">Agregar</button>
+    </form>
+    {% if mensaje %}
+        <p>{{ mensaje }}</p>
+    {% endif %}
+
+    <!-- Pie de página con enlace a portafolio -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 Restaurante 360 | Desarrollado por <a href="" target="_blank">Brandon Florez y Fredes acosta</a></p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empleados</title>
+    <link rel="stylesheet" href="/static/CSS/styleEmp.css">
+</head>
+<body>
+     <header class="site-header">
+        <div class="container">
+            <div class="logo"></div>
+            <nav>
+                <details>
+                    <summary>Banners</summary>
+                    <a href="#">Menú</a>
+                </details>
+
+                <a href="#">Empleados</a>
+
+                <details>
+                    <summary>Pedidos</summary>
+                    <a href="#">Aceptados</a>
+                    <a href="#">Opción 2</a>
+                </details>
+
+                <a href="#" class="underline">Estadisticas</a>
+            </nav>
+        </div>
+    </header>
+    <span class="plus-icon">
+        <a href="/agregarEmpleado"></a>
+    </span>
+    <h1>Lista de Empleados</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                
+            </tr>
+        </thead>
+        <!-- ...existing code... -->
+<tbody>
+    {% for empleado in empleados %}
+    <tr>
+        <td>{{ empleado[0] }}</td> <!-- id_usuario -->
+        <td>{{ empleado[1] }}</td> <!-- nombre_usuario -->
+        <td>{{ empleado[2] }}</td> <!-- correo -->
+        <td>{{ empleado[3] }}</td> <!-- rol -->
+    </tr>
+    {% endfor %}
+</tbody>
+<!-- ...existing code... -->
+    </table>
+</body>
+</html>
