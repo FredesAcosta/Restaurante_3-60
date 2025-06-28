@@ -1,4 +1,4 @@
-/* Reinicio básico de márgenes y paddings */
+Reinicio básico de márgenes y paddings
 * {
     margin: 0; /* quita márgenes */
     padding: 0; /* quita padding */
@@ -80,6 +80,20 @@ a:hover {
     max-width: 1200px; /* ancho máximo */
     margin: 0 auto; /* centra horizontal */
     padding: 0 20px; /* espacio lateral */
+}
+
+/* Header superior */
+.site-header {
+    position: sticky;
+    top: 0;
+    background-color: rgb(0, 0, 0);
+    z-index: 1000;
+}
+.site-header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
 }
 /* Enlaces de navegación */
 .main-nav a {
@@ -230,4 +244,33 @@ a:hover {
     color: rgb(255, 215, 64); /* enlace amarillo */
     text-decoration: none; /* quita subrayado */
     font-weight: bold; /* negrita en enlace */
+}
+
+/* Span de el + */
+.plus-icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  cursor: pointer;
+}
+.plus-icon::before,
+.plus-icon::after {
+  content: '';
+  position: absolute;
+  background: #333;
+  border-radius: 2px;
+}
+.plus-icon::before {
+  left: 11px;
+  top: 4px;
+  width: 2px;
+  height: 16px; /* línea vertical */
+}
+.plus-icon::after {
+  top: 11px;
+  left: 4px;
+  width: 16px;  /* línea horizontal */
+  height: 2px;
+  
 }
