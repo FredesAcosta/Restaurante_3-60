@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurante 360</title>
     <!-- Enlace al CSS principal -->
-    <!-- <link rel="stylesheet" href="/static/CSS/styleEmp.css"> -->
+    <link rel="stylesheet" href="/static/CSS/styleEmp.css">
 </head>
 <body>
 
@@ -36,8 +36,8 @@
         </div>
     </header>
 <!-- Agregar Empleado -->
-
-    <h2>Agregar Empleado/Administrador</h2>
+  <h2>Agregar Empleado/Administrador</h2>
+    <div class="container-form">
     <form method="post">
         <label>Nombre completo:</label>
         <input type="text" name="nombre" required><br>
@@ -55,6 +55,7 @@
     {% if mensaje %}
         <p>{{ mensaje }}</p>
     {% endif %}
+    </div>
 
     <!-- Pie de página con enlace a portafolio -->
     <footer class="site-footer">
