@@ -105,5 +105,32 @@ def register():
 
     return render_template('register.html', text=text)
 
+
+# Mostrar mesas disponibles
+@app.route('/mesas')
+def mesas():
+    if 'loggedin' in session:
+        conn = mysql.connect()
+        cur = conn.cursor(pymysql.cursors.DictCursor)
+        cur.execute("SELECT * FROM mesas WHERE disponible = TRUE")
+        mesas_disponibles = cur.fetchall()
+        cur.close()
+        return render_template('mesas.html', mesas=mesas_disponibles)
+    return render_template('login.html', text='Por favor inicia sesión primero.')
+
+# Reservar mesa seleccionada
+@app.route('/reservar_mesa', methods=['POST'])
+def reservar_mesa():
+    if 'loggedin' in session:
+        mesa_id = request.form['mesa_id']
+        conn = mysql.connect()
+        cur = conn.cursor()
+        cur.execute("UPDATE mesas SET disponible = FALSE WHERE id_mesa = %s", (mesa_id,))
+        conn.commit()
+        cur.close()
+        return render_template('dashboardClienteS.html', text='Mesa reservada exitosamente.')
+    return render_template('login.html', text='Por favor inicia sesión.')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
