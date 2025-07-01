@@ -1,5 +1,6 @@
 from flask import Flask, render_template, session, request
 from flaskext.mysql import MySQL
+from werkzeug.security import generate_password_hash, check_password_hash
 import pymysql
 
 mysql =MySQL()
@@ -112,6 +113,40 @@ def register():
         text = "Debes llenar el formulario."
         
     return render_template('categorias.html', text=text)"""
+
+@app.route('/empleados')
+def empleados():
+    conn = mysql.connect()
+    cur = conn.cursor()
+    cur.execute("SELECT  id_usuario, nombre_usuario, correo, rol FROM usuarios")
+    empleados = cur.fetchall()
+    conn.close()
+    return render_template('/empleados.html', empleados=empleados)
+
+@app.route('/add_empleado', methods=['GET', 'POST'])
+def add_empleado():
+    mensaje = ''
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        correo = request.form['correo']
+        rol = request.form['rol']
+        contrasena_prov = request.form['contrasena']
+
+        # Encriptar la contraseña
+        hash_contrasena = generate_password_hash(contrasena_prov)
+
+        conn = mysql.connect()
+        cur = conn.cursor()
+        # Insertar en la tabla usuarios
+        cur.execute("INSERT INTO usuarios (nombre_usuario, correo, contraseña, rol) VALUES (%s, %s, %s, %s)",
+                    (nombre, correo, hash_contrasena, rol))
+        conn.commit()
+        conn.close()
+        mensaje = f"¡Bienvenido {nombre}! Usuario creado correctamente."
+        return render_template('/addEmp.html', mensaje=mensaje)
+    
+    # Este return es para GET
+    return render_template('/addEmp.html')
 
 # Ejecuta la app en modo debug
 if __name__ == '__main__':
