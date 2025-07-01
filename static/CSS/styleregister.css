@@ -190,3 +190,13 @@ button:hover {
     color: rgb(0, 0, 0);
     text-decoration: underline;
 }
+.mensaje-flash {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    text-align: center;
+}
