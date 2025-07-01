@@ -1,0 +1,183 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fondo general */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f1f0f5;
+    color: #222;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header superior */
+.main-header {
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+}
+
+/* Logo: definido como fondo para control desde CSS */
+.logo {
+    background-image: url('/static/IMG/logo360.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left center;
+    width: 60px;
+    height: 60px;
+}
+
+/* Menú de navegación */
+.main-nav a {
+    color: #fff;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+.main-nav a:hover {
+    text-decoration: underline;
+}
+
+/* Contenedor del ícono de usuario */
+.user-actions {
+    position: relative;
+}
+
+/* Avatar del usuario */
+.user-avatar {
+    width: 35px;
+    height: 35px;
+    background-image: url('/static/IMG/user.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Menú desplegable oculto inicialmente */
+.dropdown-menu {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    background: rgb(255, 253, 253);
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 0 8px rgba(255, 215, 64);
+    z-index: 999;
+    min-width: 150px;
+}
+
+/* Opciones dentro del menú */
+.dropdown-menu a {
+    color: #333;
+    text-decoration: none;
+    padding: 8px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Hover sobre opciones */
+.dropdown-menu a:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+/* Opción peligrosa (eliminar cuenta) */
+.danger-option {
+    color: red;
+}
+
+/* Sección de bienvenida */
+.welcome {
+    text-align: center;
+    margin: 30px 0 10px 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Contenedor de las tarjetas */
+.order-options {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+/* Tarjetas de pedido */
+.order-option {
+    width: 400px;
+    height: 500px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 50px;
+    text-align: center;
+    position: relative;
+    transition: 0.3s ease;
+}
+
+/* Efecto hover */
+.order-option:hover {
+    transform: translateY(-5px);
+}
+
+/* Título dentro de cada tarjeta */
+.order-option h3 {
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+/* Icono en la tarjeta: domicilio */
+.order-option::before {
+    content: '';
+    display: block;
+    background-image: url('/static/IMG/image-delivery.png');
+    background-size: 200px 200px;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+/* Icono específico para mesa */
+.order-option.enmesa::before {
+    background-image: url('/static/IMG/image-restaurant.png');
+}
+
+/* Botón dentro de la tarjeta */
+.btn-go {
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 18px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+/* Hover del botón */
+.btn-go:hover {
+    background-color: rgba(255, 215, 64);;
+}
+
+/* Footer fijo al fondo */
+.site-footer {
+    margin-top: auto;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 15px 10px;
+    font-size: 0.9rem;
+}
