@@ -29,7 +29,9 @@
     <div class="register-container">
         <h1>Crear cuenta</h1>
         <form action="/register" method="POST">
-
+    {% if text %}
+      <p class="mensaje-flash">{{ text }}</p>
+    {% endif %}
             <div class="form-group">
                 <label for="fullname">Nombre completo</label>
                 <input type="text" name="fullname" id="fullname"
