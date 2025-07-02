@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante 360 - Detalle del Pedido</title>
+    <link rel="stylesheet" href="/static/CSS/styleEmp.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container">
+        <div class="logo"></div>
+        <nav>
+            <details>
+                <summary>Banners</summary>
+                <a href="#">Menú</a>
+            </details>
+
+            <a href="/empleados">Empleados</a>
+
+            <details>
+                <summary>Pedidos</summary>
+                <a href="/pedidos_entrantes">Entrantes</a>
+                <a href="#">Aceptados</a>
+            </details>
+
+            <a href="#" class="underline">Estadisticas</a>
+        </nav>
+        <div class="auth-buttons">
+            <a href="/login" class="btn-outline">Ingresar</a>
+        </div>
+    </div>
+</header>
+
+<!-- Título -->
+<h2 class="detalle-pedido">Detalle del Pedido #{{ pedido[0] }} - {{ pedido[2] }}</h2>
+
+<div class="container-form">
+  <div>
+    <!-- Datos resumen -->
+    <div class="detalle-pedido-info">
+      <p><strong>Cliente:</strong> {{ pedido[4] }} ({{ pedido[5] }})</p>
+      <p><strong>Fecha:</strong> {{ pedido[1] }}</p>
+      <p><strong>Total:</strong> ${{ "%.2f"|format(pedido[3]) }}</p>
+    </div>
+
+    <!-- Productos -->
+    <div class="detalle-productos">
+      <h3>Productos:</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for prod in productos %}
+          <tr>
+            <td>{{ prod[0] }}</td>
+            <td>{{ prod[1] }}</td>
+            <td>${{ "%.2f"|format(prod[2]) }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Botón volver -->
+    <a href="/pedidos_entrantes" class="btn-outline">&larr; Volver a la lista</a>
+  </div>
+</div>
+
+
+<footer class="site-footer">
+    <div class="container">
+        <p>&copy; 2025 Restaurante 360 | Desarrollado por <a href="#" target="_blank">Brandon Florez y Fredes Acosta</a></p>
+    </div>
+</footer>
+
+</body>
+</html>

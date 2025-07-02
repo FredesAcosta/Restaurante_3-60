@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedidos Entrantes</title>
+    <meta http-equiv="refresh" content="15"> <!-- Actualiza cada 15s -->
+    <link rel="stylesheet" href="/static/CSS/styleEmp.css">
+</head>
+<body>
+    <body>
+     <header class="site-header">
+        <div class="container">
+            <div class="logo"></div>
+            <nav>
+                <details>
+                    <summary>Banners</summary>
+                    <a href="#">Menú</a>
+                </details>
+
+                <a href="/empleados">Empleados</a>
+
+                <details>
+                    <summary>Pedidos</summary>
+                    <a href="#">Aceptados</a>
+                    <a href="/pedidos_entrantes">Entrantes</a>
+                </details>
+
+                <a href="#" class="underline">Estadisticas</a>
+            </nav>
+        </div>
+    </header>
+    <div class="pedidos-container">
+    <h2>Pedidos Entrantes</h2>
+    
+    <div class="filtro">
+        <label for="orden">Ordenar por:</label>
+        <select id="orden" name="orden">
+            <option value="hora">Hora de llegada</option>
+            <option value="prioridad">Prioridad</option>
+        </select>
+    </div>
+
+    {% if pedidos %}
+    <table class="tabla-pedidos">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tipo</th>
+                <th>Cliente</th>
+                <th>Monto Total</th>
+                <th>Hora</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pedido in pedidos %}
+            <tr>
+                <td>{{ pedido.id }}</td>
+                <td>{{ pedido.tipo }}</td>
+                <td>{{ pedido.cliente }}</td>
+                <td>{{ pedido.total }}</td>
+                <td>{{ pedido.hora }}</td>
+                <td><a href="/pedido/{{ pedido.id }}" class="ver-detalles">Ver Detalles</a></td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p class="pedidos-vacios">No hay pedidos activos en este momento.</p>
+    {% endif %}
+</div>
+</body>
+</html>

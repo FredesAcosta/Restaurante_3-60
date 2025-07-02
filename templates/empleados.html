@@ -16,21 +16,20 @@
                     <a href="#">Menú</a>
                 </details>
 
-                <a href="#">Empleados</a>
+                <a href="/empleados">Empleados</a>
 
                 <details>
                     <summary>Pedidos</summary>
                     <a href="#">Aceptados</a>
-                    <a href="#">Opción 2</a>
+                    <a href="/pedidos_entrantes">Entrantes</a>
                 </details>
 
                 <a href="#" class="underline">Estadisticas</a>
             </nav>
         </div>
     </header>
-    <span class="plus-icon">
-        <a href="/addEmpleado"></a>
-    </span>
+    <a href="/add_empleado" class="plus-icon"></a>
+
     <h2>Lista de empleados</h2>
     <table class="tabla-empleados">
         <thead>
@@ -39,7 +38,7 @@
                 <th>Nombre</th>
                 <th>Correo</th>
                 <th>Rol</th>
-                
+                <th>Cargo</th>
             </tr>
         </thead>
         <!-- ...existing code... -->
@@ -50,6 +49,7 @@
         <td>{{ empleado[1] }}</td> <!-- nombre_usuario -->
         <td>{{ empleado[2] }}</td> <!-- correo -->
         <td>{{ empleado[3] }}</td> <!-- rol -->
+        <td>{{ empleado[4] }}</td> <!-- cargo -->
     </tr>
     {% endfor %}
 </tbody>

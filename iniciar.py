@@ -1,9 +1,21 @@
-from modulos.app_flask import app
-from flask import render_template, request, session
-from modulos.db import mysql
+from flask import Flask, redirect, render_template, request, session,  url_for
+from flaskext.mysql import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import date
 import pymysql
 import bcrypt
+
+app = Flask(__name__, template_folder='templates')
+app.secret_key = 'secretkey'
+
+# Configuración de la base de datos
+
+mysql = MySQL()
+app.config['MYSQL_DATABASE_USER'] = 'root'
+app.config['MYSQL_DATABASE_DB'] = 'restaurante_db'
+app.config['MYSQL_DATABASE_PASSWORD'] = ''
+app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+mysql.init_app(app)
 
 # Ruta principal (home)
 @app.route('/')
@@ -121,43 +133,161 @@ def reservar_mesa():
         conn.commit()
         cur.close()
         return render_template('dashboardClientes.html', text='Mesa reservada exitosamente.')
-    return render_template('login.html', text='Por favor inicia sesión.')
+    return render_template('login.html', text='Por favor inicia sesión primero.')
 
 # Vista de empleados
 @app.route('/empleados')
 def empleados():
+    # Establece una conexión con la base de datos MySQL
     conn = mysql.connect()
+    # Crea un cursor para ejecutar consultas SQL
     cur = conn.cursor()
-    cur.execute("SELECT  id_usuario, nombre_usuario, correo, rol FROM usuarios")
+    
+    # Ejecuta una consulta SQL para obtener los empleados y su rol
+    cur.execute("""
+       SELECT 
+        u.id_usuario,      -- 0
+        u.nombre,          -- 1
+        u.correo,          -- 2
+        r.nombre_rol,      -- 3
+        e.cargo            -- 4
+    FROM usuarios u
+    JOIN roles r ON u.id_rol = r.id_rol
+    JOIN empleados e ON u.id_usuario = e.id_usuario  
+    """)
+    
+    # Obtiene todos los resultados de la consulta
     empleados = cur.fetchall()
+    # Cierra la conexión a la base de datos
     conn.close()
+    
+    # Renderiza la plantilla 'empleados.html' y le pasa la lista de empleados
     return render_template('empleados.html', empleados=empleados)
 
 # Vista para agregar un nuevo empleado
 @app.route('/add_empleado', methods=['GET', 'POST'])
 def add_empleado():
-    mensaje = ''
+    mensaje = ''  # Variable para mensajes de error o éxito
     if request.method == 'POST':
+        # Obtiene los datos del formulario enviados por el administrador
         nombre = request.form['nombre']
         correo = request.form['correo']
-        rol = request.form['rol']
+        telefono = request.form['telefono']
+        nombre_rol = request.form['rol']  # Ejemplo: 'Empleado' o 'Administrador'
         contrasena_prov = request.form['contrasena']
+        cargo = request.form['cargo']  # Ejemplo: 'Cajero', 'Mesero', etc.
+        fecha_contratacion = date.today()  # Fecha actual
 
-        # Encriptar la contraseña
+        # Encripta la contraseña provisional antes de guardarla
         hash_contrasena = generate_password_hash(contrasena_prov)
 
+        # Conexión a la base de datos
         conn = mysql.connect()
         cur = conn.cursor()
-        # Insertar en la tabla usuarios
-        cur.execute("INSERT INTO usuarios (nombre_usuario, correo, contraseña, rol) VALUES (%s, %s, %s, %s)",
-                    (nombre, correo, hash_contrasena, rol))
-        conn.commit()
-        conn.close()
-        mensaje = f"¡Bienvenido {nombre}! Usuario creado correctamente."
+
+        try:
+            # Busca el id del rol en la tabla roles según el nombre seleccionado
+            cur.execute("SELECT id_rol FROM roles WHERE nombre_rol = %s", (nombre_rol,))
+            resultado = cur.fetchone()
+            if not resultado:
+                # Si el rol no existe, muestra un mensaje de error
+                mensaje = f"Error: El rol '{nombre_rol}' no existe."
+                return render_template('addEmp.html', mensaje=mensaje)
+
+            id_rol = resultado[0]  # Extrae el id_rol del resultado
+
+            # Inserta el nuevo usuario en la tabla usuarios
+            cur.execute("""
+                INSERT INTO usuarios (nombre, correo, telefono, contraseña, id_rol)
+                VALUES (%s, %s, %s, %s, %s)
+            """, (nombre, correo, telefono, hash_contrasena, id_rol))
+            id_usuario = cur.lastrowid  # Obtiene el id generado automáticamente
+
+            # Inserta el nuevo empleado en la tabla empleados con su cargo y fecha de contratación
+            cur.execute("""
+                INSERT INTO empleados (id_usuario, cargo, fecha_contratacion)
+                VALUES (%s, %s, %s)
+            """, (id_usuario, cargo, fecha_contratacion))
+
+            conn.commit()  # Guarda los cambios en la base de datos
+            return redirect(url_for('empleados'))  # Redirige a la vista de empleados
+        except Exception as e:
+            conn.rollback()  # Revierte los cambios si ocurre un error
+            mensaje = f"Error al registrar empleado: {str(e)}"
+        finally:
+            conn.close()  # Cierra la conexión a la base de datos
+
+        # Si hubo un error, vuelve a mostrar el formulario con el mensaje
         return render_template('addEmp.html', mensaje=mensaje)
     
-    # Este return es para GET
+    # Si la petición es GET, muestra el formulario vacío
     return render_template('addEmp.html')
+
+# Vista de pedidos entrantes
+from flask import render_template, request
+
+@app.route('/pedidos_entrantes')
+def pedidos_entrantes():
+    conn = mysql.connect()
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT p.id_pedido, 
+               p.tipo_pedido, 
+               u.nombre, 
+               p.total, 
+               p.fecha_pedido
+        FROM pedidos p
+        JOIN usuarios u ON p.id_cliente = u.id_usuario
+        WHERE p.estado = 'Pendiente'
+        ORDER BY p.fecha_pedido ASC
+    """)
+    resultados = cur.fetchall()
+
+    pedidos = []
+    for fila in resultados:
+        pedidos.append({
+            'id': fila[0],
+            'tipo': fila[1],
+            'cliente': fila[2],
+            'total': f"${fila[3]:,.2f}",  # <- Aquí se da formato con 2 decimales
+            'hora': fila[4].strftime('%Y-%m-%d %H:%M:%S') if fila[4] else ''
+        })
+
+    conn.close()
+    return render_template('pedidos_entrantes.html', pedidos=pedidos)
+
+# Vista para ver los detalles de un pedido
+@app.route('/pedido/<int:id_pedido>')
+def ver_pedido(id_pedido):
+    conn = mysql.connect()
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT 
+            p.id_pedido,
+            p.fecha_pedido,
+            p.tipo_pedido,
+            p.total,
+            c.nombre,
+            c.telefono
+        FROM pedidos p
+        JOIN usuarios c ON p.id_cliente = c.id_usuario
+        WHERE p.id_pedido = %s
+    """, (id_pedido,))
+    pedido = cur.fetchone()
+
+    cur.execute("""
+        SELECT pr.nombre_producto, dp.cantidad, dp.precio_unitario
+        FROM detalle_pedidos dp
+        JOIN productos pr ON dp.id_producto = pr.id_producto
+        WHERE dp.id_pedido = %s
+    """, (id_pedido,))
+    productos = cur.fetchall()
+
+    conn.close()
+    return render_template('detalle_pedido.html', pedido=pedido, productos=productos)
+
 
 # Ejecuta la app en modo debug
 if __name__ == '__main__':

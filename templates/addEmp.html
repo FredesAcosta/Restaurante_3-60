@@ -3,69 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurante 360</title>
-    <!-- Enlace al CSS principal -->
+    <title>Restaurante 360 - Pedidos Entrantes</title>
     <link rel="stylesheet" href="/static/CSS/styleEmp.css">
+    <meta http-equiv="refresh" content="15"> <!-- Auto-recarga cada 15s -->
 </head>
 <body>
 
-    <!-- Encabezado con navegación interna -->
-    <header class="site-header">
-        <div class="container">
-            <div class="logo"></div>
-            <nav>
-                <details>
-                    <summary>Banners</summary>
-                    <a href="#">Menú</a>
-                </details>
+<header class="site-header">
+    <div class="container">
+        <div class="logo"></div>
+        <nav>
+            <details>
+                <summary>Banners</summary>
+                <a href="#">Menú</a>
+            </details>
 
-                <a href="/empleados">Empleados</a>
+            <a href="/empleados">Empleados</a>
 
-                <details>
-                    <summary>Pedidos</summary>
-                    <a href="#">Aceptados</a>
-                    <a href="#">Opción 2</a>
-                </details>
+            <details>
+                <summary>Pedidos</summary>
+                <a href="#">Aceptados</a>
+                <a href="#">Opción 2</a>
+            </details>
 
-                <a href="#" class="underline">Estadisticas</a>
-            </nav>
-            <div class="auth-buttons">
-                <a href="/login" class="btn-outline">Ingresar</a>
-
-            </div>
+            <a href="#" class="underline">Estadisticas</a>
+        </nav>
+        <div class="auth-buttons">
+            <a href="/login" class="btn-outline">Ingresar</a>
         </div>
-    </header>
-<!-- Agregar Empleado -->
-  <h2>Agregar Empleado/Administrador</h2>
-    <div class="container-form">
-    <form method="post">
-        <label>Nombre completo:</label>
-        <input type="text" name="nombre" required><br>
-        <label>Correo personal:</label>
-        <input type="email" name="correo" required><br>
-        <label>Rol:</label>
-        <select name="rol" required>
-            <option value="Administrador">Administrador</option>
-            <option value="Mesero">Mesero</option>
-            <option value="Repartidor">Repartidor</option>
-            <option value="Cajero">Cajero</option>
-            <option value="Cocinero">Cocinero</option> 
-        </select><br>
-        <label>Contraseña provisional:</label>
-        <input type="text" name="contrasena" required><br>
-        <button type="submit">Agregar</button>
-    </form>
-    {% if mensaje %}
-        <p>{{ mensaje }}</p>
-    {% endif %}
     </div>
+</header>
 
-    <!-- Pie de página con enlace a portafolio -->
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2025 Restaurante 360 | Desarrollado por <a href="" target="_blank">Brandon Florez y Fredes acosta</a></p>
-        </div>
-    </footer>
+<h2>Gestín de Pedidos Entrantes</h2>
+<div class="container-form">
+    <form method="get" action="/pedidos_entrantes">
+        <label>Ordenar por:</label>
+        <select name="orden" onchange="this.form.submit()">
+            <option value="hora" {% if filtro == 'hora' %}selected{% endif %}>Hora de llegada</option>
+            <option value="prioridad" {% if filtro == 'prioridad' %}selected{% endif %}>Monto total</option>
+        </select>
+    </form>
+
+    {% if pedidos %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tipo</th>
+                <th>Cliente</th>
+                <th>Monto Total</th>
+                <th>Hora</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in pedidos %}
+            <tr>
+                <td>{{ p[0] }}</td>
+                <td>{{ p[5] }}</td>
+                <td>{{ p[3] }}</td>
+                <td>${{ "%.2f"|format(p[4]) }}</td>
+                <td>{{ p[2] }}</td>
+                <td><a href="{{ url_for('ver_pedido', id_pedido=p[0]) }}">Ver Detalles</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="color: gray;">No hay pedidos activos en este momento.</p>
+    {% endif %}
+</div>
+
+<footer class="site-footer">
+    <div class="container">
+        <p>&copy; 2025 Restaurante 360 | Desarrollado por <a href="#" target="_blank">Brandon Florez y Fredes Acosta</a></p>
+    </div>
+</footer>
 
 </body>
 </html>
