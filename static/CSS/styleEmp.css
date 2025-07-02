@@ -14,6 +14,8 @@ body {
 
 /* Estilos para la barra de navegación */
 nav {
+    align-items: center;
+    justify-content: center; /* centra los elementos */
     display: flex; /* elementos en línea */
     gap: 20px; /* espacio entre elementos */
     padding: 10px; /* espacio interno */
@@ -345,6 +347,7 @@ form {
 
   input[type="text"],
   input[type="email"],
+  input[type="password"],
   select {
     width: 100%;
     padding: 8px 10px;
@@ -375,3 +378,162 @@ form {
     text-align: center;
     font-weight: bold;
   }
+
+/* Estilos para los pedidos entrantes */
+
+.pedidos-container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 30px auto;
+    background-color: white;
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Título de sección */
+.pedidos-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Estilos del filtro */
+.filtro {
+    margin-bottom: 15px;
+}
+.filtro label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.filtro select {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    width: 100%;
+    max-width: 300px;
+}
+
+/* Tabla de pedidos */
+.tabla-pedidos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-family: 'Segoe UI', sans-serif;
+}
+.tabla-pedidos thead {
+    background-color: #343a40;
+    color: white;
+}
+.tabla-pedidos th,
+.tabla-pedidos td {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+.tabla-pedidos tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+.tabla-pedidos tbody tr:hover {
+    background-color: #eee;
+}
+
+/* Enlace para detalles */
+.ver-detalles {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+.ver-detalles:hover {
+    text-decoration: underline;
+}
+
+/* Mensaje de "sin pedidos" */
+.pedidos-vacios {
+    text-align: center;
+    color: gray;
+    margin-top: 20px;
+}
+
+/* Estilos para el detalle de pedidos */
+.detalle-pedido h2 {
+  text-align: center;
+  margin-top: 1rem;
+  color: rgb(34, 34, 34);
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.detalle-pedido-info {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  text-align: center;
+  color: green;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.detalle-pedido-info p {
+  margin-bottom: 10px;
+}
+
+.detalle-productos {
+  margin-top: 40px;
+  width: 100%;
+}
+
+.detalle-productos table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.detalle-productos th,
+.detalle-productos td {
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.detalle-productos thead {
+  background-color: #343a40;
+  color: white;
+}
+
+.detalle-productos tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.detalle-productos tbody tr:hover {
+  background-color: #eaeaea;
+}
+
+/* Botón volver */
+.btn-outline {
+  margin-top: 25px;
+  display: inline-block;
+  padding: 8px 15px;
+  border: 1px solid rgb(68, 68, 68);
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+}
+.btn-outline:hover {
+  background-color: #efefef;
+}
+
+/* Alineación del bloque */
+.container-form > div {
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+}
+
+
