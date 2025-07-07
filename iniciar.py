@@ -164,6 +164,14 @@ def empleados():
     # Renderiza la plantilla 'empleados.html' y le pasa la lista de empleados
     return render_template('empleados.html', empleados=empleados)
 
+@app.route('/logout_empleado')
+def logout_empleado():
+    session.pop('loggedin', None)
+    session.pop('id', None)
+    session.pop('nombre', None)
+    session.pop('rol', None)
+    return render_template('empleado.html')
+
 # Vista para agregar un nuevo empleado
 @app.route('/add_empleado', methods=['GET', 'POST'])
 def add_empleado():
@@ -224,8 +232,6 @@ def add_empleado():
     return render_template('addEmp.html')
 
 # Vista de pedidos entrantes
-from flask import render_template, request
-
 @app.route('/pedidos_entrantes')
 def pedidos_entrantes():
     conn = mysql.connect()
@@ -235,13 +241,12 @@ def pedidos_entrantes():
         SELECT p.id_pedido, 
                p.tipo_pedido, 
                u.nombre, 
-               p.total, 
+               p.total, a
                p.fecha_pedido
         FROM pedidos p
         JOIN usuarios u ON p.id_cliente = u.id_usuario
         WHERE p.estado = 'Pendiente'
-        ORDER BY p.fecha_pedido ASC
-    """)
+        ORDER BY p.fecha_pedido ASC""")
     resultados = cur.fetchall()
 
     pedidos = []
