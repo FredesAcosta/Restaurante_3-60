@@ -34,45 +34,33 @@
     </div>
 </header>
 
-<h2>Gestín de Pedidos Entrantes</h2>
-<div class="container-form">
-    <form method="get" action="/pedidos_entrantes">
-        <label>Ordenar por:</label>
-        <select name="orden" onchange="this.form.submit()">
-            <option value="hora" {% if filtro == 'hora' %}selected{% endif %}>Hora de llegada</option>
-            <option value="prioridad" {% if filtro == 'prioridad' %}selected{% endif %}>Monto total</option>
-        </select>
+  <h2>Agregar Empleado/Administrador</h2>
+    <form method="POST">
+        <label>Nombre completo:</label>
+        <input type="text" name="nombre" required><br>
+        <label>Correo personal:</label>
+        <input type="email" name="correo" required><br>
+        <label>Teléfono:</label>
+        <input type="tel" name="telefono" required><br>
+        <label>Rol:</label>
+        <select name="rol" required>
+            <option value="Administrador">Administrador</option>
+            <option value="Vendedor">Empleado</option>
+        </select><br>
+        <label>Cargo:</label>
+        <select name="cargo" required>
+            <option value="Cajero">Cajero</option>
+            <option value="Mesero">Mesero</option>
+            <option value="Cocinero">Cocinero</option>
+            <option value="Domiciliario">Domiciliario</option>
+        </select><br>
+        <label>Contraseña provisional:</label>
+        <input type="password" name="contrasena" required><br>
+        <button type="submit">Agregar</button>
     </form>
-
-    {% if pedidos %}
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Tipo</th>
-                <th>Cliente</th>
-                <th>Monto Total</th>
-                <th>Hora</th>
-                <th>Acción</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for p in pedidos %}
-            <tr>
-                <td>{{ p[0] }}</td>
-                <td>{{ p[5] }}</td>
-                <td>{{ p[3] }}</td>
-                <td>${{ "%.2f"|format(p[4]) }}</td>
-                <td>{{ p[2] }}</td>
-                <td><a href="{{ url_for('ver_pedido', id_pedido=p[0]) }}">Ver Detalles</a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-    <p style="color: gray;">No hay pedidos activos en este momento.</p>
+    {% if mensaje %}
+        <p>{{ mensaje }}</p>
     {% endif %}
-</div>
 
 <footer class="site-footer">
     <div class="container">
