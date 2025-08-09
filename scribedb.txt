@@ -106,3 +106,23 @@ CREATE TABLE historial_actividad (
     fecha_actividad DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
 );
+CREATE TABLE  mesas (
+    id_mesa INT AUTO_INCREMENT PRIMARY KEY,
+    numero_mesa INT NOT NULL UNIQUE,
+    capacidad INT NOT NULL,
+    disponible BOOLEAN DEFAULT TRUE
+) ENGINE=InnoDB;
+
+INSERT INTO roles (id_rol, nombre_rol) VALUES
+(1, 'Administrador'),
+(2, 'Empleado'),
+(3, 'Cliente');
+
+INSERT INTO mesas (numero_mesa, capacidad) VALUES
+(1, 4),
+(2, 2),
+(3, 4),
+(4, 4),
+(5, 4),
+(6, 2),
+(7, 6);
