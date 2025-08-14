@@ -55,15 +55,24 @@ def login():
 
 @app.route('/eliminar_cuenta', methods=['POST'])
 def eliminar_cuenta():
+    #  Solo usuarios con sesión pueden eliminar cuenta
     if 'loggedin' in session:
+        #  Tomamos el ID del usuario desde la sesión
         id_usuario = session['id']
+        #  Conectamos a la base de datos
         conn = mysql.connect()
         cur = conn.cursor()
-        cur.execute("DELETE FROM usuarios WHERE id_usuario = %s", (id_usuario,))
-        conn.commit()
+        #  Borramos al usuario correspondiente (usa parámetros para seguridad)
+        cur.execute("DELETE FROM usuarios WHERE id_usuario = %s", (id_usuario,))       
+        #  Guardamos los cambios en la base de datos
+        conn.commit()       
+        #  Cerramos el cursor para liberar recursos
         cur.close()
+        #  Limpiamos la sesión para cerrar sesión también
         session.clear()
+        #  Informamos al usuario que su cuenta fue eliminada
         return render_template('index.html', text='Tu cuenta ha sido eliminada exitosamente.')
+    #  Si no hay sesión, pedimos que inicie sesión primero
     return render_template('login.html', text='No has iniciado sesión.')
 
 @app.route('/dashboard_cliente')
@@ -99,7 +108,7 @@ def register():
         else:
             hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
             cur.execute("INSERT INTO usuarios (nombre, correo, telefono, contraseña, id_rol) VALUES (%s, %s, %s, %s, %s)", 
-                        (fullname, email, phone, hashed_password.decode('utf-8'), 3))
+                        (fullname, email, phone, hashed_password.decode('utf-8'), 4))
             conn.commit()
             text = "Cuenta creada exitosamente!"
 
@@ -197,10 +206,6 @@ def add_empleado():
             # Busca el id del rol en la tabla roles según el nombre seleccionado
             cur.execute("SELECT id_rol FROM roles WHERE nombre_rol = %s", (nombre_rol,))
             resultado = cur.fetchone()
-            if not resultado:
-                # Si el rol no existe, muestra un mensaje de error
-                mensaje = f"Error: El rol '{nombre_rol}' no existe."
-                return render_template('addEmp.html', mensaje=mensaje)
 
             id_rol = resultado[0]  # Extrae el id_rol del resultado
 
@@ -217,7 +222,7 @@ def add_empleado():
                 VALUES (%s, %s, %s)
             """, (id_usuario, cargo, fecha_contratacion))
 
-            conn.commit()  # Guarda los cambios en la base de datos
+            conn.commit()  # Confimar los cambios en la base de datos
             return redirect(url_for('empleados'))  # Redirige a la vista de empleados
         except Exception as e:
             conn.rollback()  # Revierte los cambios si ocurre un error
@@ -238,25 +243,23 @@ def pedidos_entrantes():
     cur = conn.cursor()
 
     cur.execute("""
-        SELECT p.id_pedido, 
-               p.tipo_pedido, 
+        SELECT p.id_pedido,  
                u.nombre, 
-               p.total, a
+               p.total, 
                p.fecha_pedido
         FROM pedidos p
         JOIN usuarios u ON p.id_cliente = u.id_usuario
         WHERE p.estado = 'Pendiente'
-        ORDER BY p.fecha_pedido ASC""")
+        ORDER BY p.fecha_pedido ASC """)
     resultados = cur.fetchall()
 
     pedidos = []
     for fila in resultados:
         pedidos.append({
             'id': fila[0],
-            'tipo': fila[1],
-            'cliente': fila[2],
-            'total': f"${fila[3]:,.2f}",  # <- Aquí se da formato con 2 decimales
-            'hora': fila[4].strftime('%Y-%m-%d %H:%M:%S') if fila[4] else ''
+            'cliente': fila[1],
+            'total': f"${fila[2]:,.2f}",  # <- Aquí se da formato con 2 decimales
+            'hora': fila[3].strftime('%Y-%m-%d %H:%M:%S') if fila[3] else ''
         })
 
     conn.close()
@@ -272,7 +275,6 @@ def ver_pedido(id_pedido):
         SELECT 
             p.id_pedido,
             p.fecha_pedido,
-            p.tipo_pedido,
             p.total,
             c.nombre,
             c.telefono

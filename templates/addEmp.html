@@ -11,7 +11,6 @@
 
 <header class="site-header">
     <div class="container">
-        <div class="logo"></div>
         <nav>
             <details>
                 <summary>Banners</summary>
@@ -23,7 +22,7 @@
             <details>
                 <summary>Pedidos</summary>
                 <a href="#">Aceptados</a>
-                <a href="#">Opción 2</a>
+                <a href="/pedidos_entrantes">Pendientes</a>
             </details>
 
             <a href="#" class="underline">Estadisticas</a>
@@ -35,6 +34,7 @@
 </header>
 
   <h2>Agregar Empleado/Administrador</h2>
+  <div class="container-form">
     <form method="POST">
         <label>Nombre completo:</label>
         <input type="text" name="nombre" required><br>
@@ -58,10 +58,10 @@
         <input type="password" name="contrasena" required><br>
         <button type="submit">Agregar</button>
     </form>
+    </div>
     {% if mensaje %}
         <p>{{ mensaje }}</p>
     {% endif %}
-
 <footer class="site-footer">
     <div class="container">
         <p>&copy; 2025 Restaurante 360 | Desarrollado por <a href="#" target="_blank">Brandon Florez y Fredes Acosta</a></p>

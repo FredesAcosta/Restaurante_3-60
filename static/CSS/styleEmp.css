@@ -383,61 +383,82 @@ form {
 /* Estilos para los pedidos entrantes */
 
 .pedidos-container {
-    width: 90%;
     max-width: 1000px;
-    margin: 30px auto;
-    background-color: white;
-    padding: 20px 30px;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin: 0 auto;
+    padding: 20px;
 }
 
-/* Título de sección */
-.pedidos-container h2 {
+h2 {
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
 }
 
-/* Estilos del filtro */
-.filtro {
-    margin-bottom: 15px;
+.filtro-box {
+    background: #fff;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    display: inline-block;
 }
-.filtro label {
-    display: block;
+
+.filtro-box label {
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-right: 10px;
 }
-.filtro select {
-    padding: 8px 12px;
+
+.filtro-box select {
+    padding: 6px 12px;
     border-radius: 6px;
     border: 1px solid #ccc;
-    width: 100%;
-    max-width: 300px;
+    background: #f8f8f8;
 }
 
-/* Tabla de pedidos */
 .tabla-pedidos {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
-    font-family: 'Segoe UI', sans-serif;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    overflow: hidden;
 }
-.tabla-pedidos thead {
-    background-color: #343a40;
-    color: white;
-}
-.tabla-pedidos th,
+
+.tabla-pedidos th, 
 .tabla-pedidos td {
-    padding: 10px 15px;
-    border: 1px solid #ddd;
+    padding: 12px 15px;
     text-align: left;
 }
-.tabla-pedidos tbody tr:nth-child(even) {
+
+.tabla-pedidos th {
+    background-color: #f41f00;
+    color: white;
+}
+
+.tabla-pedidos tr:nth-child(even) {
     background-color: #f9f9f9;
 }
-.tabla-pedidos tbody tr:hover {
-    background-color: #eee;
+
+.tabla-pedidos tr:hover {
+    background-color: #f1f1f1;
+}
+
+.btn-detalles {
+    padding: 6px 10px;
+    background-color: #0c254b;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.btn-detalles:hover {
+    background-color: #09305e;
+}
+
+.sin-pedidos {
+    text-align: center;
+    color: gray;
+    margin-top: 20px;
 }
 
 /* Enlace para detalles */
