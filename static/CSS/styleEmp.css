@@ -487,10 +487,9 @@ h2 {
   font-weight: bold;
 }
 
+/* Mejor alineación para los datos del pedido */
 .detalle-pedido-info {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  display: block;   /* antes tenías flex */
   margin-top: 1rem;
   text-align: center;
   color: green;
@@ -533,6 +532,20 @@ h2 {
 
 .detalle-productos tbody tr:hover {
   background-color: #eaeaea;
+}
+.info-table {
+  width: 100%;
+  margin: 0 auto 1rem auto;
+  border-collapse: separate;
+  background: transparent;
+}
+
+.info-table td {
+  padding: 10px 20px;
+  font-weight: bold;
+  color: green;
+  text-align: center;
+  font-size: 16px;
 }
 
 /* Botón volver */

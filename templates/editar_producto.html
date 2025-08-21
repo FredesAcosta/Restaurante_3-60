@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Administración</title>
+    <link rel="stylesheet" href="/static/CSS/styleproductos.css">
+</head>
+<body>
+    <div class="admin-container">
+        <aside class="admin-sidebar">
+            <h2>Administración</h2>
+            <button onclick="showForm('producto')">Productos</button>
+            <button onclick="showForm('categoria')">Categorías</button>
+            <a href="{{ url_for('dashboard_admin') }}" class="volver-btn">← Volver al inicio</a>
+        </aside>
+
+        <main class="admin-main">
+            <h1>Panel de Gestión</h1>
+
+            <!-- Formulario Productos -->
+            <section id="form-producto" class="formulario visible">
+                <h2>Registrar / Editar Producto</h2>
+                <form method="POST" action="/admin/productos" enctype="multipart/form-data">
+                    <input type="text" name="nombre_producto" placeholder="Nombre del producto" required>
+                    <textarea name="descripcion" placeholder="Descripción" required></textarea>
+                    <input type="number" name="precio" placeholder="Precio" step="0.01" required>
+                    <select name="id_categoria" required>
+                        <option value="">Seleccionar categoría</option>
+                        {% for categoria in categorias %}
+                        <option value="{{ categoria.id_categoria }}">{{ categoria.nombre_categoria }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="file" name="imagen">
+                    <label class="check">
+                        <input type="checkbox" name="disponible" checked> Disponible
+                    </label>
+                    <button type="submit" class="guardar">Guardar Producto</button>
+                </form>
+
+                <hr>
+
+                <h3>Lista de productos registrados</h3>
+
+                <table border="1" width="100%" style="margin-top: 20px;">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Imagen</th>
+                            <th>Categoría</th>
+                            <th>Disponible</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in productos %}
+                        <tr>
+                            <td>{{ producto.nombre_producto }}</td>
+                            <td>{{ producto.descripcion }}</td>
+                            <td>${{ producto.precio }}</td>
+                            <td>
+                                {% if producto.imagen %}
+                                    <img src="{{ url_for('static', filename='uploads/' + producto.imagen) }}" width="80">
+                                {% else %}
+                                    Sin imagen
+                                {% endif %}
+                            </td>
+                            <td>{{ producto.nombre_categoria }}</td>
+                            <td>{{ 'Sí' if producto.disponible else 'No' }}</td>
+                            <td>
+                                <a href="{{ url_for('editar_producto', id_producto=producto.id_producto) }}">Editar</a> |
+                                <a href="{{ url_for('eliminar_producto', id_producto=producto.id_producto) }}" onclick="return confirm('¿Seguro que quieres eliminar este producto?')">Eliminar</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Formulario Categorías -->
+            <section id="form-categoria" class="formulario">
+                <h2>Registrar / Editar Categoría</h2>
+                <form method="POST" action="/admin/categorias">
+                    <input type="text" name="nombre_categoria" placeholder="Nombre de la categoría" required>
+                    <button type="submit" class="guardar">Guardar Categoría</button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function showForm(tipo) {
+            document.getElementById("form-producto").classList.remove("visible");
+            document.getElementById("form-categoria").classList.remove("visible");
+            if (tipo === 'producto') {
+                document.getElementById("form-producto").classList.add("visible");
+            } else {
+                document.getElementById("form-categoria").classList.add("visible");
+            }
+        }
+    </script>
+</body>
+</html>
