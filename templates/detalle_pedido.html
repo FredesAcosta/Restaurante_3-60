@@ -15,15 +15,12 @@
                 <summary>Banners</summary>
                 <a href="#">Menú</a>
             </details>
-
             <a href="/empleados">Empleados</a>
-
             <details>
                 <summary>Pedidos</summary>
                 <a href="/pedidos_entrantes">Entrantes</a>
                 <a href="#">Aceptados</a>
             </details>
-
             <a href="#" class="underline">Estadisticas</a>
         </nav>
         <div class="auth-buttons">
@@ -33,16 +30,16 @@
 </header>
 
 <!-- Título -->
-<h2 class="detalle-pedido">Detalle del Pedido #{{ pedido[0] }} - {{ pedido[2] }}</h2>
-
-<div class="container-form">
-  <div>
+<h2 class="detalle-pedido">
+    Detalle del Pedido #{{ pedido[0] }} - {{ pedido[1] }}
+</h2>
+<div>
     <!-- Datos resumen -->
     <div class="detalle-pedido-info">
-      <p><strong>Cliente:</strong> {{ pedido[4] }} ({{ pedido[5] }})</p>
-      <p><strong>Fecha:</strong> {{ pedido[1] }}</p>
-      <p><strong>Total:</strong> ${{ "%.2f"|format(pedido[3]) }}</p>
-    </div>
+  <div><strong>Cliente:</strong> {{ pedido[3] }} ({{ pedido[4] }})</div>
+  <div><strong>Fecha:</strong> {{ pedido[1] }}</div>
+  <div><strong>Total:</strong> ${{ "%.2f"|format(pedido[2]) }}</div>
+</div>
 
     <!-- Productos -->
     <div class="detalle-productos">
@@ -66,12 +63,13 @@
         </tbody>
       </table>
     </div>
+<div class="container-form">
+  
 
     <!-- Botón volver -->
     <a href="/pedidos_entrantes" class="btn-outline">&larr; Volver a la lista</a>
   </div>
 </div>
-
 
 <footer class="site-footer">
     <div class="container">
