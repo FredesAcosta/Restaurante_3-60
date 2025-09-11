@@ -1,90 +1,95 @@
-Reinicio básico de márgenes y paddings
+/* =========================
+   Reset básico
+   ========================= */
 * {
-    margin: 0; /* quita márgenes */
-    padding: 0; /* quita padding */
-    box-sizing: border-box; /* incluye padding y borde en el ancho */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Fuente y fondo del sitio */
+/* =========================
+   Fuente y fondo general
+   ========================= */
 body {
-    font-family: 'Segoe UI', sans-serif; /* establece la tipografía */
-    background-color: rgb(241, 240, 245); /* fondo claro */
-    color: rgb(34, 34, 34); /* texto oscuro */
+    font-family: 'Segoe UI', sans-serif;
+    background-color: rgb(241, 240, 245);
+    color: rgb(34, 34, 34);
 }
 
-/* Estilos para la barra de navegación */
+/* =========================
+   Barra de navegación
+   ========================= */
 nav {
     align-items: center;
-    justify-content: center; /* centra los elementos */
-    display: flex; /* elementos en línea */
-    gap: 20px; /* espacio entre elementos */
-    padding: 10px; /* espacio interno */
+    justify-content: center;
+    display: flex;
+    gap: 20px;
+    padding: 10px;
     background-color: rgb(0, 0, 0);
-    font-family: Arial, sans-serif; /* fuente de la barra */
-    border-bottom: 1px solid #ccc; /* línea inferior */
+    font-family: Arial, sans-serif;
+    border-bottom: 1px solid #ccc;
 }
 
-/* Estilos para el elemento summary (desplegable) */
+/* =========================
+   Elementos desplegables
+   ========================= */
 summary {
-    cursor: pointer; /* cursor de mano */
-    list-style: none; /* sin viñeta */
-    color: rgb(255, 255, 255); /* texto blanco */
+    cursor: pointer;
+    list-style: none;
+    color: rgb(255, 255, 255);
 }
-
-/* Cambia el color al pasar el mouse por summary */
 summary:hover {
-    color: rgb(255, 215, 64); /* amarillo al pasar */
+    color: rgb(255, 215, 64);
 }
-
-/* Cambia el símbolo cuando el details está abierto */
 details[open] summary::after {
-    content: " ▲"; /* flecha arriba */
+    content: " ▲";
 }
-
-/* Símbolo por defecto en summary */
 summary::after {
-    content: " ▼"; /* flecha abajo */
-    /* color: rgb(255, 215, 64); amarillo */
+    content: " ▼";
 }
 
-/* Clase para subrayado personalizado */
+/* =========================
+   Enlaces y subrayado
+   ========================= */
 .underline {
-    text-decoration: none; /* sin subrayado */
-    font-weight: bold; /* negrita */
+    text-decoration: none;
+    font-weight: bold;
 }
-
-/* Estilos para los enlaces */
 a {
-    text-decoration: none; /* sin subrayado */
-    color: rgb(255, 255, 255); /* blanco */
-    display: block; /* ocupa todo el ancho */
-    margin-top: 5px; /* espacio arriba */
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    display: block;
+    margin-top: 5px;
 }
-
-/* Efecto hover en enlaces */
 a:hover {
-    color: rgb(255, 215, 64); /* amarillo al pasar */
-    text-decoration: underline; /* subrayado al pasar
-    */
+    color: rgb(255, 215, 64);
+    text-decoration: underline;
 }
-/* Logo como fondo */
+
+/* =========================
+   Logo
+   ========================= */
 .logo {
-    width: 150px; /* ancho del logo */
-    height: 50px; /* alto del logo */
-    background-image: url('/static/IMG/logo3601.png'); /* ruta de la imagen */
-    background-size: contain; /* ajusta sin recortar */
-    background-repeat: no-repeat; /* no repite */
-    background-position: center; /* centra la imagen */
+    width: 150px;
+    height: 50px;
+    background-image: url('/static/IMG/logo3601.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
-/* Contenedor centralizado */
+/* =========================
+   Contenedor centralizado
+   ========================= */
 .container {
-    max-width: 1200px; /* ancho máximo */
-    margin: 0 auto; /* centra horizontal */
-    padding: 0 20px; /* espacio lateral */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-/* Header superior */
+/* =========================
+   Header superior
+   ========================= */
 .site-header {
     position: sticky;
     top: 0;
@@ -97,231 +102,248 @@ a:hover {
     justify-content: space-between;
     padding: 15px 0;
 }
-/* Enlaces de navegación */
+
+/* =========================
+   Navegación principal
+   ========================= */
 .main-nav a {
-    margin-left: 25px; /* separa enlaces */
-    text-decoration: none; /* quita subrayado */
-    color: rgb(255, 255, 255); /* texto blanco */
-    font-size: 16px; /* tamaño de letra */
-    transition: color 0.3s; /* animación al hover */
+    margin-left: 25px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    transition: color 0.3s;
 }
 .main-nav a:hover {
-    color: rgb(255, 215, 64); /* amarillo al pasar */
+    color: rgb(255, 215, 64);
 }
 
-/* Botones de autenticación */
+/* =========================
+   Botones de autenticación
+   ========================= */
 .auth-buttons {
-    display: flex; /* pone botones en fila */
-    gap: 10px; /* separa botones */
+    display: flex;
+    gap: 10px;
 }
 .btn-outline {
-    padding: 8px 15px; /* espacio interno */
-    border: 1px solid rgb(68, 68, 68); /* borde gris oscuro */
-    background-color: rgb(255, 255, 255); /* fondo blanco */
-    color: rgb(0, 0, 0); /* texto negro */
-    text-decoration: none; /* quita subrayado */
-    border-radius: 4px; /* esquinas redondeadas */
-    transition: background-color 0.3s; /* animación al hover */
+    padding: 8px 15px;
+    border: 1px solid rgb(68, 68, 68);
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
 }
 .btn-outline:hover {
-    background-color: rgb(238, 238, 238); /* gris claro al pasar */
+    background-color: rgb(238, 238, 238);
 }
 .btn-solid {
-    padding: 8px 15px; /* espacio interno */
-    background-color: rgb(68, 68, 68); /* fondo gris oscuro */
-    color: rgb(255, 255, 255); /* texto blanco */
-    text-decoration: none; /* quita subrayado */
-    border-radius: 4px; /* esquinas redondeadas */
-    transition: background-color 0.3s; /* animación al hover */
+    padding: 8px 15px;
+    background-color: rgb(68, 68, 68);
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
 }
 .btn-solid:hover {
-    background-color: rgb(102, 102, 102); /* gris medio al pasar */
+    background-color: rgb(102, 102, 102);
 }
 
-/* Sección héroe */
+/* =========================
+   Sección héroe
+   ========================= */
 .hero {
-    background-color: rgb(0, 0, 0); /* fondo negro */
-    color: rgb(255, 255, 255); /* texto blanco */
-    text-align: center; /* texto centrado */
-    padding: 100px 0; /* espacio arriba y abajo */
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 100px 0;
 }
 .hero h1 {
-    font-size: 48px; /* tamaño del título */
-    margin-bottom: 20px; /* espacio debajo */
+    font-size: 48px;
+    margin-bottom: 20px;
 }
 .hero p {
-    font-size: 20px; /* tamaño del párrafo */
-    margin-bottom: 30px; /* espacio debajo */
+    font-size: 20px;
+    margin-bottom: 30px;
 }
 
-/* Botón principal */
+/* =========================
+   Botón principal
+   ========================= */
 .btn-primary {
-    display: inline-block; /* elemento en línea con padding */
-    padding: 12px 30px; /* espacio interno */
-    background-color: rgb(255, 215, 64); /* fondo amarillo */
-    color: rgb(0, 0, 0); /* texto negro */
-    text-decoration: none; /* quita subrayado */
-    border-radius: 4px; /* esquinas redondeadas */
-    font-weight: bold; /* texto en negrita */
-    transition: background-color 0.3s; /* animación al hover */
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: rgb(255, 215, 64);
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s;
 }
 .btn-primary:hover {
-    background-color: rgb(255, 234, 96); /* amarillo claro al pasar */
+    background-color: rgb(255, 234, 96);
 }
 
-/* Sección de servicios */
+/* =========================
+   Sección servicios
+   ========================= */
 .services {
-    background-color: rgb(255, 255, 255); /* fondo blanco */
-    padding: 80px 0; /* espacio arriba y abajo */
-    text-align: center; /* texto centrado */
+    background-color: rgb(255, 255, 255);
+    padding: 80px 0;
+    text-align: center;
 }
 .services h2 {
-    font-size: 36px; /* tamaño del subtítulo */
-    margin-bottom: 40px; /* espacio debajo */
+    font-size: 36px;
+    margin-bottom: 40px;
 }
-
-/* Contenedor de tarjetas */
 .cards {
-    display: flex; /* activa flexbox */
-    gap: 30px; /* separación entre tarjetas */
-    justify-content: center; /* centra horizontal */
-    flex-wrap: wrap; /* ajusta en varias líneas */
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 .card {
-    background-color: rgb(241, 240, 245); /* fondo gris claro */
-    padding: 30px; /* espacio interno */
-    border-radius: 8px; /* esquinas redondeadas */
-    width: 300px; /* ancho fijo */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* sombra suave */
+    background-color: rgb(241, 240, 245);
+    padding: 30px;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .card h3 {
-    margin-bottom: 15px; /* espacio debajo */
+    margin-bottom: 15px;
 }
 .card p {
-    font-size: 16px; /* tamaño del texto */
+    font-size: 16px;
 }
 
-/* Sección Nosotros */
+/* =========================
+   Sección Nosotros
+   ========================= */
 .about {
-    background-color: rgb(255, 215, 64); /* fondo amarillo */
-    padding: 80px 0; /* espacio arriba y abajo */
-    text-align: center; /* texto centrado */
+    background-color: rgb(255, 215, 64);
+    padding: 80px 0;
+    text-align: center;
 }
 .about h2 {
-    font-size: 36px; /* tamaño del subtítulo */
-    margin-bottom: 20px; /* espacio debajo */
+    font-size: 36px;
+    margin-bottom: 20px;
 }
 .about p {
-    font-size: 18px; /* tamaño del párrafo */
-    max-width: 800px; /* ancho máximo del texto */
-    margin: 0 auto; /* centra el párrafo */
+    font-size: 18px;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-/* Sección Contactos */
+/* =========================
+   Sección Contactos
+   ========================= */
 .contact {
-    background-color: rgb(255, 255, 255); /* fondo blanco */
-    padding: 80px 0; /* espacio arriba y abajo */
-    text-align: center; /* texto centrado */
+    background-color: rgb(255, 255, 255);
+    padding: 80px 0;
+    text-align: center;
 }
 .contact h2 {
-    font-size: 36px; /* tamaño del subtítulo */
-    margin-bottom: 20px; /* espacio debajo */
+    font-size: 36px;
+    margin-bottom: 20px;
 }
 .contact ul {
-    list-style: none; /* quita viñetas */
-    font-size: 16px; /* tamaño de la lista */
+    list-style: none;
+    font-size: 16px;
 }
 .contact li {
-    margin-bottom: 10px; /* espacio entre ítems */
+    margin-bottom: 10px;
 }
 
-/* Pie de página */
+/* =========================
+   Pie de página
+   ========================= */
 .site-footer {
-    background-color: rgb(0, 0, 0); /* fondo negro */
-    color: rgb(255, 255, 255); /* texto blanco */
-    text-align: center; /* texto centrado */
-    padding: 20px 0; /* espacio arriba y abajo */
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 20px 0;
 }
 .site-footer a {
-    color: rgb(255, 215, 64); /* enlace amarillo */
-    text-decoration: none; /* quita subrayado */
-    font-weight: bold; /* negrita en enlace */
+    color: rgb(255, 215, 64);
+    text-decoration: none;
+    font-weight: bold;
 }
 
-/* Span de el + */
+/* =========================
+   Icono de agregar (+)
+   ========================= */
 .plus-icon {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  position: relative;
-  cursor: pointer;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    cursor: pointer;
 }
 .plus-icon::before,
 .plus-icon::after {
-  content: '';
-  position: absolute;
-  background: #333;
-  border-radius: 2px;
+    content: '';
+    position: absolute;
+    background: #333;
+    border-radius: 2px;
 }
 .plus-icon::before {
-  left: 11px;
-  top: 4px;
-  width: 2px;
-  height: 16px; /* línea vertical */
+    left: 11px;
+    top: 4px;
+    width: 2px;
+    height: 16px;
 }
 .plus-icon::after {
-  top: 11px;
-  left: 4px;
-  width: 16px;  /* línea horizontal */
-  height: 2px;
-  
+    top: 11px;
+    left: 4px;
+    width: 16px;
+    height: 2px;
 }
 
-/* Estilos para para la tabla de los empleados */
- 
+/* =========================
+   Estilos para empleados
+   ========================= */
 h2 {
     font-family: Arial, sans-serif;
     text-align: center;
     margin-bottom: 20px;
-  }
+}
 
-  .tabla-empleados {
+.tabla-empleados {
     width: 80%;
     margin: auto;
     border-collapse: collapse;
     font-family: 'Segoe UI', sans-serif;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
+}
 
-  .tabla-empleados th,
-  .tabla-empleados td {
+.tabla-empleados th,
+.tabla-empleados td {
     border: 1px solid #ddd;
     padding: 10px 15px;
     text-align: left;
-  }
+}
 
-  .tabla-empleados thead {
+.tabla-empleados thead {
     background-color: #343a40;
     color: white;
-  }
+}
 
-  .tabla-empleados tbody tr:nth-child(even) {
+.tabla-empleados tbody tr:nth-child(even) {
     background-color: #f9f9f9;
-  }
+}
 
-  .tabla-empleados tbody tr:hover {
+.tabla-empleados tbody tr:hover {
     background-color: #eaeaea;
-  }
+}
 
 /* Estilos del formulario de empleados */
-
 .container-form {
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Cambia a center si quieres centrado vertical total */
-    padding-top: 40px; /* Espacio desde arriba */
+    align-items: flex-start;
+    padding-top: 40px;
     min-height: 100vh;
 }
+
 form {
     background-color: white;
     padding: 30px 40px;
@@ -331,33 +353,27 @@ form {
     max-width: 450px;
 }
 
-  h2 {
-    text-align: center;
-    margin-bottom: 25px;
-    color: #333;
-  }
-
-  label {
+label {
     display: block;
     margin-bottom: 6px;
     margin-top: 15px;
     font-weight: bold;
     color: #444;
-  }
+}
 
-  input[type="text"],
-  input[type="email"],
-  input[type="password"],
-  input[type="tel"],
-  select {
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+select {
     width: 100%;
     padding: 8px 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
     box-sizing: border-box;
-  }
+}
 
-  button {
+button {
     margin-top: 20px;
     width: 100%;
     background-color: #4CAF50;
@@ -367,208 +383,15 @@ form {
     border-radius: 6px;
     font-size: 16px;
     cursor: pointer;
-  }
+}
 
-  button:hover {
+button:hover {
     background-color: #45a049;
-  }
+}
 
-  p {
+p {
     margin-top: 15px;
     color: green;
     text-align: center;
     font-weight: bold;
-  }
-
-/* Estilos para los pedidos entrantes */
-
-.pedidos-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
 }
-
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.filtro-box {
-    background: #fff;
-    padding: 15px 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-    display: inline-block;
-}
-
-.filtro-box label {
-    font-weight: bold;
-    margin-right: 10px;
-}
-
-.filtro-box select {
-    padding: 6px 12px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    background: #f8f8f8;
-}
-
-.tabla-pedidos {
-    width: 100%;
-    border-collapse: collapse;
-    background: #fff;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.tabla-pedidos th, 
-.tabla-pedidos td {
-    padding: 12px 15px;
-    text-align: left;
-}
-
-.tabla-pedidos th {
-    background-color: #f41f00;
-    color: white;
-}
-
-.tabla-pedidos tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.tabla-pedidos tr:hover {
-    background-color: #f1f1f1;
-}
-
-.btn-detalles {
-    padding: 6px 10px;
-    background-color: #0c254b;
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 0.9rem;
-}
-
-.btn-detalles:hover {
-    background-color: #09305e;
-}
-
-.sin-pedidos {
-    text-align: center;
-    color: gray;
-    margin-top: 20px;
-}
-
-/* Enlace para detalles */
-.ver-detalles {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-}
-.ver-detalles:hover {
-    text-decoration: underline;
-}
-
-/* Mensaje de "sin pedidos" */
-.pedidos-vacios {
-    text-align: center;
-    color: gray;
-    margin-top: 20px;
-}
-
-/* Estilos para el detalle de pedidos */
-.detalle-pedido h2 {
-  text-align: center;
-  margin-top: 1rem;
-  color: rgb(34, 34, 34);
-  font-size: 28px;
-  font-weight: bold;
-}
-
-/* Mejor alineación para los datos del pedido */
-.detalle-pedido-info {
-  display: block;   /* antes tenías flex */
-  margin-top: 1rem;
-  text-align: center;
-  color: green;
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.detalle-pedido-info p {
-  margin-bottom: 10px;
-}
-
-.detalle-productos {
-  margin-top: 40px;
-  width: 100%;
-}
-
-.detalle-productos table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  font-family: 'Segoe UI', sans-serif;
-}
-
-.detalle-productos th,
-.detalle-productos td {
-  padding: 10px 15px;
-  border: 1px solid #ddd;
-  text-align: left;
-}
-
-.detalle-productos thead {
-  background-color: #343a40;
-  color: white;
-}
-
-.detalle-productos tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.detalle-productos tbody tr:hover {
-  background-color: #eaeaea;
-}
-.info-table {
-  width: 100%;
-  margin: 0 auto 1rem auto;
-  border-collapse: separate;
-  background: transparent;
-}
-
-.info-table td {
-  padding: 10px 20px;
-  font-weight: bold;
-  color: green;
-  text-align: center;
-  font-size: 16px;
-}
-
-/* Botón volver */
-.btn-outline {
-  margin-top: 25px;
-  display: inline-block;
-  padding: 8px 15px;
-  border: 1px solid rgb(68, 68, 68);
-  background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
-  text-decoration: none;
-  border-radius: 6px;
-  transition: background-color 0.3s;
-}
-.btn-outline:hover {
-  background-color: #efefef;
-}
-
-/* Alineación del bloque */
-.container-form > div {
-  width: 100%;
-  max-width: 900px;
-  margin: auto;
-}
-
-

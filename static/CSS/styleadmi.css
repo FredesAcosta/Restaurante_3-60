@@ -200,3 +200,98 @@ body {
     padding: 15px 10px;
     font-size: 0.9rem;
 }
+
+/* Estilos para la lista de empleados */
+h2 {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.tabla-empleados {
+    width: 80%;
+    margin: auto;
+    border-collapse: collapse;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.tabla-empleados th,
+.tabla-empleados td {
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    text-align: left;
+}
+
+.tabla-empleados thead {
+    background-color: #343a40;
+    color: white;
+}
+
+.tabla-empleados tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.tabla-empleados tbody tr:hover {
+    background-color: #eaeaea;
+}
+
+/* Estilos del formulario de empleados */
+.container-form {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 40px;
+    min-height: 100vh;
+}
+form {
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #444;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+button {
+    margin-top: 20px;
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 0;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+p {
+    margin-top: 15px;
+    color: green;
+    text-align: center;
+    font-weight: bold;
+}

@@ -6,26 +6,22 @@
     <title>Empleados</title>
     <link rel="stylesheet" href="/static/CSS/styleEmp.css">
 </head>
+
 <body>
-     <header class="site-header">
-        <div class="container">
-        
-            <nav>
-                <details>
-                    <summary>Banners</summary>
-                    <a href="#">Menú</a>
-                </details>
+     <!-- Encabezado -->
+    <header class="main-header">
 
-                <a href="/empleados">Empleados</a>
+        <nav class="main-nav">
+            <a href="/admin/empleados">Empleados</a>
+            <a href="/admin/productos">Productos</a>
+            <a href="/admin/estadisticas">Estadísticas</a>
+        </nav>
 
-                <details>
-                    <summary>Pedidos</summary>
-                    <a href="#">Aceptados</a>
-                    <a href="/pedidos_entrantes">Entrantes</a>
-                </details>
-
-                <a href="#" class="underline">Estadisticas</a>
-            </nav>
+        <div class="user-actions">
+            <div class="user-avatar" onclick="toggleDropdown()"></div>
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="/logout">Cerrar sesión</a>
+            </div>
         </div>
     </header>
     <a href="/add_empleado" class="plus-icon"></a>

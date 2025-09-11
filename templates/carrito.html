@@ -18,26 +18,6 @@
         </form>
       </li>
     {% endfor %}
-  </ul><!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Carrito de Compras</title>
-  <link rel="stylesheet" href="/static/CSS/stylecarrito.css">
-</head>
-<body>
-  <h1>Tu Carrito</h1>
-
-  <ul>
-    {% for item in carrito_items %}
-      <li>
-        {{ item.nombre }} - ${{ '%.2f'|format(item.precio) }}
-        <form action="{{ url_for('quitar_carrito') }}" method="POST" style="display:inline;">
-          <input type="hidden" name="producto_id" value="{{ item.id_producto }}">
-          <button type="submit">Quitar</button>
-        </form>
-      </li>
-    {% endfor %}
   </ul>
 
   <p>Total: ${{ '%.2f'|format(total_carrito) }}</p>
@@ -50,13 +30,3 @@
 </body>
 </html>
 
-
-  <p>Total: ${{ '%.2f'|format(total_carrito) }}</p>
-
-  <form action="/pagar" method="POST">
-    <button type="submit">Pagar</button>
-  </form>
-
-  <a href="/menu">Volver al menú</a>
-</body>
-</html>

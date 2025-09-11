@@ -34,24 +34,28 @@ def login():
         password = request.form['password']
 
         conn = mysql.connect()
-        cur = conn.cursor(pymysql.cursors.DictCursor)
+        cur = conn.cursor()
         cur.execute("SELECT * FROM usuarios WHERE correo = %s", (email,))
         user = cur.fetchone()
+        cur.close()
 
-        if user and bcrypt.checkpw(password.encode('utf-8'), user['contrasena'].encode('utf-8')):
+        if user and check_password_hash(user[4], password):  # user[4] es la columna 'contraseña'
             session['loggedin'] = True
-            session['id'] = user['id_usuario']
-            session['nombre'] = user['nombre']
-            session['rol'] = user['id_rol']
+            session['id'] = user[0]      # id_usuario
+            session['nombre'] = user[1]  # nombre
+            session['rol'] = user[5]     # id_rol
 
-            if user['id_rol'] == 1:
+            # Redirige según el rol
+            if user[5] == 1:  # Administrador
                 return redirect('/dashboard_admin')
-            elif user['id_rol'] == 2:
-                return render_template('dashboardEmpleado.html', text="Bienvenido")
+            elif user[5] == 2:  # Cocinero
+                return render_template('dashboardAdmin.html', text="Bienvenido Cocinero")
+            elif user[5] == 3:  # Cliente
+                return redirect('/dashboard_cliente')
             else:
                 return redirect('/dashboard_cliente')
         else:
-            text = 'Correo o contraseña incorrecta'
+            text = "Correo o contraseña incorrectos."
 
     return render_template('login.html', text=text)
 
@@ -69,12 +73,12 @@ def register():
         telefono = request.form['phone']
         password = request.form['password']
 
-        hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+        hashed = generate_password_hash(password)
 
         conn = mysql.connect()
         cur = conn.cursor()
-        cur.execute("INSERT INTO usuarios (nombre, correo, telefono, contrasena, id_rol) VALUES (%s, %s, %s, %s, %s)",
-                    (nombre, email, telefono, hashed, 3))
+        cur.execute("INSERT INTO usuarios (nombre, correo, telefono, contraseña, id_rol) VALUES (%s, %s, %s, %s, %s)",
+            (nombre, email, telefono, hashed, 3))
         conn.commit()
         cur.close()
         return redirect('/login')
@@ -90,7 +94,8 @@ def dashboard_cliente():
     cur.close()
     return render_template('dashboardClientes.html', productos=productos)
 
-# Mostrar menu disponible
+# Construccion de Menu + Carrito
+
 @app.route('/menu')
 def menu():
     if 'loggedin' not in session:
@@ -98,29 +103,55 @@ def menu():
 
     conn = mysql.connect()
     cur = conn.cursor(pymysql.cursors.DictCursor)
-    cur.execute("SELECT * FROM productos WHERE disponible = 1")
-    productos = cur.fetchall()
-
-    # Construir carrito
-    carrito_ids = session.get('carrito', [])
     carrito_items = []
     total_carrito = 0.0
-    for pid in carrito_ids:
-        cur.execute(
-            "SELECT id_producto, nombre_producto AS nombre, precio, imagen "
-            "FROM productos WHERE id_producto = %s", (pid,)
-        )
-        p = cur.fetchone()
-        if p:
-            carrito_items.append(p)
-            total_carrito += float(p['precio'])
-    cur.close()
+    try:
+        cur.execute("SELECT * FROM productos WHERE disponible = 1")
+        productos = cur.fetchall()
 
-    return render_template('menu.html',
-        productos=productos,
-        carrito_items=carrito_items,
-        total_carrito=total_carrito
-    )
+        carrito_ids = session.get('carrito', [])
+        for pid in carrito_ids:
+            cur.execute(
+                "SELECT id_producto, nombre_producto AS nombre, precio, imagen FROM productos WHERE id_producto = %s",
+                (pid,)
+            )
+            p = cur.fetchone()
+            if p:
+                carrito_items.append(p)
+                total_carrito += float(p['precio'])
+    finally:
+        cur.close()
+        conn.close()
+
+    return render_template('menu.html', productos=productos, carrito_items=carrito_items, total_carrito=total_carrito)
+
+
+@app.route('/carrito')
+def ver_carrito():
+    if 'loggedin' not in session:
+        return redirect('/login')
+
+    conn = mysql.connect()
+    cur = conn.cursor(pymysql.cursors.DictCursor)
+    carrito_items = []
+    total_carrito = 0.0
+    try:
+        carrito_ids = session.get('carrito', [])
+        for pid in carrito_ids:
+            cur.execute(
+                "SELECT id_producto, nombre_producto AS nombre, precio, imagen FROM productos WHERE id_producto = %s",
+                (pid,)
+            )
+            p = cur.fetchone()
+            if p:
+                carrito_items.append(p)
+                total_carrito += float(p['precio'])
+    finally:
+        cur.close()
+        conn.close()
+
+    return render_template('carrito.html', carrito_items=carrito_items, total_carrito=total_carrito)
+
 
 @app.route('/agregar_carrito', methods=['POST'])
 def agregar_carrito():
@@ -139,6 +170,7 @@ def agregar_carrito():
     flash("Producto agregado al carrito.", "success")
     return redirect(url_for('menu'))
 
+
 @app.route('/quitar_carrito', methods=['POST'])
 def quitar_carrito():
     if 'loggedin' not in session:
@@ -150,6 +182,8 @@ def quitar_carrito():
         carrito.remove(pid)
     session['carrito'] = carrito
     return redirect(url_for('menu'))
+
+
 
 # Mostrar mesas disponibles
 @app.route('/mesas')
@@ -266,11 +300,11 @@ def editar_producto(id_producto):
 
 @app.route('/dashboard_admin')
 def dashboard_admin():
-    if 'loggedin' in session and session['rol'] == 1:
-        return render_template('dashboardAdmin.html')
-    return redirect('/login')
+    if 'loggedin' not in session or session['rol'] != 1:
+        return redirect('/login')
+    return render_template('dashboardAdmin.html')
 
-@app.route('/empleados')
+@app.route('/admin/empleados')
 def empleados():
     # Establece una conexión con la base de datos MySQL
     conn = mysql.connect()
@@ -336,7 +370,7 @@ def add_empleado():
 
             # Inserta el nuevo usuario en la tabla usuarios
             cur.execute("""
-                INSERT INTO usuarios (nombre, correo, telefono, contraseña, id_rol)
+                INSERT INTO usuarios (nombre, correo, telefono, contraseña, id_rol)r
                 VALUES (%s, %s, %s, %s, %s)
             """, (nombre, correo, telefono, hash_contrasena, id_rol))
             id_usuario = cur.lastrowid  # Obtiene el id generado automáticamente
@@ -427,6 +461,7 @@ def ver_pedido(id_pedido):
         return "Pedido no encontrado", 404
 
     return render_template('detalle_pedido.html', pedido=pedido, productos=productos)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
