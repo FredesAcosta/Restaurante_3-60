@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificar código - Restaurante 360</title>
+    <link rel="stylesheet" href="/static/CSS/styleregister.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="logo"></div>
+            <nav class="main-nav">
+                <a href="/">Inicio</a>
+                <a href="/#services">Servicios</a>
+                <a href="/#about">Nosotros</a>
+                <a href="/#contact">Contactos</a>
+            </nav>
+            <div class="auth-buttons">
+                <a href="/login" class="btn-outline">Ingresar</a>
+                <a href="/register" class="btn-solid">Registrarse</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Formulario -->
+    <div class="login-container">
+        <h1>Verificar código</h1>
+        <form action="/verify_code" method="POST">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <p class="mensaje-flash">{{ message }}</p>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+
+            <div class="form-group">
+                <label for="telefono">Número de celular</label>
+                <input type="tel" id="telefono" name="telefono" 
+                       placeholder="+573183690616" 
+                       pattern="^\+57[0-9]{10}$" 
+                       title="Debe comenzar con +57 seguido de 10 dígitos (ejemplo: +573183690616)" 
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label for="codigo">Código recibido</label>
+                <input type="text" id="codigo" name="codigo" placeholder="Ej: 123456" pattern="[0-9]{6}" required>
+            </div>
+
+            <button type="submit">Validar código</button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 Restaurante 360 | Desarrollado por <a href="#">Brandon Florez y Fredes Acosta</a></p>
+        </div>
+    </footer>
+    <script src="/static/validaciones.js"></script>
+</body>
+</html>

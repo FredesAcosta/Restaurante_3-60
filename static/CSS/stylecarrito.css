@@ -1,0 +1,203 @@
+/* === CONTENEDOR GENERAL === */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f8f9fa;
+  color: #333;
+}
+
+/* === HEADER === */
+.site-header {
+  background: #2c3e50;
+  color: white;
+  padding: 15px 0;
+}
+
+.site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: auto;
+}
+
+.site-header .main-nav a {
+  margin: 0 15px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.site-header .main-nav a:hover {
+  color: #f1c40f;
+}
+
+.auth-buttons a {
+  margin-left: 10px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.btn-outline {
+  border: 2px solid white;
+  color: white;
+}
+
+.btn-outline:hover {
+  background: white;
+  color: #2c3e50;
+}
+
+.btn-solid {
+  background: #f1c40f;
+  color: #2c3e50;
+  border: none;
+}
+
+.btn-solid:hover {
+  background: #d4ac0d;
+}
+
+/* === CARRITO === */
+.carrito-container {
+  width: 80%;
+  max-width: 800px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+}
+
+.carrito-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.carrito-lista {
+  list-style: none;
+  padding: 0;
+}
+
+.carrito-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.carrito-item:last-child {
+  border-bottom: none;
+}
+
+.total {
+  text-align: right;
+  font-size: 18px;
+  margin: 20px 0;
+}
+
+/* === BOTONES === */
+button, .btn-volver {
+  background: #2c3e50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+button:hover, .btn-volver:hover {
+  background: #34495e;
+}
+
+.btn-quitar {
+  background: #e74c3c;
+  padding: 6px 12px;
+}
+
+.btn-quitar:hover {
+  background: #c0392b;
+}
+
+.btn-confirmar {
+  display: block;
+  margin: 20px auto;
+  background: #27ae60;
+}
+
+.btn-confirmar:hover {
+  background: #219150;
+}
+
+.btn-cancelar {
+  background: #e74c3c;
+  margin-top: 15px;
+}
+
+.btn-cancelar:hover {
+  background: #c0392b;
+}
+
+.btn-volver {
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: none;
+  text-align: center;
+}
+
+/* === MODAL LOADER === */
+.loader-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.loader-content {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  text-align: center;
+  width: 300px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+}
+
+/* === SPINNER === */
+.spinner {
+  margin: 0 auto 20px auto;
+  width: 50px;
+  height: 50px;
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #2c3e50;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* === FOOTER === */
+.site-footer {
+  background: #2c3e50;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.site-footer a {
+  color: #f1c40f;
+  text-decoration: none;
+}

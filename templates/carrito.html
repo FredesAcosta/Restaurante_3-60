@@ -2,61 +2,79 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Carrito de Compras</title>
+  <title>Carrito de Compras - Restaurante 360</title>
   <link rel="stylesheet" href="/static/CSS/stylecarrito.css">
 </head>
 <body>
-  <h1>Tu Carrito</h1>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <div class="logo"></div>
+      <nav class="main-nav">
+        <a href="/">Inicio</a>
+        <a href="/#services">Servicios</a>
+        <a href="/#about">Nosotros</a>
+        <a href="/#contact">Contactos</a>
+      </nav>
+      <div class="auth-buttons">
+        <a href="/logout" class="btn-outline">Cerrar sesión</a>
+      </div>
+    </div>
+  </header>
 
-  <ul>
-    {% for item in carrito_items %}
-      <li>
-        {{ item.nombre }} - ${{ '%.2f'|format(item.precio) }}
-        <form action="{{ url_for('quitar_carrito') }}" method="POST" style="display:inline;">
-          <input type="hidden" name="producto_id" value="{{ item.id_producto }}">
-          <button type="submit">Quitar</button>
-        </form>
-      </li>
-    {% endfor %}
-  </ul><!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Carrito de Compras</title>
-  <link rel="stylesheet" href="/static/CSS/stylecarrito.css">
-</head>
-<body>
-  <h1>Tu Carrito</h1>
+  <!-- Contenedor Carrito -->
+  <div class="carrito-container">
+    <h1>Resumen de tu Pedido</h1>
 
-  <ul>
-    {% for item in carrito_items %}
-      <li>
-        {{ item.nombre }} - ${{ '%.2f'|format(item.precio) }}
-        <form action="{{ url_for('quitar_carrito') }}" method="POST" style="display:inline;">
-          <input type="hidden" name="producto_id" value="{{ item.id_producto }}">
-          <button type="submit">Quitar</button>
-        </form>
-      </li>
-    {% endfor %}
-  </ul>
+    <ul class="carrito-lista">
+      {% for item in carrito_items %}
+        <li class="carrito-item">
+          <span>{{ item.nombre }} - ${{ '%.2f'|format(item.precio) }}</span>
+          <form action="{{ url_for('quitar_carrito') }}" method="POST" style="display:inline;">
+            <input type="hidden" name="producto_id" value="{{ item.id_producto }}">
+            <button type="submit" class="btn-quitar">Quitar</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
 
-  <p>Total: ${{ '%.2f'|format(total_carrito) }}</p>
+    <p class="total"><strong>Total:</strong> ${{ '%.2f'|format(total_carrito) }}</p>
 
-  <form action="/pagar" method="POST">
-    <button type="submit">Pagar</button>
-  </form>
+    {% if session.get("tipo_pedido") == "mesa" %}
+      <p><strong>Mesa reservada:</strong> {{ session.get("numero_mesa") }}</p>
+    {% else %}
+      <p><strong>Dirección de entrega:</strong> {{ session.get("direccion") }}</p>
+    {% endif %}
 
-  <a href="/menu">Volver al menú</a>
-</body>
-</html>
+    <!-- Formulario de Pago -->
+    <form id="pedido-form" action="{{ url_for('realizar_pedido') }}" method="POST">
+      <label for="metodo_pago">Método de pago:</label><br>
+      <input type="radio" name="metodo_pago" value="efectivo" required> Efectivo<br>
+      <input type="radio" name="metodo_pago" value="tarjeta"> Tarjeta<br>
+      <input type="radio" name="metodo_pago" value="transferencia"> Transferencia<br><br>
 
+      <button type="button" class="btn-confirmar" onclick="mostrarLoader()">Realizar Pedido</button>
+    </form>
 
-  <p>Total: ${{ '%.2f'|format(total_carrito) }}</p>
+    <a href="/menu" class="btn-volver">Volver al menú</a>
+  </div>
 
-  <form action="/pagar" method="POST">
-    <button type="submit">Pagar</button>
-  </form>
+  <!-- Modal Loader -->
+  <div id="loader-modal" class="loader-modal">
+    <div class="loader-content">
+      <div class="spinner"></div>
+      <p>Procesando tu pedido...</p>
+      <button type="button" class="btn-cancelar" onclick="cancelarPedido()">Cancelar</button>
+    </div>
+  </div>
 
-  <a href="/menu">Volver al menú</a>
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 Restaurante 360 | Desarrollado por <a href="#">Brandon Florez y Fredes Acosta</a></p>
+    </div>
+  </footer>
+
+  <script src="/static/script_carrito.js"></script>
 </body>
 </html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante 360 - Pedidos Entrantes</title>
+    <link rel="stylesheet" href="/static/CSS/styleEmp.css">
+    <meta http-equiv="refresh" content="15"> 
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container">
+        <nav>
+            <details>
+                <summary>Banners</summary>
+                <a href="#">Menú</a>
+            </details>
+
+            <a href="/empleados">Empleados</a>
+
+            <details>
+                <summary>Pedidos</summary>
+                <a href="#">Aceptados</a>
+                <a href="/pedidos_entrantes">Pendientes</a>
+            </details>
+
+            <a href="#" class="underline">Estadisticas</a>
+        </nav>
+        <div class="auth-buttons">
+            <a href="/login" class="btn-outline">Ingresar</a>
+        </div>
+    </div>
+</header>
+
+  <h2>Agregar Empleado/Administrador</h2>
+  <div class="container-form">
+    <form method="POST">
+        <label>Nombre completo:</label>
+        <input type="text" name="nombre" required><br>
+        <label>Correo personal:</label>
+        <input type="email" name="correo" required><br>
+        <label>Teléfono:</label>
+        <input type="tel" name="telefono" required><br>
+        <label>Rol:</label>
+        <select name="rol" required>
+            <option value="Administrador">Administrador</option>
+            <option value="Vendedor">Empleado</option>
+        </select><br>
+        <label>Cargo:</label>
+        <select name="cargo" required>
+            <option value="Cajero">Cajero</option>
+            <option value="Mesero">Mesero</option>
+            <option value="Cocinero">Cocinero</option>
+            <option value="Domiciliario">Domiciliario</option>
+        </select><br>
+        <label>Contraseña provisional:</label>
+        <input type="password" name="contrasena" required><br>
+        <button type="submit">Agregar</button>
+    </form>
+    </div>
+    {% if mensaje %}
+        <p>{{ mensaje }}</p>
+    {% endif %}
+<footer class="site-footer">
+    <div class="container">
+        <p>&copy; 2025 Restaurante 360 | Desarrollado por <a href="#" target="_blank">Brandon Florez y Fredes Acosta</a></p>
+    </div>
+</footer>
+
+</body>
+</html>
