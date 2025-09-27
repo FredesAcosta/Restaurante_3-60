@@ -1,0 +1,151 @@
+/* ===== Reset básico ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+}
+
+/* ====== HEADER ====== */
+.site-header {
+    background-color: #000;
+    color: #fff;
+    padding: 15px 0;
+}
+
+.site-header .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.site-header nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.site-header nav a:hover,
+.site-header nav .underline {
+    color: #f1c40f;
+}
+
+.auth-buttons .btn-outline {
+    background: none;
+    border: 1px solid #fff;
+    padding: 6px 12px;
+    border-radius: 5px;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.auth-buttons .btn-outline:hover {
+    background: #f1c40f;
+    color: #000;
+    border-color: #f1c40f;
+}
+
+/* ====== TITULOS ====== */
+h2 {
+    text-align: center;
+    margin: 40px 0 20px;
+    color: #222;
+}
+
+/* ====== FORMULARIO ====== */
+.container-form {
+    max-width: 600px;
+    margin: 0 auto 40px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.container-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.container-form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.container-form input,
+.container-form select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    width: 100%;
+}
+
+.container-form button {
+    background: #f1c40f;
+    color: #000;
+    font-weight: bold;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.container-form button:hover {
+    background: #d4ac0d;
+}
+
+/* ====== TABLA EMPLEADOS ====== */
+table {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto 60px;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+table th {
+    background: #f1c40f;
+    color: #000;
+    font-weight: bold;
+}
+
+table tr:last-child td {
+    border-bottom: none;
+}
+
+/* ====== FOOTER ====== */
+.site-footer {
+    background: #000;
+    color: #f1c40f;
+    text-align: center;
+    padding: 15px 10px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;
+}
+

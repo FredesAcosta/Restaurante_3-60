@@ -1,0 +1,71 @@
+/* ===== TABLAS BONITAS ===== */
+.tabla-pedidos.bonita {
+  width: 90%;
+  margin: 25px auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.tabla-pedidos.bonita th,
+.tabla-pedidos.bonita td {
+  padding: 14px 18px;
+  text-align: center;
+}
+
+.tabla-pedidos.bonita th {
+  background-color: #222;
+  color: #fff;
+  font-weight: bold;
+}
+
+.tabla-pedidos.bonita tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tabla-pedidos.bonita tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* ===== BADGES DE ESTADO (tipo semáforo) ===== */
+.badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  display: inline-block;
+  min-width: 90px;
+}
+
+.badge.pendiente {
+  background-color: #f1c40f; /* Amarillo */
+  color: #000;
+}
+
+.badge.preparando,
+.badge.en\ preparación {
+  background-color: #e67e22; /* Naranja */
+  color: #fff;
+}
+
+.badge.en\ camino {
+  background-color: #2980b9; /* Azul */
+  color: #fff;
+}
+
+.badge.entregado {
+  background-color: #27ae60; /* Verde */
+  color: #fff;
+}
+
+/* ===== MENSAJE SIN PEDIDOS ===== */
+.no-pedidos {
+  text-align: center;
+  font-style: italic;
+  color: #666;
+  padding: 20px;
+  font-size: 1rem;
+}

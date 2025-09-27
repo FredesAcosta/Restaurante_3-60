@@ -1,203 +1,159 @@
-/* === CONTENEDOR GENERAL === */
-body {
-  font-family: Arial, sans-serif;
+
+* {
   margin: 0;
-  background: #f8f9fa;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
   color: #333;
 }
 
-/* === HEADER === */
+/* Header */
 .site-header {
-  background: #2c3e50;
-  color: white;
-  padding: 15px 0;
-}
-
-.site-header .container {
+  background-color: #343a40;
+  color: #fff;
+  padding: 15px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 90%;
-  margin: auto;
 }
 
-.site-header .main-nav a {
-  margin: 0 15px;
-  color: white;
+.site-header .logo {
+  background-image: url('/static/img/logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 150px;
+  height: 50px;
+}
+
+.main-nav {
+  display: flex;
+  gap: 20px;
+}
+.main-nav a {
+  color: #fff;
   text-decoration: none;
   font-weight: bold;
 }
-
-.site-header .main-nav a:hover {
-  color: #f1c40f;
+.main-nav a:hover {
+  color: #f4c842;
 }
 
-.auth-buttons a {
-  margin-left: 10px;
-  padding: 6px 12px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.btn-outline {
-  border: 2px solid white;
-  color: white;
-}
-
-.btn-outline:hover {
-  background: white;
-  color: #2c3e50;
-}
-
-.btn-solid {
-  background: #f1c40f;
-  color: #2c3e50;
-  border: none;
-}
-
-.btn-solid:hover {
-  background: #d4ac0d;
-}
-
-/* === CARRITO === */
+/* Carrito */
 .carrito-container {
-  width: 80%;
-  max-width: 800px;
-  margin: 40px auto;
-  background: white;
+  max-width: 900px;
+  margin: 50px auto;
   padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .carrito-container h1 {
   text-align: center;
-  margin-bottom: 20px;
-  color: #2c3e50;
+  margin-bottom: 25px;
+  font-size: 2rem;
 }
 
+/* Lista */
 .carrito-lista {
   list-style: none;
   padding: 0;
+  margin-bottom: 20px;
 }
-
 .carrito-item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   padding: 12px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #eee;
+}
+.btn-quitar {
+  background: transparent;
+  border: none;
+  color: #c00;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.btn-quitar:hover {
+  color: #900;
 }
 
-.carrito-item:last-child {
-  border-bottom: none;
-}
-
+/* Total */
 .total {
+  font-weight: bold;
+  font-size: 1.2rem;
   text-align: right;
-  font-size: 18px;
   margin: 20px 0;
 }
 
-/* === BOTONES === */
-button, .btn-volver {
-  background: #2c3e50;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s;
-  font-weight: bold;
-}
-
-button:hover, .btn-volver:hover {
-  background: #34495e;
-}
-
-.btn-quitar {
-  background: #e74c3c;
-  padding: 6px 12px;
-}
-
-.btn-quitar:hover {
-  background: #c0392b;
-}
-
+/* Botones */
 .btn-confirmar {
   display: block;
-  margin: 20px auto;
-  background: #27ae60;
+  width: 100%;
+  padding: 12px;
+  background: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
 }
-
 .btn-confirmar:hover {
-  background: #219150;
-}
-
-.btn-cancelar {
-  background: #e74c3c;
-  margin-top: 15px;
-}
-
-.btn-cancelar:hover {
-  background: #c0392b;
+  background: #218838;
 }
 
 .btn-volver {
   display: inline-block;
-  margin-top: 20px;
+  margin-top: 15px;
   text-decoration: none;
-  text-align: center;
+  color: #007bff;
+  font-weight: bold;
+}
+.btn-volver:hover {
+  text-decoration: underline;
 }
 
-/* === MODAL LOADER === */
+/* Loader */
 .loader-modal {
   display: none;
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  inset: 0;
   background: rgba(0,0,0,0.6);
   justify-content: center;
   align-items: center;
-  z-index: 1000;
 }
-
 .loader-content {
-  background: white;
+  background: #fff;
   padding: 30px;
-  border-radius: 16px;
+  border-radius: 8px;
   text-align: center;
-  width: 300px;
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
 }
-
-/* === SPINNER === */
 .spinner {
-  margin: 0 auto 20px auto;
-  width: 50px;
-  height: 50px;
-  border: 6px solid #f3f3f3;
-  border-top: 6px solid #2c3e50;
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ccc;
+  border-top: 4px solid #28a745;
   border-radius: 50%;
   animation: spin 1s linear infinite;
+  margin: auto;
 }
-
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  to { transform: rotate(360deg); }
 }
 
-/* === FOOTER === */
+/* Footer */
 .site-footer {
-  background: #2c3e50;
-  color: white;
-  padding: 20px;
+  background: #343a40;
+  color: #fff;
   text-align: center;
+  padding: 20px;
   margin-top: 40px;
 }
-
 .site-footer a {
-  color: #f1c40f;
-  text-decoration: none;
+  color: #f4c842;
+  font-weight: bold;
 }

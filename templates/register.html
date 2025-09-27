@@ -29,9 +29,9 @@
     <div class="register-container">
         <h1>Crear cuenta</h1>
         <form action="/register" method="POST">
-    {% if text %}
-      <p class="mensaje-flash">{{ text }}</p>
-    {% endif %}
+        {% if text %}
+            <p class="mensaje-flash">{{ text }}</p>
+        {% endif %}
             <div class="form-group">
                 <label for="fullname">Nombre completo</label>
                 <input type="text" name="fullname" id="fullname"
@@ -47,7 +47,7 @@
 
             <div class="form-group">
                 <label for="phone">Número de celular</label>
-                <input type="tel" id="phone" placeholder="10 digitos unicamente"name="phone" pattern="[0-9]{10}" required>
+                <input type="tel" id="phone" placeholder="10 digitos unicamente" name="phone" pattern="[0-9]{10}" required>
             </div>
 
             <div class="form-group">
@@ -57,22 +57,81 @@
 
             <div class="form-group">
                 <label for="confirm_password">Confirmar contraseña</label>
-                <input type="password" id="confirm_password" placeholder="8 caracteres minimo"  name="confirm_password" minlength="8" required>
+                <input type="password" id="confirm_password" placeholder="8 caracteres minimo" name="confirm_password" minlength="8" required>
+            </div>
+
+            <!-- Checkbox con disparador del modal -->
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="terminos" required>
+                    Acepto los <span id="openModal" class="link">Términos y condiciones</span>
+                </label>
             </div>
 
             <button type="submit">Registrarse</button>
 
             <p class="login-link">¿Ya tienes cuenta? <a href="/login">Inicia sesión</a></p>
-
         </form>
     </div>
 
-    <!-- Footer igual del inicio -->
+    <!-- Modal de términos -->
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close">&times;</span>
+            <h2>Términos y Condiciones de Uso – Restaurante 360</h2>
+            <p>
+                Al registrarse y utilizar la plataforma <strong>Restaurante 360</strong>, usted acepta las siguientes condiciones:
+            </p>
+            <h3>1. Registro y veracidad de la información</h3>
+            <p>
+                El usuario se compromete a proporcionar datos reales, completos y actualizados en el formulario de registro.
+                La plataforma no se hace responsable por errores derivados de información falsa o incompleta.
+            </p>
+            <h3>2. Uso de la cuenta</h3>
+            <p>
+                Cada cuenta es personal e intransferible.  
+                El usuario es responsable de mantener la confidencialidad de su contraseña y de todas las actividades que se realicen con su cuenta.
+            </p>
+            <h3>3. Privacidad y protección de datos</h3>
+            <p>
+                Los datos personales recolectados (nombre, correo electrónico, número de celular, dirección, etc.) serán tratados conforme a nuestra política de privacidad.  
+                La información se usará exclusivamente para la gestión de pedidos, reservas y comunicaciones relacionadas con el servicio.
+            </p>
+            <h3>4. Pedidos y pagos</h3>
+            <p>
+                Los precios, promociones y disponibilidad de productos pueden variar sin previo aviso.  
+                El usuario es responsable de verificar los datos de su pedido antes de confirmarlo.  
+                En caso de pagos electrónicos, la plataforma no almacena información bancaria y solo actúa como intermediario con las pasarelas de pago autorizadas.
+            </p>
+            <h3>5. Reservas y cancelaciones</h3>
+            <p>
+                El usuario podrá reservar mesas o realizar pedidos según la disponibilidad del restaurante.  
+                Las cancelaciones deberán hacerse con antelación para evitar inconvenientes.
+            </p>
+            <h3>6. Responsabilidades del usuario</h3>
+            <p>
+                No está permitido el uso de la plataforma para fines fraudulentos, ilícitos o que afecten a otros usuarios.  
+                El incumplimiento de estos términos podrá resultar en la suspensión o eliminación de la cuenta.
+            </p>
+            <h3>7. Modificaciones</h3>
+            <p>
+                Restaurante 360 se reserva el derecho de actualizar estos Términos y Condiciones en cualquier momento.  
+                Los cambios serán notificados a través de la misma plataforma.
+            </p>
+        </div>
+    </div>
+
+    <!-- Footer -->
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; 2025 Restaurante 360 | Desarrollado por <a href="" target="_blank">Brandon Florez y Fredes acosta</a></p>
+            <p>&copy; 2025 Restaurante 360 | Desarrollado por 
+                <a href="" target="_blank">Brandon Florez y Fredes Acosta</a>
+            </p>
         </div>
     </footer>
+
+    <!-- Scripts -->
     <script src="/static/validaciones.js"></script>
+    <script src="/static/js/modal.js"></script>
 </body>
 </html>

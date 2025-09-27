@@ -9,7 +9,7 @@
 
     <header class="site-header">
         <h2>Mesas Disponibles</h2>
-        <a href="/dashboard_cliente" class="btn-volver">Volver al Inicio</a>
+        <a href="{{ url_for('dashboard_cliente') }}" class="btn-volver">Volver al Inicio</a>
     </header>
 
     <main>
@@ -19,8 +19,7 @@
                     <div class="mesa-card">
                         <h3>Mesa #{{ mesa.numero_mesa }}</h3>
                         <p>Capacidad: {{ mesa.capacidad }} personas</p>
-                        <form action="/reservar_mesa" method="POST">
-                            <input type="hidden" name="mesa_id" value="{{ mesa.id_mesa }}">
+                        <form action="{{ url_for('seleccionar_mesa', mesa_id=mesa.id_mesa) }}" method="POST">
                             <button type="submit">Reservar</button>
                         </form>
                     </div>
@@ -28,9 +27,10 @@
             </section>
         {% else %}
             <p class="no-mesas">No hay mesas disponibles actualmente. Puedes hacer un pedido para llevar.</p>
-            <a href="/pedido-domicilio" class="btn-pedido">Pedir para llevar</a>
+            <a href="{{ url_for('pedido_domicilio') }}" class="btn-pedido">Pedir para llevar</a>
         {% endif %}
     </main>
 
 </body>
 </html>
+

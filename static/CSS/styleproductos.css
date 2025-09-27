@@ -38,7 +38,7 @@ body {
 }
 
 .admin-sidebar button:hover {
-    background-color: #1abc9c;
+    background-color: rgb(255, 215, 64);
 }
 
 .admin-main {
@@ -98,7 +98,7 @@ textarea {
 }
 
 .guardar {
-    background-color: #1abc9c;
+    background-color: rgb(255, 215, 64);
     border: none;
     padding: 12px;
     color: white;
@@ -109,13 +109,13 @@ textarea {
 }
 
 .guardar:hover {
-    background-color: #16a085;
+    background-color: rgb(255, 215, 64);
 }
 .volver-btn {
     display: block;
     margin-top: 40px;
     padding: 10px 15px;
-    background-color: #16a085;
+    background-color: rgb(255, 215, 64);
     color: white;
     text-align: center;
     text-decoration: none;

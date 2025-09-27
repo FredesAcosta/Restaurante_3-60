@@ -11,14 +11,12 @@
     <div class="container">
       <div class="logo"></div>
       <nav class="main-nav">
-        <a href="/">Inicio</a>
-        <a href="/#services">Servicios</a>
-        <a href="/#about">Nosotros</a>
-        <a href="/#contact">Contactos</a>
+        <a href="/inicio">Inicio</a>
+        <a href="/mesas">Mesas</a>
+        <a href="/mis_pedidos">Pedidos</a>
+        <a href="/menu" class="activo">Menú</a>
+        <a href="/carrito">Carrito</a>
       </nav>
-      <div class="auth-buttons">
-        <a href="/logout" class="btn-outline">Cerrar sesión</a>
-      </div>
     </div>
   </header>
 
@@ -40,20 +38,29 @@
 
     <p class="total"><strong>Total:</strong> ${{ '%.2f'|format(total_carrito) }}</p>
 
+    <!-- 🔹 Sección de mesa o dirección -->
     {% if session.get("tipo_pedido") == "mesa" %}
       <p><strong>Mesa reservada:</strong> {{ session.get("numero_mesa") }}</p>
     {% else %}
-      <p><strong>Dirección de entrega:</strong> {{ session.get("direccion") }}</p>
+      {% if direccion %}
+        <p><strong>Dirección de entrega:</strong> {{ direccion }}</p>
+        <a href="{{ url_for('pedido_domicilio') }}">✏️ Corregir dirección</a>
+      {% else %}
+        <p><strong>No has confirmado dirección.</strong> 
+          <a href="{{ url_for('pedido_domicilio') }}">Agregar dirección</a>
+        </p>
+      {% endif %}
     {% endif %}
+    <br>
 
     <!-- Formulario de Pago -->
-    <form id="pedido-form" action="{{ url_for('realizar_pedido') }}" method="POST">
+    <form id="pedido-form" action="{{ url_for('realizar_pedido') }}" method="POST" onsubmit="mostrarLoader()">
       <label for="metodo_pago">Método de pago:</label><br>
       <input type="radio" name="metodo_pago" value="efectivo" required> Efectivo<br>
       <input type="radio" name="metodo_pago" value="tarjeta"> Tarjeta<br>
       <input type="radio" name="metodo_pago" value="transferencia"> Transferencia<br><br>
 
-      <button type="button" class="btn-confirmar" onclick="mostrarLoader()">Realizar Pedido</button>
+      <button type="submit" class="btn-confirmar">Realizar Pedido</button>
     </form>
 
     <a href="/menu" class="btn-volver">Volver al menú</a>

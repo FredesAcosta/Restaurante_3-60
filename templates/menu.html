@@ -12,7 +12,7 @@
     <nav class="main-nav">
       <a href="/inicio">Inicio</a>
       <a href="/mesas">Mesas</a>
-      <a href="/pedidos">Pedidos</a>
+      <a href="/mis_pedidos">Pedidos</a>
       <a href="/menu" class="activo">Menú</a>
       <a href="/carrito">Carrito</a>
     </nav>
@@ -45,7 +45,7 @@
             {% endif %}
             <h3>{{ producto.nombre }}</h3>
             <p>{{ producto.descripcion }}</p>
-            <p class="precio">${{ '%.2f'|format(producto.precio) }}</p>
+            <p class="precio">${{ '%.2f'|format(producto.precio)| int }}</p>
             <form action="{{ url_for('agregar_carrito') }}" method="POST">
               <input type="hidden" name="producto_id" value="{{ producto.id_producto }}">
               <button type="submit">Agregar al carrito</button>
