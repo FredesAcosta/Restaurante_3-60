@@ -1,79 +1,70 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Mis Pedidos - Restaurante 360</title>
+{% extends "base.html" %}
+
+{% block title %}Mis Pedidos - Restaurante 360{% endblock %}
+
+{% block content %}
+
   <link rel="stylesheet" href="/static/CSS/stylemispedidos.css">
-</head>
-<body>
-  <!-- ===== HEADER ===== -->
-  <header class="main-header">
-    <div class="logo"></div>
-    <nav class="main-nav">
-      <a href="{{ url_for('dashboard_cliente') }}">Inicio</a>
-      <a href="{{ url_for('mis_pedidos') }}" class="active">Pedidos</a>
-      <a href="{{ url_for('logout') }}">Cerrar sesión</a>
-    </nav>
-  </header>
 
-  <!-- ===== CONTENIDO ===== -->
   <main class="pedidos-container">
-  <h2 class="titulo-centro">Pedidos en Curso</h2>
-  {% if pedidos_curso %}
-  <table class="tabla-pedidos bonita">
-    <thead>
-      <tr>
-        <th>ID Pedido</th>
-        <th>Fecha</th>
-        <th>Total</th>
-        <th>Estado</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for pedido in pedidos_curso %}
-      <tr>
-        <td>#{{ pedido.id_pedido }}</td>
-        <td>{{ pedido.fecha_pedido }}</td>
-        <td>${{ pedido.total | int }}</td>
-        <td><span class="badge {{ pedido.estado|lower|replace(' ', '_') }}">{{ pedido.estado }}</span></td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  {% else %}
-    <p class="no-pedidos">No tienes pedidos en curso.</p>
-  {% endif %}
+    <h2 class="titulo-centro">Pedidos en Curso</h2>
+    {% if pedidos_curso %}
+    <table class="tabla-pedidos bonita">
+      <thead>
+        <tr>
+          <th>ID Pedido</th>
+          <th>Fecha</th>
+          <th>Total</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for pedido in pedidos_curso %}
+        <tr>
+          <td>#{{ pedido.id_pedido }}</td>
+          <td>{{ pedido.fecha_pedido }}</td>
+          <td>${{ pedido.total | int }}</td>
+          <td>
+            <span class="badge {{ pedido.estado|lower|replace(' ', '_') }}">
+              {{ pedido.estado }}
+            </span>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <p class="no-pedidos">No tienes pedidos en curso.</p>
+    {% endif %}
 
-  <h2 class="titulo-centro">Pedidos Finalizados</h2>
-  {% if pedidos_finalizados %}
-  <table class="tabla-pedidos bonita">
-    <thead>
-      <tr>
-        <th>ID Pedido</th>
-        <th>Fecha</th>
-        <th>Total</th>
-        <th>Estado</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for pedido in pedidos_finalizados %}
-      <tr>
-        <td>#{{ pedido.id_pedido }}</td>
-        <td>{{ pedido.fecha_pedido }}</td>
-        <td>${{ pedido.total }}</td>
-        <td><span class="badge {{ pedido.estado|lower }}">{{ pedido.estado }}</span></td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  {% else %}
-    <p class="no-pedidos">No tienes pedidos finalizados.</p>
-  {% endif %}
+    <h2 class="titulo-centro">Pedidos Finalizados</h2>
+    {% if pedidos_finalizados %}
+    <table class="tabla-pedidos bonita">
+      <thead>
+        <tr>
+          <th>ID Pedido</th>
+          <th>Fecha</th>
+          <th>Total</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for pedido in pedidos_finalizados %}
+        <tr>
+          <td>#{{ pedido.id_pedido }}</td>
+          <td>{{ pedido.fecha_pedido }}</td>
+          <td>${{ pedido.total }}</td>
+          <td>
+            <span class="badge {{ pedido.estado|lower }}">
+              {{ pedido.estado }}
+            </span>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <p class="no-pedidos">No tienes pedidos finalizados.</p>
+    {% endif %}
   </main>
-
-  <!-- ===== FOOTER ===== -->
-  <footer class="site-footer">
-    <p>&copy; 2025 Restaurante 360 | Clientes</p>
-  </footer>
-</body>
-</html>
+{% endblock %}

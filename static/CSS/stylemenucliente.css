@@ -12,15 +12,7 @@ body {
 }
 
 /* Encabezado */
-.main-header {
-    background-color: #343a40;
-    color: #fff;
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-}
+
 
 .main-header .logo {
     background-image: url('/static/img/logo.png'); /* Cambia por tu logo */
@@ -126,7 +118,7 @@ body {
 /* Footer */
 .site-footer {
     background-color: #343a40;
-    color: #fff;
+    color: rgb(255, 215, 64);
     text-align: center;
     padding: 15px;
     margin-top: 40px;

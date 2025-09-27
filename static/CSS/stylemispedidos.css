@@ -110,14 +110,3 @@ body {
   font-style: italic;
   color: #777;
 }
-
-/* ===== FOOTER ===== */
-.site-footer {
-  text-align: center;
-  padding: 15px;
-  margin-top: 40px;
-  background-color: #000;
-  color:  rgb(255, 215, 64); /* amarillo */
-  border-radius: 8px 8px 0 0;
-  font-size: 14px;
-}

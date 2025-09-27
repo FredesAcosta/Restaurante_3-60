@@ -11,24 +11,6 @@ body {
   color: #333;
 }
 
-/* Header */
-.site-header {
-  background-color: #343a40;
-  color: #fff;
-  padding: 15px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.site-header .logo {
-  background-image: url('/static/img/logo.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 150px;
-  height: 50px;
-}
-
 .main-nav {
   display: flex;
   gap: 20px;
@@ -145,15 +127,3 @@ body {
   to { transform: rotate(360deg); }
 }
 
-/* Footer */
-.site-footer {
-  background: #343a40;
-  color: #fff;
-  text-align: center;
-  padding: 20px;
-  margin-top: 40px;
-}
-.site-footer a {
-  color: #f4c842;
-  font-weight: bold;
-}
