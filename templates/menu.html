@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -82,3 +83,66 @@
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
+=======
+{% extends "base.html" %}
+
+{% block title %}Menú del Restaurante{% endblock %}
+
+{% block content %}
+  <link rel="stylesheet" href="/static/CSS/stylemenucliente.css">
+  <h2 class="titulo-centro">Menú del Restaurante</h2>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <ul class="flashes">
+        {% for cat, msg in messages %}
+          <li class="flash-{{cat}}">{{ msg }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+  <div class="contenido">
+    <!-- Panel de productos -->
+    <div class="productos-grid">
+      {% for producto in productos %}
+        <div class="producto-card">
+          {% if producto.imagen %}
+            <img src="{{ url_for('static', filename='uploads/' ~ producto.imagen) }}"
+                 alt="{{ producto.nombre }}">
+          {% else %}
+            <img src="{{ url_for('static', filename='IMG/default.png') }}"
+                 alt="Imagen no disponible">
+          {% endif %}
+          <h3>{{ producto.nombre }}</h3>
+          <p>{{ producto.descripcion }}</p>
+          <p class="precio">${{ '%.2f'|format(producto.precio)|int }}</p>
+          <form action="{{ url_for('agregar_carrito') }}" method="POST">
+            <input type="hidden" name="producto_id" value="{{ producto.id_producto }}">
+            <button type="submit">Agregar al carrito</button>
+          </form>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Panel de carrito -->
+    <aside class="carrito-resumen">
+      <h3>Tu Carrito</h3>
+      <ul id="lista-carrito">
+        {% for item in carrito_items %}
+          <li>
+            <span class="nombre">{{ item.nombre }}</span>
+            <span class="precio">${{ '%.2f'|format(item.precio) }}</span>
+            <form action="{{ url_for('quitar_carrito') }}" method="POST" class="remove-form">
+              <input type="hidden" name="producto_id" value="{{ item.id_producto }}">
+              <button type="submit" class="remove-item" title="Quitar ×">&times;</button>
+            </form>
+          </li>
+        {% endfor %}
+      </ul>
+      <p class="total">Total: $<span id="total-carrito">{{ '%.2f'|format(total_carrito) }}</span></p>
+      <a href="{{ url_for('ver_carrito') }}" class="btn-continuar">Ver Carrito / Pagar</a>
+    </aside>
+  </div>
+{% endblock %}
+>>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144

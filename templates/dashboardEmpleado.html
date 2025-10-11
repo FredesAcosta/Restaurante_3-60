@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Empleado - Restaurante 360</title>
+    <link rel="stylesheet" href="/static/CSS/styledashempleados.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="main-header">
+        <nav class="main-nav">
+            <a href="/dashboard_empleado">Pedidos Entrantes</a>
+            <a href="/logout" class="btn-outline">Cerrar sesión</a>
+        </nav>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="container">
+        <h1>Pedidos Entrantes</h1>
+
+        {% if pedidos %}
+        <div class="pedidos-grid">
+            {% for pedido in pedidos %}
+            <div class="pedido-card">
+                <h3>Pedido #{{ pedido.id_pedido }}</h3>
+                <p><strong>Cliente:</strong> {{ pedido.cliente }}</p>
+                <p><strong>Tipo:</strong> {{ pedido.tipo_pedido }}</p>
+
+                {% if pedido.tipo_pedido == "Domicilio" %}
+                    <p><strong>Dirección:</strong> {{ pedido.direccion_entrega }}</p>
+                {% elif pedido.tipo_pedido == "En mesa" %}
+                    <p><strong>Mesa:</strong> {{ pedido.numero_mesa }}</p>
+                {% endif %}
+
+                <p><strong>Total:</strong> ${{ pedido.total }}</p>
+                <p><strong>Estado:</strong> {{ pedido.estado }}</p>
+                <p><strong>Hora:</strong> {{ pedido.fecha_pedido }}</p>
+
+                <form action="{{ url_for('actualizar_pedido', id_pedido=pedido.id_pedido) }}" method="POST">
+                    <label for="estado">Actualizar estado:</label>
+                    <select name="estado" required>
+                        <option value="Pendiente" {% if pedido.estado == "Pendiente" %}selected{% endif %}>Pendiente</option>
+                        <option value="Preparando" {% if pedido.estado == "Preparando" %}selected{% endif %}>Preparando</option>En preparación</option>
+                        <option value="En camino" {% if pedido.estado == "En camino" %}selected{% endif %}>En camino</option>
+                        <option value="Entregado" {% if pedido.estado == "Entregado" %}selected{% endif %}>Entregado</option>
+                    </select>
+                    <button type="submit">Actualizar</button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="sin-pedidos">No hay pedidos entrantes en este momento.</p>
+        {% endif %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>&copy; 2025 Restaurante 360 | Empleados</p>
+    </footer>
+
+    <!-- JS -->
+    <script src="{{ url_for('static', filename='empleados.js') }}"></script>
+</body>
+</html>

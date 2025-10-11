@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -34,3 +35,38 @@
 
 </body>
 </html>
+=======
+{% extends "base.html" %}
+
+{% block title %}Mesas disponibles{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="/static/CSS/stylemesas.css">
+
+  <!-- CSS específico de esta vista -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='CSS/stylemesas.css') }}">
+
+  <h2 class="titulo-centro">Mesas Disponibles</h2>
+
+  <a href="{{ url_for('dashboard_cliente') }}" class="btn-volver">Volver al Inicio</a>
+  <br></br>
+  {% if mesas %}
+      <section class="mesas-grid">
+          {% for mesa in mesas %}
+              <div class="mesa-card">
+                  <h3>Mesa #{{ mesa.numero_mesa }}</h3>
+                  <p>Capacidad: {{ mesa.capacidad }} personas</p>
+                    <br></br>
+                  <form action="{{ url_for('seleccionar_mesa', mesa_id=mesa.id_mesa) }}" method="POST">
+                      <button type="submit">Reservar</button>
+                  </form>
+              </div>
+          {% endfor %}
+      </section>
+  {% else %}
+      <p class="no-mesas">No hay mesas disponibles actualmente. Puedes hacer un pedido para llevar.</p>
+      <a href="{{ url_for('pedido_domicilio') }}" class="btn-pedido">Pedir para llevar</a>
+  {% endif %}
+{% endblock %}
+>>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144

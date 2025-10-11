@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -60,3 +61,71 @@
   <a href="/menu">Volver al menú</a>
 </body>
 </html>
+=======
+{% extends "base.html" %}
+
+{% block title %}Carrito de Compras - Restaurante 360{% endblock %}
+
+{% block content %}
+
+    <link rel="stylesheet" href="/static/CSS/stylecarrito.css">
+
+    <!-- Contenedor Carrito -->
+    <div class="carrito-container">
+      <h1>Resumen de tu Pedido</h1>
+
+      <ul class="carrito-lista">
+        {% for item in carrito_items %}
+          <li class="carrito-item">
+            <span>{{ item.nombre }} - ${{ '%.2f'|format(item.precio) }}</span>
+            <form action="{{ url_for('quitar_carrito') }}" method="POST" style="display:inline;">
+              <input type="hidden" name="producto_id" value="{{ item.id_producto }}">
+              <button type="submit" class="btn-quitar">Quitar</button>
+            </form>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <p class="total"><strong>Total:</strong> ${{ '%.2f'|format(total_carrito) }}</p>
+
+      <!-- 🔹 Sección de mesa o dirección -->
+      {% if session.get("tipo_pedido") == "mesa" %}
+        <p><strong>Mesa reservada:</strong> {{ session.get("numero_mesa") }}</p>
+      {% else %}
+        {% if direccion %}
+          <p><strong>Dirección de entrega:</strong> {{ direccion }}</p>
+          <a href="{{ url_for('pedido_domicilio') }}">✏️ Corregir dirección</a>
+        {% else %}
+          <p><strong>No has confirmado dirección.</strong> 
+            <a href="{{ url_for('pedido_domicilio') }}">Agregar dirección</a>
+          </p>
+        {% endif %}
+      {% endif %}
+      <br>
+
+      <!-- Formulario de Pago -->
+      <form id="pedido-form" action="{{ url_for('realizar_pedido') }}" method="POST" onsubmit="mostrarLoader()">
+        <label for="metodo_pago">Método de pago:</label><br>
+        <input type="radio" name="metodo_pago" value="efectivo" required> Efectivo<br>
+        <input type="radio" name="metodo_pago" value="tarjeta"> Tarjeta<br>
+        <input type="radio" name="metodo_pago" value="transferencia"> Transferencia<br><br>
+
+        <button type="submit" class="btn-confirmar">Realizar Pedido</button>
+      </form>
+
+      <a href="/menu" class="btn-volver">Volver al menú</a>
+    </div>
+
+    <!-- Modal Loader -->
+    <div id="loader-modal" class="loader-modal">
+      <div class="loader-content">
+        <div class="spinner"></div>
+        <p>Procesando tu pedido...</p>
+        <button type="button" class="btn-cancelar" onclick="cancelarPedido()">Cancelar</button>
+      </div>
+    </div>
+
+
+    <script src="/static/script_carrito.js"></script>
+{% endblock %}
+>>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144

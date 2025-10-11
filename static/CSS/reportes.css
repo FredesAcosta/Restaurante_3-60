@@ -1,0 +1,203 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fondo general */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f1f0f5;
+    color: #222;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* -------------------- */
+/* HEADER igual al admin */
+/* Menú de navegación */
+.main-nav a {
+    color: #fff;
+    margin: 0 10px;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+/* Hover */
+.main-nav a:hover {
+    color: rgba(255, 215, 64);
+    text-decoration: underline;
+    background-color: rgba(255, 215, 64, 0.15); /* fondo suave */
+}
+
+/* Activo (cuando se selecciona) */
+.main-nav a.active {
+    color: rgba(255, 215, 64);
+    text-decoration: underline;
+    font-weight: bold;
+    background-color: rgba(255, 215, 64, 0.25); /* fondo más marcado */
+}
+
+/* Logo */
+.logo {
+    background-image: url('/static/IMG/logo360.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 60px;
+    height: 60px;
+}
+
+
+/* Usuario (avatar y menú) */
+.user-actions {
+    position: relative;
+}
+
+.user-avatar {
+    width: 35px;
+    height: 35px;
+    background-image: url('/static/IMG/user.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 0 8px rgba(255, 215, 64);
+    z-index: 999;
+    min-width: 150px;
+}
+
+.dropdown-menu a {
+    color: #333;
+    text-decoration: none;
+    padding: 8px 10px;
+}
+
+.dropdown-menu a:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+/* -------------------- */
+/* Bienvenida + Filtros */
+/* -------------------- */
+.welcome {
+    text-align: center;
+    margin: 30px 0 10px 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.filter-section form {
+    margin: 20px auto;
+    width: 65%;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    flex-wrap: wrap;
+}
+
+.filter-section label {
+    font-size: 0.9rem;
+}
+
+.filter-section input,
+.filter-section select {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 0.9rem;
+}
+
+.filter-section .btn-go {
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.filter-section .btn-go:hover {
+    background-color: rgba(255, 215, 64);
+    color: black;
+}
+
+/* -------------------- */
+/* DASHBOARD CARDS      */
+/* -------------------- */
+.dashboard {
+    width: 60%; /* más angosto para que se vea centrado */
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    min-height: 450px; /* más grandes aún */
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: rgb(0, 0, 0);
+}
+
+.card canvas {
+    flex-grow: 1;
+    max-width: 100% !important;
+    max-height: 300px !important;
+}
+
+/* -------------------- */
+/* Responsividad        */
+/* -------------------- */
+@media (max-width: 900px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-section form {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filter-section .btn-go {
+        align-self: center;
+    }
+}

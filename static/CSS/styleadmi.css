@@ -27,7 +27,11 @@ body {
 
 /* Logo (puedes cambiar la ruta si lo necesitas) */
 .logo {
+<<<<<<< HEAD
     background-image: url('/static/IMG/logo360.png');
+=======
+    background-image: url('/static/IMG//logo3601.png');
+>>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -36,6 +40,7 @@ body {
 }
 
 /* Navegación */
+<<<<<<< HEAD
 .main-nav a {
     color: #fff;
     margin: 0 15px;
@@ -45,6 +50,31 @@ body {
 
 .main-nav a:hover {
     text-decoration: underline;
+=======
+/* Menú de navegación */
+.main-nav a {
+    color: #fff;
+    margin: 0 10px;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+/* Hover */
+.main-nav a:hover {
+    color: rgba(255, 215, 64);
+    text-decoration: underline;
+    background-color: rgba(255, 215, 64, 0.15); /* fondo suave */
+}
+
+/* Activo (cuando se selecciona) */
+.main-nav a.active {
+    color: rgba(255, 215, 64);
+    text-decoration: underline;
+    font-weight: bold;
+    background-color: rgba(255, 215, 64, 0.25); /* fondo más marcado */
+>>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144
 }
 
 /* Usuario (avatar y menú) */
@@ -195,8 +225,17 @@ body {
 .site-footer {
     margin-top: auto;
     background-color: #000;
+<<<<<<< HEAD
     color: #fff;
+=======
+    color: rgba(255, 215, 64);
+>>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144
     text-align: center;
     padding: 15px 10px;
     font-size: 0.9rem;
 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144

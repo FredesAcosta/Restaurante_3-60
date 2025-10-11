@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Confirmar Dirección - Restaurante 360</title>
+  <link rel="stylesheet" href="/static/CSS/styledireccion.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1>Confirmar Dirección de Entrega</h1>
+      <a href="{{ url_for('dashboard_cliente') }}" class="btn-volver">⬅ Volver al Inicio</a>
+    </div>
+  </header>
+
+  <main class="direccion-container">
+    <form action="{{ url_for('pedido_domicilio') }}" method="POST" class="direccion-form">
+      <label for="via">Tipo de vía (Calle / Carrera / Avenida):</label>
+      <input type="text" id="via" name="via" required placeholder="Ej: Calle, Carrera, Avenida">
+
+      <label for="numero">Número:</label>
+      <input type="text" id="numero" name="numero" required placeholder="Ej: 23 # 45-67">
+
+      <label for="barrio">Barrio:</label>
+      <input type="text" id="barrio" name="barrio" required placeholder="Ej: Modelia">
+
+      <label for="localidad">Localidad:</label>
+      <input type="text" id="localidad" name="localidad" required placeholder="Ej: Fontibón">
+
+      <label for="ciudad">Ciudad:</label>
+      <input type="text" id="ciudad" name="ciudad" required placeholder="Ej: Bogotá">
+
+      <button type="submit" class="btn-confirmar">Guardar Dirección</button>
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 Restaurante 360</p>
+  </footer>
+</body>
+</html>

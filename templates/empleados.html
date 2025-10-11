@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,3 +58,69 @@
     </table>
 </body>
 </html>
+=======
+{% extends "baseadmi.html" %}
+
+{% block title %}Gestión de Empleados{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/CSS/styleEmp.css">
+<h2>Agregar Empleado/Administrador</h2>
+<div class="container-form">
+    <form method="POST">
+        <label>Nombre completo:</label>
+        <input type="text" name="nombre" required><br>
+
+        <label>Correo personal:</label>
+        <input type="email" name="correo" required><br>
+
+        <label>Teléfono:</label>
+        <input type="tel" name="telefono" required><br>
+
+        <label>Rol:</label>
+        <select name="rol" required>
+            <option value="Administrador">Administrador</option>
+            <option value="Vendedor">Empleado</option>
+        </select><br>
+
+        <label>Cargo:</label>
+        <select name="cargo" required>
+            <option value="Cajero">Cajero</option>
+            <option value="Mesero">Mesero</option>
+            <option value="Cocinero">Cocinero</option>
+            <option value="Domiciliario">Domiciliario</option>
+        </select><br>
+
+        <label>Contraseña provisional:</label>
+        <input type="password" name="contrasena" required><br>
+
+        <button type="submit">Agregar</button>
+    </form>
+</div>
+
+{% if mensaje %}
+    <p class="msg">{{ mensaje }}</p>
+{% endif %}
+
+<h2>Lista de Empleados</h2>
+<table border="1" class="tabla-empleados">
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Rol</th>
+        <th>Cargo</th>
+    </tr>
+    {% for emp in empleados %}
+    <tr>
+        <td>{{ emp.id_usuario }}</td>
+        <td>{{ emp.nombre }}</td>
+        <td>{{ emp.correo }}</td>
+        <td>{{ emp.nombre_rol }}</td>
+        <td>{{ emp.cargo }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
+>>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144

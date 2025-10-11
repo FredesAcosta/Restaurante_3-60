@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -24,6 +25,13 @@
             </div>
         </div>
     </header>
+=======
+{% extends "baseadmi.html" %}
+
+{% block title %}Panel Administrador{% endblock %}
+
+{% block content %}
+>>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144
 
     <!-- Bienvenida -->
     <section class="welcome">
@@ -38,7 +46,11 @@
         </div>
         <div class="order-productos">
             <h3>Administrar Productos</h3>
+<<<<<<< HEAD
             <a href="{{ url_for('admin_crud') }}" class="btn-go">Ir</a>
+=======
+            <a href="/admin/crud" class="btn-go">Ir</a>
+>>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144
         </div>
         <div class="order-estadisticas">
             <h3>Ver Estadísticas</h3>
@@ -46,6 +58,7 @@
         </div>
     </section>
 
+<<<<<<< HEAD
     <!-- Footer -->
     <footer class="site-footer">
         &copy; 2025 Restaurante 360 - Panel de Administración
@@ -69,3 +82,6 @@
     </script>
 </body>
 </html>
+=======
+{% endblock %}
+>>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144

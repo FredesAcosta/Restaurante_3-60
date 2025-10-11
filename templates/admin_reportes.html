@@ -1,0 +1,56 @@
+{% extends "baseadmi.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/css/reportes.css">
+<!-- Chart.js --> 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Bienvenida -->
+    <section class="welcome">
+        📊 Dashboard de Reportes
+    </section>
+
+    <!-- Filtro -->
+    <section class="filter-section" style="text-align: center; margin: 20px;">
+        <form method="POST" action="{{ url_for('admin_reportes') }}">
+            <label for="fecha_inicio">Fecha inicio:</label>
+            <input type="date" name="fecha_inicio" value="{{ fecha_inicio or '' }}">
+            
+            <label for="fecha_fin">Fecha fin:</label>
+            <input type="date" name="fecha_fin" value="{{ fecha_fin or '' }}">
+            
+            <button type="submit" class="btn-go">Filtrar</button>
+        </form>
+    </section>
+
+    <!-- Reportes -->
+    <section class="dashboard">
+        <div class="card">
+            <h3>Productos más vendidos</h3>
+            <canvas id="chartProductos"></canvas>
+        </div>
+
+        <div class="card">
+            <h3>Pedidos por día</h3>
+            <canvas id="chartPedidosDia"></canvas>
+        </div>
+
+        <div class="card">
+            <h3>Pedidos por estado</h3>
+            <canvas id="chartPedidosEstado"></canvas>
+        </div>
+    </section>
+
+    <!-- Inyección de datos desde Flask -->
+    <script>
+        window.DATA = {
+            top_productos_nombres: {{ top_productos | map(attribute='nombre_producto') | list | tojson }},
+            top_productos_totales: {{ top_productos | map(attribute='total_vendidos') | list | tojson }},
+            pedidos_por_dia_fechas: {{ pedidos_por_dia | map(attribute='fecha') | list | tojson }},
+            pedidos_por_dia_totales: {{ pedidos_por_dia | map(attribute='total_pedidos') | list | tojson }},
+            pedidos_estado_labels: {{ pedidos_por_estado | map(attribute='estado') | list | tojson }},
+            pedidos_estado_totales: {{ pedidos_por_estado | map(attribute='total') | list | tojson }}
+        };
+    </script>
+    <!-- Script principal de reportes -->
+    <script src="/static/reportesadmi.js" defer></script>
+{% endblock %}
