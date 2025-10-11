@@ -1,9 +1,5 @@
 # Restaurante_3-60
-<<<<<<< HEAD
 - Inicializar Git en tu proyecto (si aún no lo has hecho):
-=======
- - Inicializar Git en tu proyecto (si aún no lo has hecho):
->>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144
 git init
   
 - Agregar los archivos al área de preparación: 
@@ -18,7 +14,6 @@ git remote add origin https://github.com/FredesAcosta/Restaurante_3-60.git
 - Subir los cambios al repositorio remoto:
 git push -u origin main
 
-<<<<<<< HEAD
 - Para actualizar el proyecto con los commits mas recientes utiliza:
 git pull origin main
 
@@ -30,6 +25,4 @@ git stash
 
 - Para aplicar el cambio encima del nueo utiliza: 
 git stash apply
-=======
 
->>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144
