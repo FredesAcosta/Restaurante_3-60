@@ -40,10 +40,24 @@ body {
     color: #fff;
     margin: 0 10px;
     text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
 }
 
+/* Hover */
 .main-nav a:hover {
+    color: rgba(255, 215, 64);
     text-decoration: underline;
+    background-color: rgba(255, 215, 64, 0.15); /* fondo suave */
+}
+
+/* Activo (cuando se selecciona) */
+.main-nav a.active {
+    color: rgba(255, 215, 64);
+    text-decoration: underline;
+    font-weight: bold;
+    background-color: rgba(255, 215, 64, 0.25); /* fondo más marcado */
 }
 
 /* Contenedor del ícono de usuario */
@@ -174,11 +188,13 @@ body {
 
 /* Footer fijo al fondo */
 .site-footer {
-    margin-top: auto;
-    background-color: #000;
-    color: rgba(255, 215, 64);
+    background: #000;
+    color: #f1c40f;
     text-align: center;
     padding: 15px 10px;
-    font-size: 0.9rem;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;
 }
 

@@ -1,26 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Empleados</title>
-    <link rel="stylesheet" href="/static/CSS/styleEmp.css">
-</head>
-<body>
-<header class="site-header">
-    <div class="container">
-        <nav>
-            <a href="/dashboard_admin" class="">Inicio</a>
-            <a href="/empleados" class="underline">Empleados</a>
-            <a href="/productos">Productos</a>
-            <a href="/estadisticas">Estadísticas</a>
-        </nav>
-        <div class="auth-buttons">
-            <a href="/logout" class="btn-outline">Salir</a>
-        </div>
-    </div>
-</header>
+{% extends "baseadmi.html" %}
 
+{% block title %}Gestión de Empleados{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/CSS/styleEmp.css">
 <h2>Agregar Empleado/Administrador</h2>
 <div class="container-form">
     <form method="POST">
@@ -55,11 +38,11 @@
 </div>
 
 {% if mensaje %}
-    <p>{{ mensaje }}</p>
+    <p class="msg">{{ mensaje }}</p>
 {% endif %}
 
 <h2>Lista de Empleados</h2>
-<table border="1">
+<table border="1" class="tabla-empleados">
     <tr>
         <th>ID</th>
         <th>Nombre</th>
@@ -78,10 +61,4 @@
     {% endfor %}
 </table>
 
-<footer class="site-footer">
-    <div class="container">
-        <p>&copy; 2025 Restaurante 360 | Desarrollado por Brandon Florez y Fredes Acosta</p>
-    </div>
-</footer>
-</body>
-</html>
+{% endblock %}

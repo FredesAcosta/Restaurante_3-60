@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Panel Administrador{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/styleadmi.css">
+</head>
+<body>
+
+    <!-- Header fijo -->
+    <header class="main-header">
+        <div class="logo"></div>
+
+        <nav class="main-nav">
+            <a href="/admin/empleados" class="{% if active_page=='empleados' %}active{% endif %}">Empleados</a>
+            <a href="/admin/crud" class="{% if active_page=='productos' %}active{% endif %}">Productos</a>
+            <a href="/admin/estadisticas" class="{% if active_page=='estadisticas' %}active{% endif %}">Estadísticas</a>
+        </nav>
+
+        <div class="user-actions">
+            <div class="user-avatar" onclick="toggleDropdown()"></div>
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="/logout">Cerrar sesión</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido dinámico -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer fijo -->
+    <footer class="site-footer">
+        &copy; 2025 Restaurante 360 - Panel de Administración
+    </footer>
+
+    <!-- Script -->
+    <script src="/static/admi.js"></script>
+</body>
+</html>
