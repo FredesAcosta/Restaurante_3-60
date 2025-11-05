@@ -10,35 +10,49 @@
 <body>
     <!-- Cabecera principal: logo + navegación + usuario -->
     <header class="main-header">
-        <!-- Logo a la izquierda -->
-        <div class="logo"></div>
-        <!-- Menú de navegación -->
-        <nav class="main-nav">
-            <a href="/inicio">Inicio</a>
-            <a href="/mesas">Mesas</a>
-            <a href="/mis_pedidos">Pedidos</a>
-            <a href="/menu">Menú</a>
-            <a href="/carrito">Carrito</a>
-        </nav>
+    <!-- Logo a la izquierda -->
+    <div class="logo"></div>
 
-        <!-- Opciones del usuario (ícono con menú desplegable) -->
-        <div class="user-actions">
-            <!-- Icono redondo del usuario -->
-            <div class="user-avatar" onclick="toggleMenu()"></div>
+    <!-- Menú de navegación -->
+    <nav class="main-nav">
+        <a href="/inicio">Inicio</a>
+        <a href="/mesas">Mesas</a>
+        <a href="/mis_pedidos">Pedidos</a>
+        <a href="/menu">Menú</a>
+        <a href="/carrito">Carrito</a>
+    </nav>
 
-            <!-- Menú oculto que se despliega al hacer clic -->
-            <div id="menu-dropdown" class="dropdown-menu">
-                <a href="/logout"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
-            <!-- eliminar cuenta -->    
-                <form action="/eliminar_cuenta" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar tu cuenta?');">
-                    <button type="submit" class="danger-option">
-                        <i class="fas fa-user-times"></i> Eliminar cuenta
-                    </button>
-                </form>
-                
-            </div>
-        </div>
-    </header>
+    <!-- Notificaciones + usuario -->
+    <div class="user-actions">
+    <!-- 🔔 Campana de notificaciones (justo al lado del usuario) -->
+    <div class="notification-bell" id="notificationBell">
+        <i class="fas fa-bell"></i>
+        <span id="notificationCount" class="badge">0</span>
+    </div>
+
+    <!-- Icono redondo del usuario -->
+    <div class="user-avatar" onclick="toggleMenu()"></div>
+
+    <!-- 📬 Panel de notificaciones -->
+    <div id="notificationPanel" class="notification-modal">
+        <h4></h4>
+        <ul id="notificationList"></ul>
+    </div>
+
+    <!-- Menú oculto que se despliega al hacer clic -->
+    <div id="menu-dropdown" class="dropdown-menu">
+        <a href="/logout"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+
+        <form action="/eliminar_cuenta" method="POST"
+              onsubmit="return confirm('¿Estás seguro de que deseas eliminar tu cuenta?');">
+            <button type="submit" class="danger-option">
+                <i class="fas fa-user-times"></i> Eliminar cuenta
+            </button>
+        </form>
+    </div>
+</div>
+
+</header>
 
     <!-- Contenido principal -->
     <main>
@@ -72,10 +86,12 @@
     <script>
         function toggleMenu() {
             const menu = document.getElementById("menu-dropdown");
-            // Si está visible, lo oculta. Si está oculto, lo muestra.
             menu.style.display = (menu.style.display === "block") ? "none" : "block";
         }
     </script>
+
+    <!-- Script JS externo de notificaciones -->
+    <script src="/static/JS/notificaciones.js"></script>
 
 </body>
 </html>
