@@ -27,11 +27,7 @@ body {
 
 /* Logo: definido como fondo para control desde CSS */
 .logo {
-<<<<<<< HEAD
-    background-image: url('/static/IMG/logo360.png');
-=======
     background-image: url('/static/IMG/logo3601.png');
->>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144
     background-repeat: no-repeat;
     background-size: contain;
     background-position: left center;
@@ -44,12 +40,6 @@ body {
     color: #fff;
     margin: 0 10px;
     text-decoration: none;
-<<<<<<< HEAD
-}
-
-.main-nav a:hover {
-    text-decoration: underline;
-=======
     padding: 6px 12px;
     border-radius: 6px;
     transition: all 0.2s ease;
@@ -68,7 +58,6 @@ body {
     text-decoration: underline;
     font-weight: bold;
     background-color: rgba(255, 215, 64, 0.25); /* fondo más marcado */
->>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144
 }
 
 /* Contenedor del ícono de usuario */
@@ -199,15 +188,6 @@ body {
 
 /* Footer fijo al fondo */
 .site-footer {
-<<<<<<< HEAD
-    margin-top: auto;
-    background-color: #000;
-    color: #fff;
-    text-align: center;
-    padding: 15px 10px;
-    font-size: 0.9rem;
-}
-=======
     background: #000;
     color: #f1c40f;
     text-align: center;
@@ -218,4 +198,3 @@ body {
     font-size: 14px;
 }
 
->>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144

@@ -47,13 +47,8 @@ main {
 }
 
 button {
-<<<<<<< HEAD
-    background-color: #28a745;
-    color: white;
-=======
     background-color: rgb(255, 200, 0);
     color: black;
->>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144
     padding: 8px 15px;
     border: none;
     border-radius: 5px;
@@ -61,11 +56,7 @@ button {
 }
 
 button:hover {
-<<<<<<< HEAD
-    background-color: #218838;
-=======
     background-color: #28a745;
->>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144
 }
 
 .no-mesas {

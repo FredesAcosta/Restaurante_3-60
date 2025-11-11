@@ -12,19 +12,6 @@ body {
 }
 
 /* Encabezado */
-<<<<<<< HEAD
-.main-header {
-    background-color: #343a40;
-    color: #fff;
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-}
-=======
-
->>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144
 
 .main-header .logo {
     background-image: url('/static/img/logo.png'); /* Cambia por tu logo */
@@ -130,11 +117,7 @@ body {
 /* Footer */
 .site-footer {
     background-color: #343a40;
-<<<<<<< HEAD
-    color: #fff;
-=======
     color: rgb(255, 215, 64);
->>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144
     text-align: center;
     padding: 15px;
     margin-top: 40px;

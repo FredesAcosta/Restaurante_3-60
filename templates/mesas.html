@@ -1,41 +1,3 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Mesas disponibles</title>
-    <link rel="stylesheet" href="/static/CSS/stylemesas.css">
-</head>
-<body>
-
-    <header class="site-header">
-        <h2>Mesas Disponibles</h2>
-        <a href="/dashboard_cliente" class="btn-volver">Volver al Inicio</a>
-    </header>
-
-    <main>
-        {% if mesas %}
-            <section class="mesas-grid">
-                {% for mesa in mesas %}
-                    <div class="mesa-card">
-                        <h3>Mesa #{{ mesa.numero_mesa }}</h3>
-                        <p>Capacidad: {{ mesa.capacidad }} personas</p>
-                        <form action="/reservar_mesa" method="POST">
-                            <input type="hidden" name="mesa_id" value="{{ mesa.id_mesa }}">
-                            <button type="submit">Reservar</button>
-                        </form>
-                    </div>
-                {% endfor %}
-            </section>
-        {% else %}
-            <p class="no-mesas">No hay mesas disponibles actualmente. Puedes hacer un pedido para llevar.</p>
-            <a href="/pedido-domicilio" class="btn-pedido">Pedir para llevar</a>
-        {% endif %}
-    </main>
-
-</body>
-</html>
-=======
 {% extends "base.html" %}
 
 {% block title %}Mesas disponibles{% endblock %}
@@ -69,4 +31,3 @@
       <a href="{{ url_for('pedido_domicilio') }}" class="btn-pedido">Pedir para llevar</a>
   {% endif %}
 {% endblock %}
->>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144

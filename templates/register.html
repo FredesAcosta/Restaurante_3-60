@@ -24,28 +24,14 @@
             </div>
         </div>
     </header>
-<<<<<<< HEAD
-    
-=======
->>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144
 
     <!-- Contenedor del formulario -->
     <div class="register-container">
         <h1>Crear cuenta</h1>
-<<<<<<< HEAD
-        {% if text %}
-           <div class="mensaje">{{ text }}</div>
-        {% endif %} 
-        <form action="/register" method="POST">
-    {% if text %}
-      <p class="mensaje-flash">{{ text }}</p>
-    {% endif %}
-=======
         <form action="/register" method="POST">
         {% if text %}
             <p class="mensaje-flash">{{ text }}</p>
         {% endif %}
->>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144
             <div class="form-group">
                 <label for="fullname">Nombre completo</label>
                 <input type="text" name="fullname" id="fullname"
@@ -61,11 +47,7 @@
 
             <div class="form-group">
                 <label for="phone">Número de celular</label>
-<<<<<<< HEAD
-                <input type="tel" id="phone" placeholder="10 digitos unicamente"name="phone" pattern="[0-9]{10}" required>
-=======
                 <input type="tel" id="phone" placeholder="10 digitos unicamente" name="phone" pattern="[0-9]{10}" required>
->>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144
             </div>
 
             <div class="form-group">
@@ -75,9 +57,6 @@
 
             <div class="form-group">
                 <label for="confirm_password">Confirmar contraseña</label>
-<<<<<<< HEAD
-                <input type="password" id="confirm_password" placeholder="8 caracteres minimo"  name="confirm_password" minlength="8" required>
-=======
                 <input type="password" id="confirm_password" placeholder="8 caracteres minimo" name="confirm_password" minlength="8" required>
             </div>
 
@@ -87,27 +66,11 @@
                     <input type="checkbox" name="terminos" required>
                     Acepto los <span id="openModal" class="link">Términos y condiciones</span>
                 </label>
->>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144
             </div>
 
             <button type="submit">Registrarse</button>
 
             <p class="login-link">¿Ya tienes cuenta? <a href="/login">Inicia sesión</a></p>
-<<<<<<< HEAD
-
-        </form>
-    </div>
-    
-    <!-- Footer igual del inicio -->
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2025 Restaurante 360 | Desarrollado por <a href="" target="_blank">Brandon Florez y Fredes acosta</a></p>
-        </div>
-    </footer>
-
-</body>
-</html>
-=======
         </form>
     </div>
 
@@ -172,4 +135,3 @@
     <script src="/static/js/modal.js"></script>
 </body>
 </html>
->>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144
