@@ -16,6 +16,15 @@
 
         <main class="admin-main">
             <h1>Panel de Gestión</h1>
+            {% with mensajes = get_flashed_messages(with_categories=true) %}
+                {% if mensajes %}
+                    {% for categoria, mensaje in mensajes %}
+                        <div class="mensaje-flash {{ categoria }}">
+                            {{ mensaje }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
 
             <!-- Formulario Productos -->
             <section id="form-producto" class="formulario visible">

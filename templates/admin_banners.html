@@ -1,0 +1,46 @@
+{% extends "baseadmi.html" %}
+
+{% block title %}Administrar Banners{% endblock %}
+
+{% block content %}
+
+<!-- Título -->
+<section class="welcome">
+    Administración de Banners
+</section>
+
+<!-- Formulario para subir nuevo banner -->
+<section class="form-section">
+    <h2>Subir Nuevo Banner</h2>
+
+    <form action="/admin/banners/subir" method="POST" enctype="multipart/form-data" class="banner-form">
+
+        <label for="titulo">Título del Banner</label>
+        <input type="text" name="titulo" id="titulo" placeholder="Ej: Promoción del día" required>
+
+        <label for="imagen">Imagen del Banner</label>
+        <input type="file" name="imagen" id="imagen" accept="image/*" required>
+
+        <button type="submit" class="btn-submit">Subir Banner</button>
+    </form>
+</section>
+
+<!-- Lista de banners -->
+<section class="order-options">
+    <h2>Lista de Banners</h2>
+
+    <div class="banners-list">
+        {% for b in banners %}
+        <div class="banner-card">
+            <h3>{{ b.titulo if b.titulo else "Sin título" }}</h3>
+
+            <img src="{{ url_for('static', filename='uploads/' ~ b.imagen) }}" alt="Banner" class="banner-img">
+
+            <a href="/admin/banners/eliminar/{{ b.id_banner }}" class="btn-delete" onclick="return confirm('¿Eliminar este banner?');">
+                Eliminar
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

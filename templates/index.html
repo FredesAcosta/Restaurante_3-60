@@ -34,7 +34,27 @@
             <a href="#services" class="btn-primary">Ver Servicios</a>
         </div>
     </section>
+    <div class="banner-slider-container">
 
+    <!-- Botón anterior -->
+    <button class="banner-slider-btn prev-banner">&#10094;</button>
+
+    <!-- Contenedor del slider -->
+    <div class="banner-slider">
+        {% for b in banners %}
+            <div class="banner-slide {% if loop.first %}active{% endif %}">
+                <img class="banner-img" src="{{ url_for('static', filename='uploads/' ~ b.imagen) }}" alt="Banner">
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Botón siguiente -->
+    <button class="banner-slider-btn next-banner">&#10095;</button>
+
+    <!-- Puntos -->
+    <div class="banner-dots"></div>
+
+    </div>
     <!-- Sección de Servicios -->
     <section id="services" class="services">
         <div class="container">
@@ -78,6 +98,7 @@
             </ul>
         </div>
     </section>
+    <script src="/static/banners.js"></script>
 
     <!-- Pie de página con enlace a portafolio -->
     <footer class="site-footer">

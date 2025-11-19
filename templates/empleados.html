@@ -4,44 +4,63 @@
 
 {% block content %}
 <link rel="stylesheet" href="/static/CSS/styleEmp.css">
-<h2>Agregar Empleado/Administrador</h2>
-<div class="container-form">
-    <form method="POST">
-        <label>Nombre completo:</label>
-        <input type="text" name="nombre" required><br>
 
-        <label>Correo personal:</label>
-        <input type="email" name="correo" required><br>
+<!-- 🟦 MODAL -->
+<div id="modalEmpleado" class="modal">
+    <div class="modal-contenido">
+        <span class="cerrar" onclick="cerrarModal()">&times;</span>
 
-        <label>Teléfono:</label>
-        <input type="tel" name="telefono" required><br>
+        <h2>Agregar Empleado / Administrador</h2>
 
-        <label>Rol:</label>
-        <select name="rol" required>
-            <option value="Administrador">Administrador</option>
-            <option value="Vendedor">Empleado</option>
-        </select><br>
+       <form method="POST" action="{{ url_for('add_empleado') }}">
+            <label>Nombre completo:</label>
+            <input type="text" name="nombre" required>
 
-        <label>Cargo:</label>
-        <select name="cargo" required>
-            <option value="Cajero">Cajero</option>
-            <option value="Mesero">Mesero</option>
-            <option value="Cocinero">Cocinero</option>
-            <option value="Domiciliario">Domiciliario</option>
-        </select><br>
+            <label>Correo personal:</label>
+            <input type="email" name="correo" required>
 
-        <label>Contraseña provisional:</label>
-        <input type="password" name="contrasena" required><br>
+            <label>Teléfono:</label>
+            <input type="tel" name="telefono" required>
 
-        <button type="submit">Agregar</button>
-    </form>
+            <label>Rol:</label>
+            <select name="rol" required>
+                <option value="Administrador">Administrador</option>
+                <option value="Vendedor">Empleado</option>
+            </select>
+
+            <label>Cargo:</label>
+            <select name="cargo" required>
+                <option value="Cajero">Cajero</option>
+                <option value="Mesero">Mesero</option>
+                <option value="Cocinero">Cocinero</option>
+                <option value="Domiciliario">Domiciliario</option>
+            </select>
+
+            <label>Contraseña provisional:</label>
+            <input type="password" name="contraseña" required>
+
+            <button type="submit" class="btn-guardar">Guardar</button>
+        </form>
+    </div>
 </div>
 
 {% if mensaje %}
     <p class="msg">{{ mensaje }}</p>
 {% endif %}
-
+{% with mensajes = get_flashed_messages(with_categories=true) %}
+    {% if mensajes %}
+        {% for categoria, mensaje in mensajes %}
+            <div class="mensaje-flash {{ categoria }}">
+                {{ mensaje }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
 <h2>Lista de Empleados</h2>
+<!-- BOTÓN PARA ABRIR EL MODAL -->
+ <div class="modal-content">
+    <button class="btn-abrir" onclick="abrirModal()">Agregar Empleado</button>
+ </div>
 <table border="1" class="tabla-empleados">
     <tr>
         <th>ID</th>
@@ -60,5 +79,30 @@
     </tr>
     {% endfor %}
 </table>
+
+<!-- SCRIPTS DEL MODAL -->
+<script>
+     function abrirModal() {
+        document.getElementById("modalEmpleado").style.display = "block";
+    }
+    function cerrarModal() {
+        document.getElementById("modalEmpleado").style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        let modal = document.getElementById("modalEmpleado");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    //Cerrar modal automáticamente si se registró un empleado
+    document.addEventListener("DOMContentLoaded", function () {
+        let mensajes = document.querySelectorAll(".mensaje-flash.success");
+        if (mensajes.length > 0) {
+            cerrarModal();
+        }
+    });
+</script>
 
 {% endblock %}

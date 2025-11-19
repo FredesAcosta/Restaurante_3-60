@@ -15,10 +15,10 @@
             <a href="/admin/empleados" class="{% if active_page=='empleados' %}active{% endif %}">Empleados</a>
             <a href="/admin/crud" class="{% if active_page=='productos' %}active{% endif %}">Productos</a>
             <a href="/admin/estadisticas" class="{% if active_page=='estadisticas' %}active{% endif %}">Estadísticas</a>
+            <a href="/admin/banners" class="{% if active_page=='banners' %}active{% endif %}">Banners</a>
         </nav>
 
         <div class="user-actions">
-            <span class="user-name">{{ nombre }}</span>
             <div class="user-avatar" onclick="toggleDropdown()"></div>
             <div class="dropdown-menu" id="dropdownMenu">
                 <a href="/logout">Cerrar sesión</a>
