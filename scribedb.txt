@@ -1,3 +1,94 @@
+# Restaurante 360 – Sistema de Pedidos en Línea  
+Proyecto académico desarrollado con **Flask + MySQL**, que implementa un sistema completo para gestión de pedidos en restaurante, permitiendo registro/login de usuarios, selección de productos, carrito de compras, pedidos en mesa o a domicilio y panel administrativo.
+
+---
+
+## Funcionalidades Principales
+
+### Cliente
+- Registro e inicio de sesión  
+- Visualización del menú de productos  
+- Agregar productos al carrito  
+- Ver resumen del pedido  
+- Ingresar dirección para pedidos a domicilio  
+- Seleccionar mesas disponibles (si elige pedido en mesa)  
+- Realizar pedido y guardarlo en la BD  
+- Cerrar sesión
+
+### Administrador
+- CRUD de productos  
+- CRUD de categorías  
+- Gestión de disponibilidad  
+- Visualizar productos registrados  
+- Sección para actualizar, eliminar y agregar nuevos ítems
+
+---
+
+## Estructura del Proyecto
+
+Restaurante360/
+│── app.py
+│── database.sql
+│── requirements.txt
+│
+├── static/
+│ ├── css/
+│ ├── js/
+│ └── img/
+│ └── (imágenes del sistema)
+│
+└── templates/
+├── login.html
+├── register.html
+├── dashboard_cliente.html
+├── menu.html
+├── carrito.html
+├── seleccionar_mesa.html
+├── admin_dashboard.html
+├── admin_productos.html
+└── (otras vistas)
+
+yaml
+Copiar código
+
+---
+
+## ⚙️ Instalación del Proyecto
+
+### 1️⃣ Clonar el repositorio
+```bash
+git clone https://github.com/tu_usuario/restaurante360.git
+cd restaurante360
+2️⃣ Crear entorno virtual
+bash
+Copiar código
+python -m venv venv
+source venv/bin/activate   # Linux/Mac
+venv\Scripts\activate      # Windows
+3️⃣ Instalar dependencias
+bash
+Copiar código
+pip install -r requirements.txt
+4️⃣ Importar base de datos MySQL
+Crear una BD llamada restaurante360
+
+Importar database.sql en phpMyAdmin o Workbench
+
+5️⃣ Configurar credenciales MySQL en app.py
+python
+Copiar código
+app.config['MYSQL_DATABASE_USER'] = 'root'
+app.config['MYSQL_DATABASE_PASSWORD'] = ''
+app.config['MYSQL_DATABASE_DB'] = 'restaurante360'
+app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+6️⃣ Ejecutar la aplicación
+
+bash
+python app.py
+
+
+# Basede datos
+
 USE restaurante_db;
 
 
