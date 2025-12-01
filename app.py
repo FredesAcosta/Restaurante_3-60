@@ -72,7 +72,7 @@ def login():
                 if user['id_rol'] == 1:
                     return redirect('/dashboard_admin')
                 elif user['id_rol'] == 2:
-                    return render_template('empleados.html', text="Bienvenido")
+                    return render_template('dashboardEmpleado.html', text="Bienvenido")
                 else:
                     return redirect('/dashboard_cliente')
             else:
@@ -330,30 +330,130 @@ def quitar_carrito():
     session['carrito'] = carrito
     return redirect(url_for('menu'))
 
-# Mostrar mesas disponibles
+# ---------------- MESAS ----------------
+
 @app.route('/mesas')
 def mesas():
-    if 'loggedin' in session:
-        conn = mysql.connect()
-        cur = conn.cursor(pymysql.cursors.DictCursor)
+    if 'loggedin' not in session:
+        return redirect(url_for('login'))
+
+    user_id = session['id']
+
+    conn = mysql.connect()
+    cur = conn.cursor(pymysql.cursors.DictCursor)
+    try:
+        #  1. Verificar si el usuario ya tiene un pedido pendiente
+        cur.execute("""
+            SELECT id_pedido 
+            FROM pedidos 
+            WHERE id_cliente=%s AND estado IN ('Pendiente','En preparación')
+            ORDER BY id_pedido DESC LIMIT 1
+        """, (user_id,))
+        pedido_activo = cur.fetchone()
+
+        if pedido_activo:
+            # Ya tiene un pedido en curso → no dejar seleccionar otra mesa
+            flash("⚠️ Ya tienes un pedido en curso. Finalízalo antes de seleccionar otra mesa.", "warning")
+            return redirect(url_for('menu'))
+
+        #  2. Mostrar mesas realmente disponibles
         cur.execute("SELECT * FROM mesas WHERE disponible = TRUE")
         mesas_disponibles = cur.fetchall()
-        cur.close()
-        return render_template('mesas.html', mesas=mesas_disponibles)
-    return render_template('login.html', text='Por favor inicia sesión primero.')
 
-# Reservar mesa seleccionada
-@app.route('/reservar_mesa', methods=['POST'])
-def reservar_mesa():
-    if 'loggedin' in session:
-        mesa_id = request.form['mesa_id']
-        conn = mysql.connect()
-        cur = conn.cursor()
-        cur.execute("UPDATE mesas SET disponible = FALSE WHERE id_mesa = %s", (mesa_id,))
-        conn.commit()
+    finally:
         cur.close()
-        return render_template('dashboardClientes.html', text='Mesa reservada exitosamente.')
-    return render_template('login.html', text='Por favor inicia sesión primero.')
+        conn.close()
+
+    return render_template('mesas.html', mesas=mesas_disponibles)
+
+@app.route('/seleccionar_mesa/<int:mesa_id>', methods=['POST'])
+def seleccionar_mesa(mesa_id):
+    if 'loggedin' not in session:
+        flash("Acceso no autorizado", "danger")
+        return redirect(url_for('login'))
+
+    user_id = session['id']
+
+    conn = mysql.connect()
+    cur = conn.cursor(pymysql.cursors.DictCursor)
+
+    try:
+        #  1. Verificar si el usuario ya tiene pedido pendiente
+        cur.execute("""
+            SELECT id_pedido FROM pedidos 
+            WHERE id_cliente=%s AND estado IN ('Pendiente','En preparación')
+            ORDER BY id_pedido DESC LIMIT 1
+        """, (user_id,))
+        pedido_activo = cur.fetchone()
+
+        if pedido_activo:
+            flash("Ya tienes un pedido en curso. No puedes seleccionar otra mesa.", "warning")
+            return redirect(url_for('menu'))
+
+        #  2. Verificar si la mesa sigue disponible
+        cur.execute("SELECT disponible FROM mesas WHERE id_mesa=%s", (mesa_id,))
+        mesa_info = cur.fetchone()
+
+        if not mesa_info or mesa_info['disponible'] == 0:
+            flash("La mesa ya fue tomada por otro cliente.", "danger")
+            return redirect(url_for('mesas'))
+
+        # 3. Marcar mesa como ocupada
+        cur.execute("UPDATE mesas SET disponible = 0, id_usuario=%s WHERE id_mesa=%s", 
+                    (user_id, mesa_id))
+
+        # 4. Crear el pedido asociado
+        cur.execute("""
+            INSERT INTO pedidos (id_cliente, tipo_pedido, id_mesa, estado, fecha_pedido, total)
+            VALUES (%s, 'En mesa', %s, 'Pendiente', NOW(), 0)
+        """, (user_id, mesa_id))
+
+        pedido_id = cur.lastrowid
+        conn.commit()
+
+        session['pedido_id'] = pedido_id
+
+    finally:
+        cur.close()
+        conn.close()
+
+    return redirect(url_for('menu'))
+
+@app.route('/actualizar_estado_pedido/<int:pedido_id>', methods=['POST'])
+def actualizar_estado_pedido(pedido_id):
+    if 'loggedin' not in session:
+        return redirect(url_for('login'))
+
+    nuevo_estado = request.form['estado']
+
+    conn = mysql.connect()
+    cur = conn.cursor(pymysql.cursors.DictCursor)
+
+    try:
+        # Actualizar estado
+        cur.execute("UPDATE pedidos SET estado=%s WHERE id_pedido=%s", 
+                    (nuevo_estado, pedido_id))
+
+        # Si se entregó → liberar mesa
+        if nuevo_estado == "Entregado":
+            cur.execute("SELECT id_mesa FROM pedidos WHERE id_pedido=%s", (pedido_id,))
+            pedido = cur.fetchone()
+
+            if pedido and pedido['id_mesa']:
+                cur.execute("""
+                    UPDATE mesas 
+                    SET disponible=1, id_usuario=NULL 
+                    WHERE id_mesa=%s
+                """, (pedido['id_mesa'],))
+
+        conn.commit()
+        flash("Estado del pedido actualizado correctamente", "success")
+
+    finally:
+        cur.close()
+        conn.close()
+
+    return redirect(url_for('dashboard_empleado'))
 
 # PANEL CRUD ADMIN
 @app.route('/admin/crud')
