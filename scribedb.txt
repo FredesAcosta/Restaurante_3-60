@@ -106,10 +106,6 @@ CREATE TABLE historial_actividad (
     fecha_actividad DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
 );
-<<<<<<< HEAD
-
-=======
->>>>>>> 9eda3d83727041f23f794cba02c0a00ab75cc144
 CREATE TABLE  mesas (
     id_mesa INT AUTO_INCREMENT PRIMARY KEY,
     numero_mesa INT NOT NULL UNIQUE,

@@ -17,7 +17,7 @@
 
         <label for="titulo">Título del Banner</label>
         <input type="text" name="titulo" id="titulo" placeholder="Ej: Promoción del día" required>
-        
+
         <label for="cupon">Cupón asociado</label>
         <input type="text" name="cupon" id="cupon" placeholder="Ej: DESCUENTO10">
 
@@ -35,7 +35,13 @@
     <div class="banners-list">
         {% for b in banners %}
         <div class="banner-card">
-            <h3>{{ b.titulo if b.titulo else "Sin título" }}</h3>
+             <h3>{{ b.titulo if b.titulo else "Sin título" }}</h3>
+
+            {% if b.cupon %}
+                <p class="cupon-label">Cupón: <strong>{{ b.cupon }}</strong></p>
+            {% else %}
+                <p class="cupon-label sin-cupon">Sin cupón asociado</p>
+            {% endif %}
 
             <img src="{{ url_for('static', filename='uploads/' ~ b.imagen) }}" alt="Banner" class="banner-img">
 
@@ -45,5 +51,6 @@
         </div>
         {% endfor %}
     </div>
+</div>
 </section>
 {% endblock %}

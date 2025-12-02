@@ -279,7 +279,8 @@ def menu():
     cur = conn.cursor(pymysql.cursors.DictCursor)
     cur.execute("SELECT * FROM productos WHERE disponible = 1")
     productos = cur.fetchall()
-
+    for p in productos:
+        p['precio'] = float(p['precio'])
     # Construir carrito
     carrito_ids = session.get('carrito', [])
     carrito_items = []
@@ -291,8 +292,9 @@ def menu():
         )
         p = cur.fetchone()
         if p:
+            p['precio'] = float(p['precio']) 
             carrito_items.append(p)
-            total_carrito += float(p['precio'])
+            total_carrito += p['precio']
     cur.close()
 
     return render_template('menu.html',
@@ -353,7 +355,7 @@ def mesas():
 
         if pedido_activo:
             # Ya tiene un pedido en curso → no dejar seleccionar otra mesa
-            flash("⚠️ Ya tienes un pedido en curso. Finalízalo antes de seleccionar otra mesa.", "warning")
+            flash("Ya tienes un pedido en curso. Finalízalo antes de seleccionar otra mesa.", "warning")
             return redirect(url_for('menu'))
 
         #  2. Mostrar mesas realmente disponibles
@@ -465,6 +467,10 @@ def admin_crud():
         categorias = cur.fetchall()
         cur.execute("SELECT p.*, c.nombre_categoria FROM productos p JOIN categorias c ON p.id_categoria = c.id_categoria")
         productos = cur.fetchall()
+        cur.execute("SELECT id_producto, nombre_producto, cupon FROM productos")
+        cupones = cur.fetchall()
+
+
         cur.close()
         return render_template('editar_producto.html', categorias=categorias, productos=productos)
     flash("Debes iniciar sesión", "error")
@@ -493,31 +499,33 @@ def registrar_categoria():
 def registrar_producto():
     nombre = request.form['nombre_producto']
     descripcion = request.form['descripcion']
-    precio = request.form['precio']
+    precio = request.form['precio'].replace(".", "")
+    precio = int(precio)
     id_categoria = request.form['id_categoria']
+    cupon = request.form['cupon'] 
     disponible = 1 if 'disponible' in request.form else 0
 
     imagen = request.files['imagen']
 
-    # Imagen obligatoria
     if not imagen or imagen.filename.strip() == "":
         flash("Debe subir una imagen para registrar el producto.", "error")
         return redirect('/admin/crud')
 
-    # Si hay imagen válida, la guardamos
     nombre_imagen = secure_filename(imagen.filename)
     ruta_imagen = os.path.join(app.config['UPLOAD_FOLDER'], nombre_imagen)
 
     conn = mysql.connect()
     cur = conn.cursor()
+
     try:
         imagen.save(ruta_imagen)
 
         cur.execute("""
-            INSERT INTO productos (nombre_producto, descripcion, precio, imagen, id_categoria, disponible)
-            VALUES (%s, %s, %s, %s, %s, %s)
-        """, (nombre, descripcion, precio, nombre_imagen, id_categoria, disponible))
-        
+            INSERT INTO productos 
+            (nombre_producto, descripcion, precio, imagen, id_categoria, disponible, cupon)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+        """, (nombre, descripcion, precio, nombre_imagen, id_categoria, disponible, cupon))
+
         conn.commit()
         flash("Producto registrado correctamente.", "success")
 
@@ -848,7 +856,9 @@ def subir_banner():
         return redirect('/login')
 
     titulo = request.form.get('titulo', '').strip()
+    cupon = request.form.get('cupon', '').strip()
     imagen = request.files.get('imagen')
+
 
     # Validación
     if not imagen or imagen.filename.strip() == "":
@@ -866,9 +876,10 @@ def subir_banner():
         cur = conn.cursor()
 
         cur.execute("""
-            INSERT INTO banners (titulo, imagen)
-            VALUES (%s, %s)
-        """, (titulo, nombre_imagen))
+        INSERT INTO banners (titulo, imagen, cupon)
+        VALUES (%s, %s, %s)
+    """, (titulo, nombre_imagen, cupon))
+
 
         conn.commit()
 
@@ -912,6 +923,14 @@ def eliminar_banner(id_banner):
         conn.close()
 
     return redirect('/admin/banners')
+
+@app.template_filter('miles')
+def miles(valor):
+    try:
+        valor = float(valor)  # convierte string → número
+        return "{:,.0f}".format(valor).replace(",", ".")
+    except:
+        return valor
 
 if __name__ == '__main__':
     app.run(debug=True)
