@@ -11,3 +11,7 @@ function toggleDropdown() {
                 menu.style.display = 'none';
             }
         }
+window.addEventListener("beforeunload", function () {
+    document.getElementById("loader").style.display = "flex";})
+document.addEventListener("submit", function () {
+    document.getElementById("loader").style.display = "flex";})

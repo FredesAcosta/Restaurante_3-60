@@ -8,6 +8,9 @@
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <div id="loader" class="loader-overlay">
+        <div class="spinner"></div>
+        </div>
     <!-- Header común -->
     <header class="main-header">
         <div class="logo"></div>
@@ -48,6 +51,10 @@
             const menu = document.getElementById("menu-dropdown");
             menu.style.display = (menu.style.display === "block") ? "none" : "block";
         }
+        window.addEventListener("beforeunload", function () {
+            document.getElementById("loader").style.display = "flex";})
+        document.addEventListener("submit", function () {
+            document.getElementById("loader").style.display = "flex";})
     </script>
 </body>
 </html>
