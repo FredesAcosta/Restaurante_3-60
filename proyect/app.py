@@ -32,15 +32,24 @@ mysql.init_app(app)
 
 @app.route('/')
 def home():
-    conn = mysql.connect()
-    cur = conn.cursor(pymysql.cursors.DictCursor)
+    banners = [] 
 
-    cur.execute("""
-        SELECT id_banner AS id, imagen, cupon
-        FROM banners
-        ORDER BY fecha DESC
-    """)
-    banners = cur.fetchall()
+    try:
+        conn = mysql.connect()
+        cur = conn.cursor(pymysql.cursors.DictCursor)
+
+        cur.execute("""
+            SELECT id_banner AS id, imagen, cupon
+            FROM banners
+            ORDER BY fecha DESC
+        """)
+        banners = cur.fetchall()
+
+        cur.close()
+        conn.close()
+
+    except Exception as e:
+        logger.error(f"Error obteniendo banners: {e}")
 
     return render_template("index.html", banners=banners)
 
@@ -456,6 +465,25 @@ def actualizar_estado_pedido(pedido_id):
         conn.close()
 
     return redirect(url_for('dashboard_empleado'))
+@app.route('/cancelar_pedido/<int:id_pedido>', methods=['POST'])
+def cancelar_pedido(id_pedido):
+    try:
+        conn = mysql.connect()
+        cur = conn.cursor()
+
+        cur.execute("UPDATE pedidos SET estado = 'Cancelado' WHERE id_pedido = %s", (id_pedido,))
+        conn.commit()
+
+        cur.close()
+        conn.close()
+
+        flash("El pedido ha sido cancelado exitosamente.", "success")
+    except Exception as e:
+        print("Error cancelando pedido:", e)
+        flash("No se pudo cancelar el pedido.", "error")
+
+    return redirect(url_for('dashboardEmpleado.html'))
+
 
 # PANEL CRUD ADMIN
 @app.route('/admin/crud')
@@ -783,14 +811,32 @@ def pedidos_entrantes():
 
     pedidos = []
     for fila in resultados:
+        estado = fila[4]  # valor del estado
+
+        # ---- CÁLCULO DEL TIEMPO ESTIMADO ----
+        if estado == "Pendiente":
+            tiempo = "25 - 35 min"
+        elif estado == "Preparando":
+            tiempo = "10 - 20 min"
+        elif estado == "En camino":
+            tiempo = "5 - 10 min"
+        elif estado == "Entregado":
+            tiempo = "Completado"
+        elif estado == "Cancelado":
+            tiempo = "Cancelado"
+        else:
+            tiempo = "N/A"
+
         pedidos.append({
             'id': fila[0],
             'cliente': fila[1],
-            'total': f"${fila[2]:,.2f}",  # <- Aquí se da formato con 2 decimales
-            'hora': fila[3].strftime('%Y-%m-%d %H:%M:%S') if fila[3] else ''
+            'total': f"${fila[2]:,.2f}",
+            'hora': fila[3].strftime('%Y-%m-%d %H:%M:%S') if fila[3] else '',
+            'estado': estado,
+            'tiempo_estimado': tiempo
         })
 
-    conn.close()
+        conn.close()
     return render_template('pedidos_entrantes.html', pedidos=pedidos)
 
 # Vista para ver los detalles de un pedido

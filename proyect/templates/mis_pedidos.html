@@ -14,6 +14,8 @@
         <tr>
           <th>ID Pedido</th>
           <th>Fecha</th>
+          <th>Hora</th>
+          <th>Tiempo estimado</th>
           <th>Total</th>
           <th>Estado</th>
         </tr>
@@ -23,6 +25,8 @@
         <tr>
           <td>#{{ pedido.id_pedido }}</td>
           <td>{{ pedido.fecha_pedido }}</td>
+          <p> {{ pedido.hora }}</p>
+          <p> {{ pedido.tiempo_estimado }}
           <td>${{ pedido.total | int }}</td>
           <td>
             <span class="badge {{ pedido.estado|lower|replace(' ', '_') }}">
@@ -53,6 +57,7 @@
         <tr>
           <td>#{{ pedido.id_pedido }}</td>
           <td>{{ pedido.fecha_pedido }}</td>
+          </p>
           <td>${{ pedido.total }}</td>
           <td>
             <span class="badge {{ pedido.estado|lower }}">

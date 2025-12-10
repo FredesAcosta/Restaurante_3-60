@@ -34,15 +34,6 @@
                     <textarea name="descripcion" placeholder="Descripción" required></textarea>
 
                     <input type="text" name="precio" placeholder="Precio" oninput="formatoMiles(this)" required>
-
-                    <label for="cupon">Cupón:</label>
-                    <input type="text" name="cupon" id="cupon" placeholder="Ej: DESCUENTO10">
-
-                        {% for c in cupones %}
-                            <option value="{{ c.id_cupon }}">{{ c.nombre }}</option>
-                        {% endfor %}
-                    </select>
-
                     <select name="id_categoria" required>
                         <option value="">Seleccionar categoría</option>
                         {% for categoria in categorias %}

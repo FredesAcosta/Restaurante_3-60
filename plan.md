@@ -15,7 +15,7 @@ app/
 │   ├── auth.py          # Rutas de autenticación (login, register, etc.)
 │   ├── admin.py         # Rutas de administración (CRUD productos, estadísticas)
 │   ├── client.py        # Rutas de cliente (dashboard, menú, carrito)
-│   ├── employee.py      # Rutas de empleados
+│   ├── empleado.py      # Rutas de empleados
 │   └── order.py         # Rutas de pedidos
 └── models/              # Si se decide migrar a ORM en el futuro
     └── __init__.py

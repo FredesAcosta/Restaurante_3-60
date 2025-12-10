@@ -35,7 +35,8 @@
 
                 <p><strong>Total:</strong> ${{ pedido.total }}</p>
                 <p><strong>Estado:</strong> {{ pedido.estado }}</p>
-                <p><strong>Hora:</strong> {{ pedido.fecha_pedido }}</p>
+                <p><strong>Hora:</strong> {{ pedido.hora }}</p>
+                <p><strong>Tiempo estimado:</strong> {{ pedido.tiempo_estimado }}</p>
 
                 <form action="{{ url_for('actualizar_pedido', id_pedido=pedido.id_pedido) }}" method="POST">
                     <label for="estado">Actualizar estado:</label>
@@ -46,6 +47,9 @@
                         <option value="Entregado" {% if pedido.estado == "Entregado" %}selected{% endif %}>Entregado</option>
                     </select>
                     <button type="submit">Actualizar</button>
+                </form>
+                <form action="{{ url_for('cancelar_pedido', id_pedido=pedido.id_pedido) }}" method="POST" onsubmit="return confirm('¿Seguro que deseas cancelar este pedido?');">
+                    <button type="submit" class="cancelar-btn">Cancelar Pedido</button>
                 </form>
             </div>
             {% endfor %}
