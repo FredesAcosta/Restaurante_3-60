@@ -15,12 +15,15 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__, template_folder='templates')
-app.secret_key = 'secretkey'
+# Secret Key desde Render
+app.secret_key = os.getenv("SECRET_KEY", "defaultsecret")
 
-app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = ''
-app.config['MYSQL_DATABASE_DB'] = 'restaurante_db'
-app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+# Configuración MySQL desde Environment Variables
+app.config['MYSQL_DATABASE_USER'] = os.getenv('MYSQL_USER')
+app.config['MYSQL_DATABASE_PASSWORD'] = os.getenv('MYSQL_PASSWORD')
+app.config['MYSQL_DATABASE_DB'] = os.getenv('MYSQL_DB')
+app.config['MYSQL_DATABASE_HOST'] = os.getenv('MYSQL_HOST')
+app.config['MYSQL_DATABASE_PORT'] = int(os.getenv('MYSQL_PORT', 3306))
 
 UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
