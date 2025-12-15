@@ -25,4 +25,3 @@ git stash
 
 - Para aplicar el cambio encima del nueo utiliza: 
 git stash apply
-
