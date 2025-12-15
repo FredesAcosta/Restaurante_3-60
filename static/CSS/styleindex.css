@@ -307,4 +307,43 @@ body {
     font-size: 18px;
 }
 
+.flash-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    position: fixed;
+    top: 80px;
+    z-index: 9999;
+}
+
+.flash-message {
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    margin: 5px;
+    color: #fff;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Tipos */
+.flash-message.success {
+    background-color: #28a745;
+}
+
+.flash-message.danger,
+.flash-message.error {
+    background-color: #dc3545;
+}
+
+.flash-message.warning {
+    background-color: #ffc107;
+    color: #000;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 

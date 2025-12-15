@@ -126,4 +126,50 @@ body {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+.cupones-section {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.cupones-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.cupones-section form {
+  display: flex;
+  flex-direction: column;
+}
+
+.cupones-section label {
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.cupones-section select {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.cupones-section .btn-aplicar-cupon {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cupones-section .btn-aplicar-cupon:hover {
+  background-color: #218838;
+}
+
+.cupones-section p {
+  font-weight: bold;
+  margin-top: 10px;
+}
 

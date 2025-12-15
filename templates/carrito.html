@@ -21,6 +21,32 @@
           </li>
         {% endfor %}
       </ul>
+<!-- 🎟️ Cupón -->
+<div class="cupones-section">
+  <h3>¿Tienes un cupón?</h3>
+
+  <form action="{{ url_for('aplicar_cupon') }}" method="POST">
+    <select name="codigo_cupon" required>
+      <option value="">Selecciona un cupón</option>
+      {% for c in cupones %}
+        <option value="{{ c.cupon }}"
+          {% if session.get('descuento') and c.cupon == session.get('cupon_pendiente') %}
+            selected
+          {% endif %}
+        >
+          {{ c.nombre }} - {{ c.cupon }}
+        </option>
+      {% endfor %}
+    </select>
+
+    <button type="submit" class="btn-aplicar-cupon">Aplicar cupón</button>
+  </form>
+
+  {% if descuento > 0 %}
+    <p><strong>Descuento aplicado:</strong> -${{ descuento|miles }}</p>
+    <p><strong>Total con descuento:</strong> ${{ total_con_descuento|miles }}</p>
+  {% endif %}
+</div>
 
       <p class="total"><strong>Total:</strong> ${{ '%.2f'|format(total_carrito) }}</p>
 
@@ -38,6 +64,7 @@
         {% endif %}
       {% endif %}
       <br>
+
 
       <!-- Formulario de Pago -->
       <form id="pedido-form" action="{{ url_for('realizar_pedido') }}" method="POST" onsubmit="mostrarLoader()">

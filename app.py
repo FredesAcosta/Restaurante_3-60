@@ -53,8 +53,33 @@ def home():
 
     except Exception as e:
         logger.error(f"Error obteniendo banners: {e}")
+        flash("Error cargando los banners", "danger")
 
     return render_template("index.html", banners=banners)
+
+@app.route('/banner/<int:banner_id>')
+def banner_cupon(banner_id):
+    conn = mysql.connect()
+    cur = conn.cursor(pymysql.cursors.DictCursor)
+
+    cur.execute("""
+        SELECT cupon
+        FROM banners
+        WHERE id_banner = %s AND cupon IS NOT NULL
+        LIMIT 1
+    """, (banner_id,))
+
+    banner = cur.fetchone()
+    cur.close()
+    conn.close()
+
+    if banner and banner['cupon']:
+        # Guardamos el cupón sin aplicarlo
+        session['cupon_pendiente'] = banner['cupon']
+        flash("Inicia sesión para aplicar tu cupón ", "info")
+
+    return redirect(url_for('login'))
+
 
 
 
@@ -62,42 +87,55 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     text = ''
-    try:
-        if request.method == 'POST':
-            email = request.form['email']
-            password = request.form['password']
-            logger.debug(f"Intento de login para email: {email}")
 
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        try:
             conn = mysql.connect()
             cur = conn.cursor(pymysql.cursors.DictCursor)
+
             cur.execute("SELECT * FROM usuarios WHERE correo = %s", (email,))
             user = cur.fetchone()
-            logger.debug(f"Usuario encontrado: {user is not None}")
 
-            if user and bcrypt.checkpw(password.encode('utf-8'), user['contraseña'].encode('utf-8')):
+            if user and bcrypt.checkpw(
+                password.encode('utf-8'),
+                user['contraseña'].encode('utf-8')
+            ):
+                # Sesión correcta
                 session['loggedin'] = True
-                session['id'] = user['id_usuario']
+                session['id_usuario'] = user['id_usuario']
                 session['nombre'] = user['nombre']
                 session['rol'] = user['id_rol']
-                logger.info(f"Login exitoso para usuario: {user['nombre']}, rol: {user['id_rol']}")
 
+                flash("Bienvenido nuevamente 👋", "success")
+
+                #Redirección por rol
                 if user['id_rol'] == 1:
-                    return redirect('/dashboard_admin')
+                    return redirect(url_for('dashboard_admin'))
+
                 elif user['id_rol'] == 2:
-                    return render_template('dashboardEmpleado.html', text="Bienvenido")
+                    return redirect(url_for('dashboard_empleado'))
+
                 else:
-                    return redirect('/dashboard_cliente')
+                    #CLIENTE → carrito (aquí se aplica el cupón del banner)
+                    return redirect(url_for('carrito'))
+
             else:
-                logger.warning(f"Login fallido para email: {email}")
                 text = 'Correo o contraseña incorrecta'
-    except Exception as e:
-        logger.error(f"Error en login: {e}")
-        try:
-            mensaje = manejar_error_db(e, conn)
-        except Exception as inner_e:
-            logger.error(f"Error en manejar_error_db: {inner_e}")
-            mensaje = f"Error inesperado: {str(e)}"
-        flash(mensaje, "danger")
+                flash(text, "danger")
+
+        except Exception as e:
+            logger.error(f"Error en login: {e}")
+            flash("Error interno al iniciar sesión", "danger")
+
+        finally:
+            try:
+                cur.close()
+                conn.close()
+            except:
+                pass
 
     return render_template('login.html', text=text)
 
@@ -343,6 +381,96 @@ def quitar_carrito():
         carrito.remove(pid)
     session['carrito'] = carrito
     return redirect(url_for('menu'))
+# Recuperar los banners y cupones
+
+@app.route('/carrito')
+def carrito():
+    carrito_items = session.get('carrito', [])
+    total_carrito = sum(item['precio'] for item in carrito_items)
+
+    descuento = session.get('descuento', 0)
+    total_con_descuento = max(total_carrito - descuento, 0)
+
+    conn = mysql.connect()
+    cur = conn.cursor(pymysql.cursors.DictCursor)
+
+    # 🔹 Cupón pendiente desde banner
+    cupon_pendiente = session.get('cupon_pendiente')
+
+    if cupon_pendiente:
+        cur.execute("""
+            SELECT cupon
+            FROM banners
+            WHERE cupon = %s
+            LIMIT 1
+        """, (cupon_pendiente,))
+
+        cupon = cur.fetchone()
+
+        if cupon:
+            descuento = int(cupon['cupon'].replace('%', '').strip())
+            session['descuento'] = descuento
+            total_con_descuento = max(total_carrito - descuento, 0)
+
+            flash("Cupón del banner aplicado automáticamente 🎉", "success")
+
+        # Se elimina para que no se reaplique
+        session.pop('cupon_pendiente', None)
+
+    # 🔹 Obtener cupones para el select
+    cur.execute("""
+        SELECT id_banner, nombre, cupon
+        FROM banners
+        WHERE cupon IS NOT NULL
+    """)
+    cupones = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return render_template(
+        'carrito.html',
+        carrito_items=carrito_items,
+        total_carrito=total_carrito,
+        descuento=descuento,
+        total_con_descuento=total_con_descuento,
+        cupones=cupones
+    )
+
+@app.route('/aplicar_cupon', methods=['POST'])
+def aplicar_cupon():
+    id_banner = request.form.get('codigo_cupon')
+
+    conn = mysql.connect()
+    cur = conn.cursor(pymysql.cursors.DictCursor)
+
+    cur.execute("""
+        SELECT cupon
+        FROM banners
+        WHERE id_banner = %s
+        LIMIT 1
+    """, (id_banner,))
+    banner = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    if not banner:
+        flash("Cupón no válido", "danger")
+        return redirect(url_for('carrito'))
+
+    try:
+        descuento = int(banner['cupon'].replace('%', '').strip())
+    except (ValueError, TypeError):
+        flash("Cupón inválido", "danger")
+        return redirect(url_for('carrito'))
+
+    session['descuento'] = descuento
+    flash("Cupón aplicado correctamente", "success")
+
+    return redirect(url_for('carrito'))
+
+
 
 # ---------------- MESAS ----------------
 
@@ -498,9 +626,6 @@ def admin_crud():
         categorias = cur.fetchall()
         cur.execute("SELECT p.*, c.nombre_categoria FROM productos p JOIN categorias c ON p.id_categoria = c.id_categoria")
         productos = cur.fetchall()
-        cur.execute("SELECT id_producto, nombre_producto, cupon FROM productos")
-        cupones = cur.fetchall()
-
 
         cur.close()
         return render_template('editar_producto.html', categorias=categorias, productos=productos)
@@ -533,7 +658,6 @@ def registrar_producto():
     precio = request.form['precio'].replace(".", "")
     precio = int(precio)
     id_categoria = request.form['id_categoria']
-    cupon = request.form['cupon'] 
     disponible = 1 if 'disponible' in request.form else 0
 
     imagen = request.files['imagen']
@@ -553,9 +677,9 @@ def registrar_producto():
 
         cur.execute("""
             INSERT INTO productos 
-            (nombre_producto, descripcion, precio, imagen, id_categoria, disponible, cupon)
+            (nombre_producto, descripcion, precio, imagen, id_categoria, disponible)
             VALUES (%s, %s, %s, %s, %s, %s, %s)
-        """, (nombre, descripcion, precio, nombre_imagen, id_categoria, disponible, cupon))
+        """, (nombre, descripcion, precio, nombre_imagen, id_categoria, disponible))
 
         conn.commit()
         flash("Producto registrado correctamente.", "success")

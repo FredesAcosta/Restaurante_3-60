@@ -25,6 +25,17 @@
             </div>
         </div>
     </header>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-container">
+      {% for category, message in messages %}
+        <div class="flash-message {{ category }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
 
     <!-- Sección principal o héroe -->
     <section id="hero" class="hero">
@@ -42,10 +53,14 @@
     <!-- Contenedor del slider -->
     <div class="banner-slider">
         {% for b in banners %}
-            <div class="banner-slide {% if loop.first %}active{% endif %}">
-                <img class="banner-img" src="{{ url_for('static', filename='uploads/' ~ b.imagen) }}" alt="Banner">
-            </div>
-        {% endfor %}
+  <div class="banner-slide {% if loop.first %}active{% endif %}">
+    <a href="{{ url_for('banner_cupon', banner_id=b.id_banner) }}">
+      <img class="banner-img"
+           src="{{ url_for('static', filename='uploads/' ~ b.imagen) }}"
+           alt="Banner con cupón">
+    </a>
+  </div>
+{% endfor %}
     </div>
     
 
